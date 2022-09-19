@@ -1,0 +1,83 @@
+.ca-calendar {
+  .ui-datepicker {
+    table {
+      td {
+        padding: 0.3em;
+        @media screen and (device-aspect-ratio: 40/71) {
+          padding: 0.1em;
+        }
+      }
+    }
+  }
+
+  .date-picker,
+  .month-picker,
+  .week-picker {
+    .ui-datepicker {
+      border: none;
+      padding: 10px 0;
+
+      .ui-datepicker-calendar {
+        tbody {
+          tr {
+            td {
+              padding-bottom: 0;
+              padding-top: 0;
+
+              &.ui-datepicker-current-day,
+              &.ui-datepicker-today {
+                a {
+                  .highlight {
+                    &::after {
+                      content: none;
+                    }
+                  }
+                }
+              }
+
+              a {
+                .highlight {
+                  position: relative;
+                  display: grid;
+                  justify-content: center;
+
+                  &::after {
+                    content: '';
+                    background-color: var(--black);
+                    width: 3px;
+                    height: 3px;
+                    margin: 6px auto auto;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+
+      .ui-monthpicker {
+        margin-top: 10px;
+      }
+    }
+  }
+
+  .month-picker {
+    max-width: 300px;
+  }
+}
+
+.show {
+  .ca-calendar {
+    opacity: 1;
+    transition: opacity 1s;
+    display: block;
+  }
+}
+
+.hide {
+  .ca-calendar {
+    opacity: 0;
+    transition: opacity 1s;
+    display: none;
+  }
+}

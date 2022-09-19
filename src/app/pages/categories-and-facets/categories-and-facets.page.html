@@ -1,0 +1,62 @@
+<ion-content class="categories-facets-container">
+  <ion-header class="header">
+    <ion-grid>
+      <ion-row class="justify-content-center">
+        <ion-col size="1">
+          <ion-back-button defaultHref="login"></ion-back-button>
+        </ion-col>
+        <ion-col size="11" class="header-content">
+          <ion-grid>
+            <ion-row class="justify-content-center">
+              <ion-text class="title-text">{{ 'CHOOSE_CATEGORIES_FACETS' | translate }}</ion-text>
+            </ion-row>
+          </ion-grid>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-header>
+  <ion-content>
+    <ion-grid>
+      <ion-row class="accordion">
+        <ion-list class="accordion-list">
+          <!-- <nav-accordion *ngIf="isClassificationLoad">
+            <nav-accordion-item class="accordion-item skeleton-accordion-item" *ngFor="let item of [].constructor(skeletonViewCount)">
+              <ion-row class="accordion-item-header">
+                <ion-skeleton-text animated class="accordion-header-text"></ion-skeleton-text>
+              </ion-row>
+            </nav-accordion-item>
+          </nav-accordion>
+          <nav-accordion *ngIf="!isClassificationLoad">
+            <nav-accordion-item *ngFor="let item of classificationList; let i=index" class="accordion-item" (click)="getSubjects(item.id, i)">
+              <ion-row class="accordion-item-header">
+                <ion-text class="accordion-header-text">{{ item.title }}</ion-text>
+              </ion-row>
+              <ion-row class="accordion-item-content">
+                <ion-list class="checkbox-list" *ngIf="!item.isLoad">
+                  <ion-item *ngFor="let subject of item.subjectList">
+                    <ion-label class="radio-text">{{subject.title}}</ion-label>
+                    <ion-checkbox slot="start"></ion-checkbox>
+                  </ion-item>
+                </ion-list>
+                <ion-list class="accordion-skeleton-list" *ngIf="item.isLoad">
+                  <ion-item *ngFor="let item of [].constructor(skeletonViewCount)">
+                    <ion-avatar class="skeleton-checkbox">
+                      <ion-skeleton-text animated></ion-skeleton-text>
+                    </ion-avatar>
+                    <ion-skeleton-text animated class="skeleton-text"></ion-skeleton-text>
+                  </ion-item>
+                </ion-list>
+              </ion-row>
+            </nav-accordion-item>
+          </nav-accordion> -->
+        </ion-list>
+      </ion-row>
+      <ion-row class="justify-content-center">
+        <ion-text class="skip-text">{{ 'SKIP_THIS' | translate}}</ion-text>
+      </ion-row>
+      <ion-row class="justify-content-center">
+        <ion-button class="submit-btn">{{ 'SAVE' | translate }}</ion-button>
+      </ion-row>
+    </ion-grid>
+  </ion-content>
+</ion-content>

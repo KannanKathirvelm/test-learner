@@ -1,0 +1,75 @@
+  .program-course-card {
+    background-color: var(--white);
+    margin-top: 15px;
+    .program-course-card-container {
+      display: grid;
+      .program-card-header {
+        padding: 10px;
+        ion-text {
+          display: block;
+          font-size: 18px;
+          font-weight: bold;
+          color: var(--black);
+          &:first-child {
+            color: var(--iris-blue);
+          }
+        }
+      }
+      .progam-card-thumbnail {
+        background-position: center;
+        background-size: 100%;
+        background-repeat: no-repeat;
+        height: 200px;
+        position: relative;
+  
+        &::before {
+          content: "";
+          width: 100%;
+          height: 100%;
+          position: absolute;
+          left: 0;
+          top: 0;
+          background-color: var(--black);
+          opacity: 0.5;
+        }
+      }
+      .progam-description {
+        font-size: 16px;
+        padding: 10px;
+
+        .show-more {
+          overflow: visible;
+          height: auto;
+          padding-right: 5px;
+        }
+        
+        .show-text {
+          background: none;
+          font-weight: 500;
+          cursor: pointer;
+          font-size: 12px;
+          text-decoration: underline;
+          color: var(--dodger-reblue);
+        }
+      }
+
+      .show-more-col {
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      
+      .program-study-btn {
+        padding: 10px;
+        text-align: center;
+        margin: 10px;
+        width: auto;
+        ion-text {
+          padding: 10px 20px 12px;
+          background-color: var(--green);
+          border-radius: 20px;
+          color: var(--white);
+          font-size: 18px;
+        }
+      }
+    }
+  }

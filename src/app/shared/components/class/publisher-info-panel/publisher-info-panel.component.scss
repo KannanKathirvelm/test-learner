@@ -1,0 +1,137 @@
+.publisher-info-panel-header {
+  height: 49px;
+
+  .thumbnail-wrapper {
+    display: flex;
+
+    i {
+      width: 41px;
+      height: 100%;
+      display: flex;
+      background-repeat: no-repeat;
+      background-position: center;
+      margin: auto;
+      background-size: contain;
+      align-items: center;
+
+      &.audio_resource {
+        background-image: var(--default-audio-resource-icon);
+      }
+
+      &.image_resource {
+        background-image: var(--default-image-resource-icon);
+      }
+
+      &.interactive_resource {
+        background-image: var(--default-interactive-resource-icon);
+      }
+
+      &.text_resource {
+        background-image: var(--default-text-resource-icon);
+      }
+
+      &.video_resource {
+        background-image: var(--default-video-resource-icon);
+      }
+
+      &.webpage_resource {
+        background-image: var(--default-webpage-resource-icon);
+      }
+    }
+
+    .thumbnail-image {
+      width: 35px;
+      height: 35px;
+      margin: auto;
+    }
+  }
+
+  .title-wrapper {
+    .type {
+      font-size: 11px;
+      opacity: 0.8;
+    }
+
+    .title {
+      color: var(--dark-400);
+      font-weight: bold;
+    }
+  }
+
+  .close-icon-wrapper {
+    display: flex;
+    justify-content: center;
+
+    ion-text {
+      font-size: 24px;
+      color: var(--dark-300);
+      display: flex;
+      align-items: center;
+    }
+  }
+}
+
+.publisher-info-panel-content {
+  .info-text {
+    font-size: 14px;
+    color: var(--dark-400);
+  }
+
+  .show-more-text {
+    background: none;
+    font-weight: 500;
+    cursor: pointer;
+    font-size: 14px;
+    text-decoration: underline;
+    color: var(--dodger-reblue);
+  }
+
+  .showMore {
+    overflow: visible;
+    height: auto;
+    padding-right: 5px;
+  }
+
+  ion-row {
+    padding: 10px;
+    align-items: center;
+    display: flex;
+  }
+
+  .taxonomy-detail {
+    ::ng-deep nav-taxonomy-list {
+      .taxonomy-list .item {
+        background-color: var(--dark-400);
+        margin: 0;
+        padding: 10px;
+        
+        span {
+          color: var(--white);
+        }
+      }
+    }
+  }
+
+  .play-button {
+    ion-button {
+      --padding-end: 10px;
+      --padding-start: 10px;
+      height: 32px;
+      background-color: var(--resource-play-button);
+      border-radius: 30px;
+      color: var(--resource-play-button-text);
+      margin: auto;
+
+      ion-row {
+        padding: 0;
+
+        ion-text {
+          font-size: 12px;
+          font-weight: bold;
+          text-transform: capitalize;
+          margin-left: 5px;
+        }
+      }
+    }
+  }
+}

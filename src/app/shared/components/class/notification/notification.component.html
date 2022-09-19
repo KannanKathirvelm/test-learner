@@ -1,0 +1,20 @@
+<div class="notification-container" (scroll)="onScroll($event)">
+  <ion-grid *ngIf="notificationList && notificationList.notifications.length" class="notification-list no-padding">
+    <ion-row *ngFor="let notification of notificationList.notifications" class="notification">
+      <div class="icon-wrapper">
+        <ion-icon class="nav-{{ notification.currentItemType }}"></ion-icon>
+      </div>
+      <div class="title-container">
+        <ion-text class="notification-title">{{ notification.currentItemTitle }}</ion-text>
+      </div>
+      <ng-container *ngIf="isLearner">
+        <div class="arrow-wrapper" (click)="onRedirect(notification)">
+          <ion-icon name="play" *ngIf="notification.isSuggestion; else arrowIcon" class="play-icon"></ion-icon>
+          <ng-template #arrowIcon>
+            <ion-icon name="arrow-dropright"></ion-icon>
+          </ng-template>
+        </div>
+      </ng-container>
+    </ion-row>
+  </ion-grid>
+</div>

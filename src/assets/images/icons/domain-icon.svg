@@ -1,0 +1,9 @@
+<svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 112 112" width="112" height="112">
+	<title>diagnostic-icon</title>
+	<defs>
+		<image  width="52" height="52" id="img1" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADQAAAA0CAMAAADypuvZAAAAAXNSR0IB2cksfwAAAGNQTFRFR3BMIkBlIT9kIT9kHz5jHz5jHz5jID5jHz5jIUFjQECAVm2Kk6K0sLvIydHa5Ojt9Pj6KENrpLDA////2er1grrfWKPUP5bNJ4jGEHvBPFd4t8HN6vP6AHK8f5Gmq9HpyeHxr20zFwAAACF0Uk5TAChmj7ne9eL/OwT///////8T////////////////////Oi/xZAAAAglJREFUeJydVu2CgiAQ1Pzo1FJqQaE0e/+nPHb9OFCwi/2XMM0wuwsbRfuIT0ma5TqyNDnFjg17RHL+seKcfMIV6Y8j0uKIxQkhmI+tTPJ5S3W51g1jTX29VPOnPCldmNtMU90bMKK5z7j05pCWTZBab+Si7aRSsmsF1z/rCZZtJZYFSXs8AXohByOk6AGeD5K48SMmTMWACTVsQgn9mchyi+tG2l4A4w5CsBHgRQqNc5XkwR1AuCAYAuBObvx5mEw8rPVhhqFlE1diHagCOMBoFEBlHgvFPZhf26KQoYfphCmQ9gnjMWYYRnjizmIlqoA5fTNDMRJIVDHCa1OckhgugTXujWfrKugNIk5Fx/i4cUb1RIUGnilFpgt8rVbebagwWedZXQPSBjHOGcEsMgnNpO9E6vhgg964RRePJRtXUN+JjnSxczSDqHjsTAi40KHQ8KutYgXpk0NvrrRwJdMzMrxzggYUaOrryPQsync+GCDUZ/7f5EROIAbKDzKVK2D/A0kPyCsPz2SuLPKOjJA6wVYGFyMOLMerwc7gYrk3ubLFGnybC2ty3WW0BLM7ZCkjd8HOsbkE14L1tUb/HsW2EdfWcDShL/6asNy3uy+Mdg+6WMKusKDLMuxaDnoAwp6aoEct7PnUvgc81Lowvh8JorDhI2zMiYIGKvLj+9GN2L4fEifcp3H0F1YirzNlcVFwAAAAAElFTkSuQmCC"/>
+	</defs>
+	<style>
+	</style>
+	<use id="Background" href="#img1" x="30" y="30" />
+</svg>

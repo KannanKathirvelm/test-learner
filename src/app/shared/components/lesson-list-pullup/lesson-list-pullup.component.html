@@ -1,0 +1,71 @@
+<ion-content class="lesson-list-container-panel">
+  <ion-header class="lesson-list-header">
+    <ion-row class="lesson-list-panel">
+      <ion-col class="lesson-list-panel-body">
+        <ion-text class="class-title">{{classTitle}}</ion-text>
+        <ion-row class="content-destination">
+          <ion-row class="count-container" *ngIf="competencyCount || milestoneCount || totalLessonsCount">
+            <ion-text *ngIf="competencyCount" class="count">
+              {{competencyCount}} {{'COMPETENCIES' | translate}}
+            </ion-text>
+            <ng-container *ngIf="milestoneCount">
+              <ion-text *ngIf="milestoneCount > 1; else singleMilestone" class="count">
+                {{milestoneCount}} {{'MILESTONES' | translate}}
+              </ion-text>
+              <ng-template #singleMilestone>
+                <ion-text class="count">
+                  {{milestoneCount}} {{'MILESTONE' | translate}}
+                </ion-text>
+              </ng-template>
+            </ng-container>
+            <ng-container *ngIf="totalLessonsCount">
+              <ion-text class="lesson-count">
+                <ng-container *ngIf="totalLessonsCount > 1; else singleLesson">
+                  | {{totalLessonsCount}} {{'LESSONS' | translate}}
+                </ng-container>
+              </ion-text>
+              <ng-template #singleLesson>
+                {{totalLessonsCount}} {{'LESSON' | translate}}
+              </ng-template>
+            </ng-container>
+            <ng-container *ngIf="computedEtlTime">
+              <ion-text *ngIf="computedEtlTime" class="etl-time">
+                | {{computedEtlTime}}
+              </ion-text>
+            </ng-container>
+          </ion-row>
+        </ion-row>
+        <ion-row class="actions-btns">
+          <ion-button class="navigator-button-row navigate-button" [ngClass]="{'disabled' : isDisabled}" id="start-button" shape="round"
+            (click)="onPlayContent()" >
+            <ion-row>
+              <ion-icon name="navigate"></ion-icon>
+              <ion-text *ngIf="currentLocation; else startButton">
+                {{ 'CONTINUE' | translate }}
+              </ion-text>
+              <ng-template #startButton>
+                <ion-text>
+                  {{ 'START' | translate }}
+                </ion-text>
+              </ng-template>
+            </ion-row>
+          </ion-button>
+          <ion-button class="navigator-button-row lesson-list-button disabled" disabled shape="round" fill="outline">
+            <ion-row>
+              <i class="material-icons menu-icon">menu</i>
+              <ion-text>{{ 'LESSON_LIST' | translate }}</ion-text>
+            </ion-row>
+          </ion-button>
+        </ion-row>
+      </ion-col>
+      <ion-col class="close-icon">
+        <i class="material-icons" (click)="onClose()">clear</i>
+      </ion-col>
+    </ion-row>
+  </ion-header>
+  <ng-container>
+    <milestone [tenantSettings]="tenantSettings" [isLoaded]="true"
+      [ngClass]="{'premium-class': isPremiumClass && !isPublicClass}" [isToggleRescopedInfo]="isToggleRescopedInfo"
+      [isHideInfo]="true" [currentLocation]="currentLocation" [milestones]="milestones"></milestone>
+  </ng-container>
+</ion-content>

@@ -1,0 +1,42 @@
+.ca-calendar {
+  position: absolute;
+  top: 35px;
+  left: 0;
+  right: 0;
+  max-width: 300px;
+  box-shadow: 0 2px 4px -1px rgba(0,0,0,.2), 0 4px 5px 0 rgba(0,0,0,.14), 0 1px 10px 0 rgba(0,0,0,0);
+  background-color: var(--ca-calendar-bg);
+  padding: 10px;
+  margin: auto;
+  z-index: 4;
+  border-top: 1px solid var(--ca-calendar-border);
+
+  .views {
+    display: grid;
+    grid-template-columns: repeat(3,auto);
+    height: 35px;
+    align-items: center;
+    text-align: center;
+
+    span {
+      font-size: 15px;
+      color: var(--date-label-color);
+      font-family: var(--lato);
+      font-weight: 600;
+      padding-bottom: 10px;
+
+      &.active {
+        border-bottom: 3px solid var(--active-color);
+      }
+    }
+  }
+
+  .calendar {
+    display: none;
+    position: relative;
+
+    &.active {
+      display: block;
+    }
+  }
+}

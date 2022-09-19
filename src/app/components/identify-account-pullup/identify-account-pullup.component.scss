@@ -1,0 +1,137 @@
+.identify-account-pullup-container {
+    margin: 0;
+    padding: 0;
+    .identify-account-pullup-head {
+      display: grid;
+      grid-template-columns: 1fr 40px;
+      background-color: var(--navy-blue);
+      color: var(--white);
+      align-items: center;
+      padding: 2px 10px;
+  
+      .identify-account-pullup-section {
+        ion-text {
+          display: block;
+          font-size: 16px;
+          &:first-child {
+            font-weight: bold;
+            font-size: 14px;
+          }
+        }
+      }
+      .close-icon {
+        display: flex;
+        align-items: center;
+      }
+  }
+    .identify-account-pullup-search-panel {
+      display: grid;
+      .identify-account-pullup-description {
+        text-align: center;
+        .description {
+          font-weight: bold;
+          font-size: 18px;
+          padding: 20px 30px;
+          display: block;
+          color: var(--dark-gray);
+        }
+      }
+      .account-search-box {
+        position: relative;
+        .input-field {
+          border-bottom: 1px solid var(--grey-with-opacity);
+        }
+        i {
+          position: absolute;
+          right: 10px;
+          top: 10px;
+          z-index: 100;
+        }
+      }
+      .account-search-action {
+        text-align: center;
+        padding: 20px;
+  
+        .search-btn {
+          --background: var(--navy-blue);
+        }
+      }
+    }
+    .identify-account-pullup-result-panel {
+      display: grid;
+      padding: 10px 0;
+      .result-panel-header {
+        text-align: center;
+        ion-text {
+          font-size: 25px;
+          font-weight: 100;
+          color: var(--dark-gray);
+        }
+      }
+      .search-result-box {
+        height: calc(90vh - 165px);
+        overflow-y: auto;
+       
+        .search-result-box-panel {
+          display: grid;
+          grid-template-rows: max-content;
+          width: 100%;
+          height: fit-content;
+        }
+        .search-result-item {
+          display: grid;
+          grid-template-columns: 40px 1fr 40px;
+          grid-column-gap: 5px;
+          align-items: center;
+          padding: 5px 10px;
+  
+          .user-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: 100%;
+          }
+          .title-section {
+            ion-text {
+              display: block;
+              color: var(--dark-300);
+            }
+          }
+          .radio-checkbox {
+            ::ng-deep input[type="radio"] {
+              &::before {
+                left: 12px;
+                top: 11px;
+              }
+            }
+          }
+        }
+        .no-data-found {
+          font-size: 18px;
+          font-weight: 100;
+          display: block;
+          text-align: center;
+          padding: 20px 10px;
+        }
+      }
+      .link-action-section {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        align-items: center;
+        padding-left: 5px;
+  
+        .try-again-btn {
+          ion-button {
+            --background: var(--dark-gray);
+          }
+        }
+        .link-action-btn {
+          ion-button {
+            --background: var(--navy-blue);
+          }
+        }
+      }
+    }
+  }

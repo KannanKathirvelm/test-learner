@@ -1,0 +1,153 @@
+.login-page {
+  .content-wrapper {
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    .signup-text {
+      .signup-link {
+        color: var(--signin-text);
+        text-align: center;
+        font-size: 14px;
+        margin-top: 10px;
+        font-weight: 700;
+      }
+    }
+
+    .logo-img {
+      width: 60px;
+      height: 17px;
+    }
+
+    .navigator-logo-img {
+      width: 112px;
+      height: 112px;
+      margin-top: 14px;
+    }
+
+    .login-section {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .submit-btn {
+      --background: var(--signin-btn-bg-color);
+      color: var(--white);
+    }
+
+    .apple-signin-msg {
+      width: 260px;
+
+      ion-text {
+        font-size: 10px;
+        margin-top: 5px;
+        margin-bottom: 10px;
+      }
+    }
+
+    .button-container {
+      align-self: flex-start;
+      margin: 0 auto;
+
+      .school-signin-btn {
+        --border-radius: 0;
+        width: 250px;
+        height: 50px;
+        text-transform: uppercase;
+        --background: var(--sea-color);
+        --background-activated: var(--sea-color);
+        --background-focused: var(--sea-color);
+        --background-hover: var(--sea-color);
+        margin: 10px 0;
+      }
+
+      .submit-btn {
+        margin: 8px auto auto;
+
+        &.apple-signin-btn {
+          --background: var(--apple-signin-bg-color);
+          --background-activated: var(--apple-signin-bg-color);
+          --background-focused: var(--apple-signin-bg-color);
+          --background-hover: var(--apple-signin-bg-color);
+          color: var(--apple-signin-color);
+          border: 1px solid var(--apple-signin-color);
+          min-width: 140pt;
+          min-height: 30pt;
+          border-radius: 6px;
+          text-transform: none;
+          --box-shadow: none;
+          --border-radius: 6px;
+          --border-radius: 6px;
+          margin: 0;
+        }
+
+        .apple-icon-container {
+          display: flex;
+          padding: 0 3px;
+        }
+
+        .apple-signin-text {
+          text-align: left;
+        }
+
+        .icon {
+          width: 44px;
+          height: 44px;
+          background-repeat: no-repeat;
+          background-position: center;
+
+          &.apple-icon {
+            background-image: var(--apple-icon);
+          }
+        }
+      }
+    }
+  }
+}
+
+.teacher-signup {
+  padding: 5px 10px;
+
+  .teacher-link {
+    font-size: 0.8rem;
+    color: var(--link-text);
+    text-align: center;
+    font-weight: 300;
+
+    ion-text {
+      color: var(--signin-text);
+      text-decoration: underline;
+      margin-right: 5px;
+      font-weight: 600;
+      text-transform: lowercase;
+    }
+  }
+}
+
+.footer-wrapper {
+  padding: 10px 0;
+
+  &.hide-signin {
+    height: 75px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .link-text {
+    color: var(--link-text);
+    text-align: center;
+    font-size: 14px;
+    font-weight: 300;
+  }
+
+  .signin-text {
+    color: var(--signin-text);
+    text-align: center;
+    font-size: 13px;
+    margin-top: 10px;
+    font-weight: 700;
+  }
+}

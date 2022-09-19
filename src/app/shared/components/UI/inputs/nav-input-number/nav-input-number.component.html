@@ -1,0 +1,10 @@
+<div class="input-wrapper">
+  <ion-grid [formGroup]="parentForm">
+    <ion-row class="input-label-row" *ngIf="label">
+      <ion-label class="input-label">{{label}}</ion-label>
+    </ion-row>
+    <ion-row class="justify-content-center">
+      <ion-input type="number" class="input-field" [formControlName]="formName" #inputNumber></ion-input>
+    </ion-row>
+  </ion-grid>
+</div>

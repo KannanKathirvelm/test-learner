@@ -1,0 +1,21 @@
+<ion-header class="study-player-header" no-border>
+  <ion-toolbar class="study-player-toolbar">
+    <ion-buttons slot="start" class="back-button" (click)="onBack()">
+      <i class="arrow_back material-icons">arrow_back</i>
+    </ion-buttons>
+    <competency-completion-stats class="competency-completion-stats" (progressClick)="onClickProgressBar()" [completionPercentage]="competencyCompletionPercentage"></competency-completion-stats>
+  </ion-toolbar>
+</ion-header>
+<ion-content *ngIf="collection">
+  <ng-container *ngIf="isOfflineActivity else collectionPlayer;">
+    <offline-activity [offlineActivityId]="collection.id" [playerContext]="context" isStudyPlayer="true"></offline-activity>
+  </ng-container>
+</ion-content>
+<ng-template #collectionPlayer>
+  <collection-info-panel [collection]="collection" [isDiagnosticActive]="isDiagnosticActive" [isSuggested]="isSignatureCollection || isSignatureAssessment" [nextContext]="nextContext"></collection-info-panel>
+  <collection-content [isDiagnosticActive]="isDiagnosticActive" [showCorrectAnswer]="showCorrectAnswer" (openRelatedContent)="onOpenRelatedContent($event)" [classId]="context.classId" [relatedContents]="relatedContents" (showMasteredCompetency)="onShowMasteredCompetency()"
+    (cancelToShowMasteredCompetency)="onCancelToShowMasteredCompetency()" [isSignatureCollection]="isSignatureCollection" [isSignatureAssessment]="isSignatureAssessment" [showMasteryCard]="showMasteryCard" (playNext)="onPlayNext()"
+    [lastPlayedContentPerformance]="lastPlayedContentPerformance" [currentResourceLocation]="currentResourceLocation" (finishCollection)="onFinishCollection($event)" [nextCollection]="nextCollection" [context]="context" [collection]="collection"
+    (declineSuggestion)="declineSuggestion()" [tenantSettings]="tenantSettings" (acceptSuggestion)="acceptSuggestion()" (scrollToContentView)="scrollToContentView($event)" [showConfetti]="showConfetti" (hideConfettiEvent)="hideConfetti()">
+  </collection-content>
+</ng-template>

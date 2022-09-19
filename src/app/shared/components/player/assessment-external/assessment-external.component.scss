@@ -1,0 +1,154 @@
+.assessment-external-container {
+  padding: 10px 0;
+
+  .message-panel {
+    .message {
+      padding: 10px 15px;
+      display: flex;
+      justify-content: left;
+      color: var(--white);
+      font-size: 15px;
+    }
+  }
+
+  .panel-container {
+    display: grid;
+    grid-template-columns: 49px 1fr 49px;
+    height: 48px;
+    box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.3);
+    background-color: var(--external-collection-bg-color);
+    align-items: center;
+    margin: 10px;
+
+    .icon {
+      display: flex;
+      justify-content: center;
+      color: var(--external-collection-label-color);
+    }
+
+    .label {
+      font-size: 12px;
+      color: var(--external-collection-label-color);
+    }
+
+    .play {
+      display: flex;
+      justify-content: center;
+      color: var(--external-collection-play-color);
+    }
+  }
+
+  .score-entry-container {
+    .message-panel {
+      padding-top: 50px;
+      padding-bottom: 50px;
+      text-align: center;
+      justify-content: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+
+  .score-container {
+    --highlight-background: unset;
+    background: var(--external-collection-bg-color);
+    padding: 10px;
+
+    %label {
+      opacity: 0.7;
+      font-size: 14px;
+      color: var(--external-collection-label-color);
+      text-align: left;
+      display: block;
+      font-weight: normal;
+    }
+
+    .score-input-container,
+    .timespent-input-container {
+      padding: 10px 0;
+
+      ion-label {
+        @extend %label;
+      }
+
+      .danger-text {
+        font-size: 11px;
+      }
+
+      .text {
+        font-size: 11px;
+        color: var(--external-collection-label-color);
+        margin: auto;
+        text-align: left;
+        display: block;
+        padding: 10px 0;
+      }
+
+      ion-list {
+        display: flex;
+        width: 100%;
+
+        .row {
+          width: 50%;
+          display: flex;
+          flex-direction: column;
+
+          .item {
+            display: flex;
+            align-items: center;
+
+            .timespent-input {
+              flex: 1;
+            }
+          }
+        }
+      }
+
+      ::ng-deep nav-input-number {
+        .input-wrapper {
+          margin: 0;
+        }
+
+        ion-label {
+          @extend %label;
+        }
+
+        ion-grid {
+          ion-row {
+            .input-field {
+              width: min-content;
+
+              .native-input {
+                padding: 7px 0;
+                text-align: left;
+                font-size: 24px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .confirm {
+    padding: 15px;
+    display: flex;
+
+    ion-button {
+      margin: auto;
+      height: 40px;
+      box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.5);
+      color: var(--white);
+      width: 100%;
+      margin-top: 16px;
+      margin-bottom: 10px;
+      background-image: linear-gradient(to right, var(--question-submit-btn-color) 21%, var(--dark-blue) 75%);
+      --border-radius: 0;
+    }
+
+    &.disabled {
+      opacity: 0.5;
+    }
+  }
+}

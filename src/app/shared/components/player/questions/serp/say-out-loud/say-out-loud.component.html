@@ -1,0 +1,168 @@
+<ion-row class="say-out-loud-question content-{{componentSequence}}"
+  [ngClass]="{'disabled': isDisabled, 'question-answered': isQuestionAnswered, 'bidirectional-restrict': !isBidirectionalPlay, 'already-played': alreadyPlayed}"
+  (click)="onClickQuestionWithFeedBack()">
+  <ion-row class="hz-line"></ion-row>
+  <!-- start header section -->
+  <ion-row class="resource-content-container" [ngClass]="{'active-content': isActive,'blur-question': !reportViewMode}">
+    <ion-row class="header-section">
+      <ion-row class="type">{{componentSequence}}. {{'SAY_OUT_LOUD' | translate}}</ion-row>
+      <ion-row class="toggle-icon" (click)="toggleAnswers()">
+        <ng-template #downArrow>
+          <ion-icon name="md-arrow-dropdown"></ion-icon>
+        </ng-template>
+        <ion-icon *ngIf="!showAnswer;else downArrow" name="md-arrow-dropup"></ion-icon>
+      </ion-row>
+    </ion-row>
+    <!-- end header section -->
+    <!-- start question section -->
+    <ion-row class="title-container" (click)="toggleAnswers()">
+      <mathjax class="title" *ngIf="content.title" [content]="content.title"></mathjax>
+      <ion-row class="info-icon" (click)="toggleInfo()" *ngIf="!reportViewMode">
+        <i class="material-icons info" *ngIf="(content.taxonomy | keyvalue)?.length">info_outlined</i>
+      </ion-row>
+    </ion-row>
+    <!-- end question section -->
+    <ion-row class="info" [ngClass]="{'active' : !showAdditionalInfo}" [@collapse]="showAdditionalInfo">
+      <nav-reef class="hidden"></nav-reef>
+      <nav-taxonomy-list *ngIf="content.taxonomy" [taxonomy]="content.taxonomy"></nav-taxonomy-list>
+    </ion-row>
+    <!-- start performance report section -->
+    <ng-container *ngIf="!isPreview">
+      <ion-row class="timespent-container" *ngIf="reportViewMode && performance">
+        <i class="material-icons clock-icon">access_time</i>
+        <ion-text class="timespent-text">{{performance.timespent | transformPerformanceTimeSpent}}</ion-text>
+        <ion-row class="reaction-icon" *ngIf="performance.reaction">
+          <i class="nav-reaction-{{performance.reaction}}"></i>
+        </ion-row>
+        <ion-row *ngIf="performance" class="show-answer-col">
+          <ion-icon class="{{performance.percentScore | showAnswerStatus}}"></ion-icon>
+        </ion-row>
+      </ion-row>
+    </ng-container>
+  </ion-row>
+  <!-- end performance report section -->
+  <!-- start answer section -->
+  <ion-row class="answer-container" [@collapse]="showAnswer" *ngIf="!isHideAnswerDetails">
+    <ion-row class="answer-content" [ngClass]="{'active-content': isActive,'blur-question': !reportViewMode}">
+      <ion-row *ngIf="content.thumbnail && !isThumbnailError" class="thumbnail">
+        <img [src]="content.thumbnail" inAppBrowser [url]="content.thumbnail" (error)="imageErrorHandler()"/>
+      </ion-row>
+      <!-- start answer section -->
+      <ng-container *ngIf="reportViewMode;else answerContainer">
+        <ion-row class="decoding-answers">
+          <ng-container *ngFor="let answer of answers;let answerIndex = index;">
+            <ion-row class="say-out-loud-answer">
+              <ion-row class="decoding-answer answer-{{answerIndex}}">
+                <ion-row class="decoding-text">
+                  <p>{{answer.answer_text}}</p>
+                </ion-row>
+              </ion-row>
+              <ion-row class="mic-container report-mode">
+                <ion-row class="progress-container answer-audio decode-audio-{{answerIndex}}">
+                <ion-row class="audio-progress">
+                  <audio-player
+                  [isStopAudio]="!answer.isAudioPlaying"
+                  [isPlayAudio]="answer.isAudioPlaying"
+                  [audioIndex]="answerIndex"
+                  [audioUrl]="answer.audioUrl"
+                  [timerDuration]="answer.timerDuration"
+                  (audioEnded)="pauseAudio(answer)">
+                  </audio-player>
+                </ion-row>
+                </ion-row>
+                <ng-template #playIconRef>
+                  <ion-text (click)="playAudio(answer, answerIndex)"
+                    class="material-icons-round play-icon"
+                    [ngClass]="{'in-active': !answer.audioUrl}">
+                    play_arrow
+                  </ion-text>
+                </ng-template>
+                <ion-text *ngIf="answer.isAudioPlaying;else playIconRef"
+                  class="material-icons-round stop-icon" (click)="pauseAudio(answer)">
+                  pause
+                </ion-text>
+              </ion-row>
+            </ion-row>
+          </ng-container>
+        </ion-row>
+      </ng-container>
+      <ng-template #answerContainer>
+      <ion-row class="decoding-answers">
+        <ng-container *ngFor="let answer of answers;let answerIndex = index;">
+          <ion-row class="say-out-loud-answer">
+            <ion-row class="decoding-answer answer-{{answerIndex}}">
+              <ion-row class="decoding-text">
+                <p>{{answer.text}}</p>
+              </ion-row>
+            </ion-row>
+            <ion-row class="mic-container">
+              <ion-text (click)="onClickRecording(answer, answerIndex)"
+                [ngClass]="answer.vioceActivated ? 'active': 'in-active'" class="material-icons-outlined mic-icon">
+                mic
+              </ion-text>
+              <ion-row class="progress-container answer-audio decode-audio-{{answerIndex}}">
+                <ion-row [ngClass]="{'hidden': !answer.isAudioPlaying}" class="audio-progress">
+                  <audio-player
+                  [isStopAudio]="!answer.isAudioPlaying"
+                  [isPlayAudio]="answer.isAudioPlaying"
+                  [audioIndex]="answerIndex"
+                  [audioUrl]="answer.audioUrl"
+                  [timerDuration]="answer.timerDuration"
+                  (audioEnded)="pauseAudio(answer)">
+                  </audio-player>
+                </ion-row>
+                <ion-row id="voice-animation" *ngIf="answer.vioceActivated;else disabledVoice">
+                  <ion-row *ngFor="let circle of [].constructor(10)" class="bar voice-activated"></ion-row>
+                </ion-row>
+              </ion-row>
+              <ng-template #disabledVoice>
+                <ion-row id="voice-animation" [ngClass]="{'hidden': answer.isAudioPlaying}">
+                  <ion-row *ngFor="let circle of [].constructor(10)" class="bar"></ion-row>
+                </ion-row>
+              </ng-template>
+              <ng-template #playIconRef>
+                <ion-text [ngClass]="{'in-active': !answer.audioUrl || answer.vioceActivated}" (click)="playAudio(answer, answerIndex)"
+                  class="material-icons-round play-icon">
+                  play_arrow
+                </ion-text>
+              </ng-template>
+              <ion-text *ngIf="answer.audioUrl && answer.isAudioPlaying;else playIconRef"
+                class="material-icons-round stop-icon" (click)="pauseAudio(answer)">
+                pause
+              </ion-text>
+            </ion-row>
+          </ion-row>
+          <audio-recorder
+          [isStartRecording]="answer.vioceActivated"
+          [isStopRecording]="!answer.vioceActivated"
+          (recordedAudio)="recordedAudio($event)">
+          </audio-recorder>
+        </ng-container>
+      </ion-row>
+    </ng-template>
+      <!-- end answer section -->
+      <!-- start reaction section -->
+      <ion-row class="horiz-vert-center reaction-row" *ngIf="isShowReaction" [ngClass]="{'disabled': disableConfirmBtn}">
+        <reaction (selectedValue)="onSelectReaction($event)" *ngIf="!reportViewMode"></reaction>
+      </ion-row>
+      <!-- end reaction section -->
+      <ion-row class="confirm" [ngClass]="{'hidden': isUploading}" [@fadeAnimation]="hideConfirmButton" *ngIf="!hideConfirmButton">
+        <ion-button type="submit" [disabled]="!enableConfirm && disableConfirmBtn" (click)="onConfirm()"
+          *ngIf="!reportViewMode">{{'CONFIRM'| translate}}</ion-button>
+      </ion-row>
+      <ion-row class="uploading-row" [ngClass]="{'hidden': !isUploading}">
+        <ion-spinner name="bubbles"></ion-spinner><ion-text>Uploading</ion-text>
+      </ion-row>
+    </ion-row>
+    <!-- start feedback section -->
+    <feedback [ngClass]="isFeedback || isSubmit ? 'active-feedback' : 'in-active'"
+      *ngIf="!reportViewMode && showFeedback" (feedbackSkiporSubmit)="feedbackSkiporSubmit()"
+      [feedbackCategory]="feedbackCategory" [contentId]="content.id" [showCollapsedView]="false"
+      [contentType]="content.contentFormat">
+    </feedback>
+    <!-- end feedback section -->
+  </ion-row>
+  <!-- end answer section -->
+  <ion-row class="player-overlay" *ngIf="!isActive && !isFeedback && !reportViewMode" (click)="onClickQuestion()">
+  </ion-row>
+</ion-row>

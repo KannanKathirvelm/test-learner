@@ -1,0 +1,31 @@
+<div class="suggestion-container-panel" (scroll)="onScroll($event)">
+  <div class="suggestion-container">
+    <div class="tab-container" *ngIf="!isPublic">
+      <div *ngFor="let tab of suggestionTypes" class="tab" [ngClass]="{ active: tab.isActive }">
+        <button class="tab-button" (click)="onTabSelect(tab)">
+          <span class="tab-title">{{ tab.label | translate }}</span>
+        </button>
+      </div>
+    </div>
+    <div class="filter-container">
+      <div *ngFor="let filter of contentSourceFilters" class="filter" [ngClass]="{ active: filter.isActive }">
+        <button class="filter-button ellipsis" (click)="onFilterSelect(filter)">
+          <span class="filter-title">{{
+                        filter.label | translate
+                    }}</span>
+        </button>
+      </div>
+    </div>
+    <ng-container *ngFor="let suggestion of suggestions">
+      <suggestion-collection-panel [suggestion]="suggestion" (updatePerformance)="onUpdatePerformance($event)"></suggestion-collection-panel>
+    </ng-container>
+    <ng-container *ngIf="noSuggestion">
+      <div class="no-suggestion-content">
+        <div class="no-suggestion-message">
+          {{ suggestionMessage }} 
+        </div>
+      </div>
+    </ng-container>
+  </div>
+  <ion-spinner class="spinner-bar" *ngIf="isLoading" name="crescent"></ion-spinner>
+</div>

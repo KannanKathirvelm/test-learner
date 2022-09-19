@@ -1,0 +1,8 @@
+<ion-app>
+  <ion-split-pane contentId="main-content">
+    <ion-menu [swipeGesture]="isAuthenticated" contentId="main-content" type="overlay" side="start">
+      <nav-side-bar (logout)="onLogout()" [userSession]="userSession"></nav-side-bar>
+    </ion-menu>
+    <ion-router-outlet id="main-content" main></ion-router-outlet>
+  </ion-split-pane>
+</ion-app>

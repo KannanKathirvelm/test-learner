@@ -1,0 +1,45 @@
+<ion-grid class="milestone-container ion-no-padding">
+  <ion-grid class="milestone-modal-container">
+    <ion-row class="grade-title-row">
+      <ion-col size="10">
+        <ion-text class="title ellipsis">{{title}}</ion-text>
+      </ion-col>
+      <ion-col size="2" class="close-icon ion-no-padding" (click)="onModalClose()">
+        <i class="material-icons">clear</i>
+      </ion-col>
+    </ion-row>
+    <ion-row class="count-container">
+      <ion-text *ngIf="competencyCount" class="count">
+        {{competencyCount}} {{'COMPETENCIES' | translate}}
+      </ion-text>
+      <ng-container *ngIf="milestoneCount">
+        <ion-text *ngIf="milestoneCount > 1; else singleMilestone" class="count">
+          {{milestoneCount}} {{'MILESTONES' | translate}}
+        </ion-text>
+        <ng-template #singleMilestone>
+          <ion-text class="count">
+            {{milestoneCount}} {{'MILESTONE' | translate}}
+          </ion-text>
+        </ng-template>
+      </ng-container>
+    </ion-row>
+    <ion-row>
+      <ion-button class="navigator-button-row navigate-button" [ngClass]="{'disabled' : isDisabled}" (click)="onClickStart()" shape="round">
+        <ion-row>
+          <ion-icon name="navigate"></ion-icon>
+          <ion-text>
+            <ng-container *ngIf="startCourse; else continueCourse">
+              {{ 'START' | translate }}
+            </ng-container>
+            <ng-template #continueCourse>
+              {{ 'CONTINUE' | translate }} {{ 'COURSE' | translate }}
+            </ng-template>
+          </ion-text>
+        </ion-row>
+      </ion-button>
+    </ion-row>
+  </ion-grid>
+  <ion-content class="milestone">
+    <milestone [isLoaded]="isLoaded" [milestones]="milestones"></milestone>
+  </ion-content>
+</ion-grid>

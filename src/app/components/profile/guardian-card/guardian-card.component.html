@@ -1,0 +1,34 @@
+<ion-card class="guardian">
+  <ion-card-content class="guardian-card-content">
+    <ion-grid class="guardian-card-grid">
+      <ion-row class="image-row">
+        <ion-thumbnail class="thumbnail-image pull-right" *ngIf="!showNgxAvatar; else avatarIcon">
+          <ion-img [src]="guardian.thumbnail" (ionError)="imageErrorHandler()"></ion-img>
+        </ion-thumbnail>
+        <ng-template #avatarIcon>
+          <ngx-avatar [name]="guardian.username" class="thumbnail-image" size="45"></ngx-avatar>
+        </ng-template>
+      </ion-row>
+      <ng-container *ngIf="guardian.inviteStatus === INVITED_STATUS_PENDING && guardian.invitedBy === INVITED_BY_GUARDIAN">
+        <ion-text class="guardian-requested guardian-name-text">
+          <strong class="text-capitalize">{{guardian.username}}</strong> {{'REQUESTING_MSG' | translate}} <strong class="text-capitalize">{{guardian.relationType}}.</strong>
+        </ion-text>
+        <ion-button class="accept-btn" (click)="acceptGuardianRequest(guardian.id)">{{'ACCEPT' | translate}}</ion-button>
+      </ng-container>
+      <ng-container *ngIf="guardian.inviteStatus === INVITED_STATUS_PENDING && guardian.invitedBy === INVITED_BY_STUDENT">
+        <ion-row class="guardian-pending">
+          <ion-text>{{'YOU_HAVE_INVITED' | translate}} <ion-text class="guardian-username">{{guardian.username}} </ion-text><ion-text class="relation-label">({{guardian.relationType}})</ion-text>
+            {{'TO_VIEW_YOUR_DATE' | translate}}.
+          </ion-text>
+          <ion-text class="guardian-invite-status">{{'INVITATION_PENDING_ACCEPTANCE_MSG' | translate}}</ion-text>
+        </ion-row>
+      </ng-container>
+      <ng-container *ngIf="guardian.inviteStatus === INVITED_STATUS_ACCEPTED">
+        <ion-row class="guardian-accepted">
+          <ion-text>{{'GIVEN_ACCESS_MSG' | translate}} <ion-text class="guardian-username">{{guardian.username}}</ion-text><ion-text class="relation-label"> ({{guardian.relationType}})</ion-text>
+          </ion-text>
+        </ion-row>
+      </ng-container>
+    </ion-grid>
+  </ion-card-content>
+</ion-card>

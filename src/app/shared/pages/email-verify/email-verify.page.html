@@ -1,0 +1,40 @@
+<ion-header class="email-verification-header" no-border>
+  <ion-toolbar>
+    <ion-row class="title-container justify-content-center">
+      <ion-col size="2" class="back-button">
+        <ion-back-button  text="" defaultHref="login"></ion-back-button>
+      </ion-col>
+      <ion-col size="10" class="header-title">
+        <ion-text>{{'EMAIL_VERIFICATION' | translate}}</ion-text>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="email-verification-container">
+  <ion-grid *ngIf="isLoaded">
+    <ion-row class="navigator-logo-img" *ngIf="appLogo">
+      <ion-img [src]="appLogo"></ion-img>
+    </ion-row>
+    <ion-row *ngIf="showResendEmailForm">
+      <ion-text class="message">{{message}}</ion-text>
+      <form [formGroup]="resendEmailForm" (ngSubmit)="resendEmail()" class="resend-email-form" autofill="off">
+        <ion-row class="justify-content-center email">
+          <ion-col align-self-start size="10" class="text-align-center">
+            <nav-input-email [label]="'RESEND_EMAIL_ADDRESS' | translate" [parentForm]="resendEmailForm" [isRequired]="true"></nav-input-email>
+            <ion-text *ngIf="submitted && validateForm.email.errors?.required" class="danger-text text-center">
+              {{'ENTER_YOUR_TEXT' | translate}} {{'EMAIL' | translate}}.
+            </ion-text>
+          </ion-col>
+        </ion-row>
+        <ion-row class="justify-content-center">
+          <ion-button class="submit-btn" type="submit">{{ 'RESEND_INVITATION' | translate }}</ion-button>
+        </ion-row>
+      </form>
+    </ion-row>
+    <ion-row class="account-verified-container" *ngIf="isEmailverified">
+      <ion-text>{{ 'ACCOUNT_VERIFIED_MSG' | translate }}</ion-text>
+      <ion-button class="submit-btn" (click)="redirectToLogin()">{{'LOGIN' | translate}}</ion-button>
+    </ion-row>
+  </ion-grid>
+  <nav-custom-alert *ngIf="showSuccessAlert" (dismissAlert)="dismissAlert($event)" [successMessage1]="successMessage"></nav-custom-alert>
+</ion-content>

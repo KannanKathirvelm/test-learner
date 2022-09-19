@@ -1,0 +1,194 @@
+.header-wrapper {
+  ion-toolbar {
+    --min-height: 48px;
+
+    .back-button {
+      position: absolute;
+      padding: 0 10px;
+      left: 0;
+
+      ion-back-button {
+        min-width: 24px;
+        --padding-start: 0;
+        --padding-end: 0;
+        margin: auto;
+        --background-hover: none;
+        --color: var(--login-header-back-bth);
+      }
+    }
+
+    .title-container {
+      height: 50px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+
+      .sign-in-title-text {
+        color: var(--sign-in-title-text);
+        font-size: 20px;
+      }
+
+      .continue-to-text {
+        color: var(--continue-to-text);
+        font-size: 12px;
+
+        .domain-text {
+          color: var(--domain-text);
+          margin-top: 2px;
+          font-weight: 700;
+        }
+      }
+    }
+  }
+}
+
+.login-content-container {
+  background-color: var(--login-content-color);
+
+  ion-grid {
+    padding: 0;
+    display: table;
+
+    .content-wrapper {
+      display: table-cell;
+      vertical-align: middle;
+      margin: auto 0;
+      height: calc(100vh - 174px);
+
+      .login-form {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .verify-alert-msg {
+        font-size: 12px;
+        color: var(--dark-400);
+        font-weight: bold;
+      }
+
+      .navigator-logo-img {
+        width: 112px;
+        height: 112px;
+        margin: 14px auto auto;
+      }
+
+      .submit-btn {
+        --background: var(--signin-btn-bg-color);
+        color: var(--white);
+        margin-top: 10px;
+      }
+
+      .button-container {
+        .school-signin-btn {
+          --border-radius: 0;
+          width: 250px;
+          height: 50px;
+          text-transform: uppercase;
+          --background: var(--sea-color);
+          --background-activated: var(--sea-color);
+          --background-focused: var(--sea-color);
+          --background-hover: var(--sea-color);
+          margin: 5px auto 0;
+        }
+
+        .submit-btn {
+          margin: 8px auto auto;
+
+          &.google-signin-btn {
+            --background: var(--google-signin-bg-color);
+            --border-radius: 6px;
+          }
+
+          &.apple-signin-btn {
+            --background: var(--apple-signin-bg-color);
+            --background-activated: var(--apple-signin-bg-color);
+            --background-focused: var(--apple-signin-bg-color);
+            --background-hover: var(--apple-signin-bg-color);
+            color: var(--apple-signin-color);
+            border: 1px solid var(--apple-signin-color);
+            min-width: 140pt;
+            min-height: 30pt;
+            border-radius: 6px;
+            text-transform: none;
+            --box-shadow: none;
+            --border-radius: 6px;
+          }
+
+          .apple-icon-container,
+          .google-icon-container {
+            display: flex;
+            padding: 0 3px;
+          }
+
+          .apple-signin-text,
+          .google-signin-text {
+            text-align: left;
+            text-transform: none;
+          }
+
+          .icon {
+            width: 44px;
+            height: 44px;
+            background-repeat: no-repeat;
+            background-position: center;
+
+            &.google-icon {
+              background-image: var(--google-icon);
+              background-color: var(--white);
+              border-radius: 6px;
+            }
+
+            &.apple-icon {
+              background-image: var(--apple-icon);
+            }
+          }
+        }
+      }
+
+      .forgot-pwd-text {
+        font-size: 10px;
+        color: var(--forgot-pwd-text);
+        font-weight: 700;
+        margin: 5px 0;
+      }
+
+      .danger-text {
+        width: 100%;
+        text-align: center;
+      }
+
+      .signup-link {
+        color: var(--signin-text);
+        text-align: center;
+        font-size: 14px;
+        font-weight: 700;
+        height: 48px;
+        display: flex;
+        align-items: center;
+      }
+    }
+  }
+}
+
+.footer-wrapper {
+  padding: 10px 0;
+
+  .link-text {
+    color: var(--link-text);
+    text-align: center;
+    font-size: 14px;
+    font-weight: 300;
+  }
+
+  .signin-text {
+    color: var(--signin-text);
+    text-align: center;
+    font-size: 13px;
+    margin-top: 10px;
+    font-weight: 700;
+  }
+}

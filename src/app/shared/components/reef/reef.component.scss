@@ -1,0 +1,39 @@
+.reef-panel {
+  padding: 0;
+
+  .row {
+    max-width: 165px;
+
+    ion-col {
+      width: 50px;
+      height: 32px;
+      background-color: #1aa9eb;
+
+      .label {
+        font-size: 12px;
+        line-height: 1.33;
+        color: #ffffff;
+        margin-right: 5px;
+      }
+
+      .value {
+        font-size: 14px;
+        font-weight: bold;
+        line-height: 1;
+        color: #ffffff;
+      }
+
+      &.col-1 {
+        opacity: 0.4;
+      }
+
+      &.col-2 {
+        opacity: 0.7;
+      }
+
+      &.col-3 {
+        opacity: 0.9;
+      }
+    }
+  }
+}

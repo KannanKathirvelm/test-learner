@@ -1,0 +1,114 @@
+.preferences-container {
+  --background: var(--preferences-bg-color);
+  --padding-top: 16px;
+  --padding-start: 16px;
+  --padding-end: 16px;
+  width: 100%;
+
+  .toggle-row {
+    float: right;
+    display: grid;
+    grid-template-columns: 1fr 40px;
+    align-items: center;
+    width: 100%;
+
+    .toggle-content {
+      padding-right: 8px;
+
+      .toggle-title {
+        font-family: var(--sans);
+        color: var(--white);
+
+        &.title {
+          font-weight: bold;
+          font-size: 13px;
+        }
+
+        &.description {
+          font-size: 10px;
+        }
+      }
+    }
+
+    .toggle-button {
+      .toggle-icon {
+        padding: 5px 0;
+      }
+    }
+  }
+  // .card-container {
+  //   display: grid;
+  //   grid-template-columns: 160px 160px;
+  //   text-align: center;
+  //   justify-content: space-evenly;
+  //
+  //   .preferences-slider {
+  //     width: 160px;
+  //     height: 160px;
+  //     margin-bottom: 12px;
+  //     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.1);
+  //     border: solid 1px rgba(151, 151, 151, 0.3);
+  //     background-color: var(--profile-color);
+  //
+  //     .content {
+  //       display: grid;
+  //       text-align: center;
+  //       justify-content: center;
+  //
+  //       .icon-video {
+  //         width: 48px;
+  //         height: 48px;
+  //         margin: 18px auto 0;
+  //         background-size: 100% 100%;
+  //         background-position: center;
+  //         background-image: var(--video-resource-icon);
+  //       }
+  //
+  //       .icon-audio {
+  //         opacity: 0.1;
+  //         font-size: 43px;
+  //         margin: 18px auto 0;
+  //       }
+  //
+  //       .icon-text {
+  //         opacity: 0.2;
+  //         width: 40px;
+  //         height: 40px;
+  //         margin: 18px auto 0;
+  //         background-size: 100% 100%;
+  //         background-position: center;
+  //         background-image: var(--text-resource-icon);
+  //       }
+  //
+  //       .icon-webpage {
+  //         width: 48px;
+  //         height: 48px;
+  //         margin: 18px auto 0;
+  //         background-size: 100% 100%;
+  //         background-position: center;
+  //         background-image: var(--webpage-resource-icon);
+  //       }
+  //
+  //       .icon-interactive {
+  //         width: 48px;
+  //         height: 48px;
+  //         margin: 18px auto 0;
+  //         background-size: 100% 100%;
+  //         background-position: center;
+  //         background-image: var(--interactive-resource-icon);
+  //       }
+  //
+  //       ion-range {
+  //         width: 10em;
+  //       }
+  //
+  //       .text {
+  //         font-size: 15px;
+  //         font-family: var(--sans);
+  //         color: var(--profile-text-color);
+  //         text-transform: capitalize;
+  //       }
+  //     }
+  //   }
+  // }
+}

@@ -1,0 +1,106 @@
+.reaction-container {
+  .reaction {
+    display: flex;
+    width: 100%;
+    background-color: transparent;
+    margin: 0;
+
+    .reaction-icon {
+      .reaction-one {
+        .active {
+          background: var(--reaction1);
+          padding-right: 10px;
+          background-repeat: no-repeat;
+          visibility: inherit;
+        }
+
+        .inactive {
+          background: var(--reaction-one-inactive);
+          padding-right: 10px;
+          background-repeat: no-repeat;
+          visibility: inherit;
+        }
+      }
+
+      .reaction-two {
+        .active {
+          background: var(--reaction2);
+          padding-right: 10px;
+          background-repeat: no-repeat;
+          visibility: inherit;
+        }
+
+        .inactive {
+          background: var(--reaction-two-inactive);
+          padding-right: 10px;
+          background-repeat: no-repeat;
+          visibility: inherit;
+        }
+      }
+
+      .reaction-three {
+        .active {
+          background: var(--reaction3);
+          padding-right: 10px;
+          background-repeat: no-repeat;
+          visibility: inherit;
+        }
+
+        .inactive {
+          background: var(--reaction-three-inactive);
+          padding-right: 10px;
+          background-repeat: no-repeat;
+          visibility: inherit;
+        }
+      }
+
+      .reaction-four {
+        .active {
+          background: var(--reaction4);
+          padding-right: 10px;
+          background-repeat: no-repeat;
+          visibility: inherit;
+        }
+
+        .inactive {
+          background: var(--reaction-four-inactive);
+          padding-right: 10px;
+          background-repeat: no-repeat;
+          visibility: inherit;
+        }
+      }
+
+      .reaction-five {
+        .active {
+          background: var(--reaction5);
+          padding-right: 10px;
+          background-repeat: no-repeat;
+          visibility: inherit;
+        }
+
+        .inactive {
+          background: var(--reaction-five-inactive);
+          padding-right: 10px;
+          background-repeat: no-repeat;
+          visibility: inherit;
+        }
+      }
+    }
+
+    ion-item {
+      --inner-border-width: 0;
+      --border-width: 0;
+      --background: transparent;
+      margin: auto;
+
+      span {
+        display: flex;
+      }
+    }
+
+    ion-icon {
+      font-size: 25px;
+      cursor: pointer;
+    }
+  }
+}

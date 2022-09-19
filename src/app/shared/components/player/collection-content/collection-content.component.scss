@@ -1,0 +1,423 @@
+.collection-content-container {
+  height: auto;
+  display: block;
+
+  &.show-report {
+    .resource-container {
+      display: none;
+    }
+
+    .body-container {
+      height: 100%;
+    }
+  }
+
+  .btn-container {
+    display: flex;
+    justify-content: center;
+    padding: 5px 10px;
+
+    .finish-btn {
+      width: 100px;
+      height: 40px;
+      font-weight: bold;
+      --box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.5);
+      --background: linear-gradient(to right, var(--question-submit-btn-color) 21%, var(--dark-blue) 75%);
+      --border-radius: 0;
+    }
+  }
+
+  .body-container {
+    display: flex;
+    flex-direction: column;
+
+    .content-wrapper,
+    .report-container {
+      flex-direction: column;
+    }
+
+    ::ng-deep {
+      assessment-summary-report {
+        .assessment-summary-report {
+          height: 100%;
+        }
+      }
+
+      feedback {
+        display: flex;
+        align-self: flex-end;
+        width: 100%;
+      }
+    }
+
+    ::ng-deep {
+      related-content {
+        width: 100%;
+      }
+    }
+
+    .mastery-card {
+      background-color: var(--light-grayish);
+      display: flex;
+      flex-direction: column;
+      padding: 10px;
+      margin: 10px;
+      min-height: 287px;
+
+      .mastery-info-container {
+        border-bottom: 1px solid rgba(151, 151, 151, 0.4);
+        display: flex;
+        flex-direction: column;
+        height: auto;
+
+        .greeting-images {
+          display: grid;
+          height: 157px;
+
+          .kangaroo-img {
+            background-image: var(--kangaroo-img);
+            display: block;
+            background-repeat: no-repeat;
+            background-size: contain;
+            background-position: center;
+            transform: scale(1.5);
+          }
+
+          .congrats-img {
+            display: block;
+            background-image: var(--congrats-img);
+            background-repeat: no-repeat;
+          }
+        }
+
+        .greeting-message {
+          font-size: 13px;
+          text-align: center;
+          color: var(--black-400);
+          padding: 10px;
+          display: block;
+        }
+      }
+
+      .mastery-action-container {
+        display: grid;
+        grid-template-columns: repeat(2, auto);
+        justify-content: right;
+        align-items: center;
+        padding: 8px;
+        column-gap: 30px;
+        height: 48px;
+
+        .no-thanks,
+        .show-me {
+          font-size: 15px;
+          font-weight: bold;
+          text-transform: uppercase;
+          cursor: pointer;
+          background: transparent;
+          outline: none;
+        }
+
+        .show-me {
+          color: var(--sea-green);
+        }
+
+        .no-thanks {
+          color: var(--dark-400);
+        }
+      }
+    }
+
+    .next-lesson-container {
+      padding: 11px;
+      background-color: var(--next-collection-bg-color);
+      width: auto;
+      margin: 0 11px 5px;
+
+      .next-lesson-info {
+        display: flex;
+        flex-wrap: nowrap;
+
+        .lesson-icon {
+          border: solid 1px var(--next-lesson-icon-color);
+          border-radius: 50%;
+          height: 25px;
+          width: 27px;
+          margin: auto 20px auto auto;
+
+          ion-icon {
+            transform: rotate(270deg);
+            display: flex;
+            justify-content: center;
+            margin: 4px auto auto;
+          }
+        }
+
+        .next-lesson-msg {
+          font-size: 18px;
+          color: var(--next-lesson-txt-color);
+          font-weight: 700;
+          width: 100%;
+        }
+      }
+
+      .domain-info {
+        display: grid;
+        padding: 10px 0;
+
+        .domain-name {
+          font-size: 15px;
+          color: var(--next-lesson-txt-color);
+          opacity: 1.8;
+          text-align: left;
+        }
+
+        .lesson-name {
+          font-size: 17px;
+          color: var(--next-lesson-txt-color);
+          opacity: 0.8;
+        }
+      }
+
+      .lesson-desc {
+        font-size: 14px;
+        color: var(--next-lesson-txt-color);
+        opacity: 0.8;
+        padding: 10px 0;
+      }
+    }
+
+    .up-next-container {
+      width: 100%;
+      padding: 15px 0 25px;
+
+      ion-text {
+        margin: auto;
+        color: var(--reroute-suggestion-header-title);
+      }
+
+      .assessment-label {
+        font-size: 12px;
+        padding: 10px 15px;
+        font-weight: 600;
+        opacity: 0.8;
+        text-align: center;
+      }
+    }
+
+    .next-collection-container {
+      display: flex;
+      align-self: flex-end;
+      width: 100%;
+      padding: 0 11px 11px;
+      z-index: 2;
+
+      &.suggested-content {
+        .next-collection-panel {
+          .thumbnail-img {
+            display: none;
+          }
+
+          .body-container {
+            .collection-title {
+              .title {
+                color: var(--reroute-suggestion-header);
+              }
+
+              .suggestion-icon {
+                ion-text {
+                  color: var(--reroute-suggestion-header);
+                  margin: auto 10px auto auto;
+                }
+              }
+            }
+
+            .play-content-btn {
+              justify-content: flex-end;
+            }
+
+            ion-icon {
+              background: var(--reroute-suggestion-header-title);
+            }
+          }
+        }
+      }
+
+      .next-collection-panel {
+        width: 100%;
+
+        .body-container {
+          padding: 10px;
+          background: var(--player-description-read-container);
+          border-bottom: 1px solid var(--collection-body-border-color);
+
+          .collection-title {
+            font-size: 18px;
+            color: var(--player-next-collection-desc);
+            display: grid;
+            grid-template-columns: max-content 1fr 30px;
+            height: 50px;
+
+            &.hide-info-icon {
+              grid-template-columns: max-content 1fr;
+            }
+
+            .icon {
+              display: flex;
+              align-items: center;
+              justify-content: center;
+
+              ion-icon {
+                margin: auto;
+                width: 40px;
+                height: 30px;
+              }
+            }
+
+            ion-text {
+              width: 100%;
+              margin: auto;
+            }
+
+            .title {
+              display: flex;
+              align-items: center;
+            }
+          }
+
+          .info-icon {
+            display: flex;
+            width: 24px;
+            margin: auto;
+          }
+
+          .description-container {
+            font-size: 14px;
+            color: var(--player-next-collection-desc);
+            margin: 10px 0;
+            text-overflow: ellipsis;
+            white-space: pre-line;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+
+            .description-text {
+              white-space: normal;
+              width: 100%;
+            }
+          }
+
+          .read-btn {
+            padding: 15px 0;
+            text-align: center;
+
+            button {
+              background: var(--player-read-btn);
+              color: var(--read-font);
+              font-weight: bold;
+              letter-spacing: 0.5px;
+              text-transform: capitalize;
+
+              &:focus {
+                outline: 0;
+              }
+            }
+          }
+
+          .info-panel {
+            height: 100%;
+            padding-top: 10px;
+            display: grid;
+            grid-template-columns: max-content 1fr;
+            grid-gap: 10px;
+
+            nav-taxonomy-list {
+              display: flex;
+              align-items: center;
+
+              ::ng-deep {
+                .taxonomy-list {
+                  height: 100%;
+
+                  .item {
+                    border-radius: 4px;
+                    margin-left: 0;
+                    margin-right: 5px;
+                  }
+                }
+              }
+            }
+          }
+
+          .play-content-btn {
+            padding: 15px 0;
+            display: flex;
+            justify-content: center;
+            height: 49px;
+            align-items: center;
+
+            ion-button {
+              --background: transparent;
+              --background-activated: transparent;
+            }
+
+            %btn-container {
+              font-size: 14px;
+              font-weight: bold;
+              --background: none;
+              --box-shadow: none;
+              --background-hover: unset;
+              --background-focused: unset;
+            }
+
+            .play-button {
+              @extend %btn-container;
+              color: var(--read-font);
+              --color-activated: var(--read-font);
+              letter-spacing: 0.5px;
+              margin: auto;
+            }
+
+            .later-btn {
+              @extend %btn-container;
+              opacity: 0.5;
+              color: var(--dark-400);
+              --color-activated: var(--dark-400);
+            }
+
+            .reroute-action-btn {
+              @extend %btn-container;
+
+              &.collection {
+                color: var(--reroute-suggestion-header);
+                --color-activated: var(--reroute-suggestion-header);
+              }
+
+              &.assessment {
+                color: var(--reroute-suggestion-header-title-color);
+                --color-activated: var(--reroute-suggestion-header-title-color);
+              }
+            }
+          }
+        }
+
+        .thumbnail-img {
+          min-height: 230px;
+          background-repeat: no-repeat;
+          background-position: center;
+          background-size: cover;
+          position: relative;
+
+          nav-taxonomy-list {
+            position: absolute;
+            bottom: 0;
+            padding: 10px;
+            background-color: var(--player-next-collection-title-bg);
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+}

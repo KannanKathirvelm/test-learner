@@ -1,0 +1,30 @@
+<div class="grade-rubric-container">
+  <div class="grade-rubric-panel">
+    <div class="grade-rubric-info">
+      <i (click)="showCategory(category)" [ngClass]="disabled ? 'disabled' : 'active'" class="material-icons">info_outlined</i>
+      <span>{{category.title}}</span>
+    </div>
+  </div>
+  <div class="grade-rubric-level-container" [ngClass]="category.allowsScoring ? 'progress-category' : 'no-progress-category'">
+    <div class="grade-rubric-levels">
+      <ng-container *ngFor="let level of levels;index as levelIndex">
+        <ion-icon *ngIf="category.allowsScoring" class="grade-level-icon" scoreTooltip scoreInPercentage="{{level.scoreInPrecentage}}" totalPoints="{{totalPoints}}" name="{{level.name}}" score="{{level.score}}" (click)="showProgressBar(level,levelIndex)"></ion-icon>
+        <input *ngIf="!category.allowsScoring" name="grade-input" type="radio" [ngClass]="disabled ? 'disabled' : 'active'" [checked]="level.isChecked" (click)="onSelectGradeRadio(level,levelIndex)" class="grade-info-popover grade-radio-input" />
+      </ng-container>
+      <div *ngIf="category.allowsScoring" class="progress-bar" ngClass="grade-range-{{scoreInPercentage | gradeRange}}" [ngStyle]="{'width':scoreInPercentage+'%'}">
+      </div>
+    </div>
+    <i (click)="showGradeComment()" [ngClass]="disabled ? 'hidden' : 'active'" class="material-icons grade-comment">chat_bubble_outline</i>
+  </div>
+  <div *ngIf="isShowComment" [@slideUpAnimation] class="grade-comment-panel">
+    <input name="comments" [(ngModel)]="comments" placeholder="{{'ADD_COMMENT' | translate}}" (focusout)="enterLevelComments()" />
+  </div>
+  <div class="grade-level-categories" [ngClass]="disabled ? 'disabled' : 'active'">
+    <ng-container *ngFor="let level of levels;index as levelIndex">
+      <div *ngIf="isShowCategory" [@slideUpAnimation] class="category">
+        <grade-level-category [selectedlevelIndex]="selectedScoreIndex" [levelIndex]="levelIndex" [allowsScoring]="category.allowsScoring" (selectLevel)="onSelectLevel($event)" [level]="level">
+        </grade-level-category>
+      </div>
+    </ng-container>
+  </div>
+</div>

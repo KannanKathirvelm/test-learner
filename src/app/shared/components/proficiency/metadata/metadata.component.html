@@ -1,0 +1,49 @@
+<div class="metadata" *ngIf="competencies">
+  <div class="heading">{{'MICRO_COMPETENCIES' | translate}}</div>
+  <ng-container *ngIf="competencies?.length;else noCompetencyData">
+    <div class="micro-comeptency-list" *ngFor="let competency of competencies;index as competencyIndex">
+      <div class="micro-competency" (click)="onClickMicroCompetency(competencyIndex)">
+        <div class="micro-competency-code">
+          {{competency.code}}
+        </div>
+        <div class="arrow">
+          <i class="material-icons" *ngIf="competency.isActive">arrow_drop_up</i>
+          <i class="material-icons" *ngIf="!competency.isActive">arrow_drop_down</i>
+        </div>
+      </div>
+      <div class="description" [@collapse]="!competency.isActive">
+        <span>{{competency.title}}</span>
+      </div>
+    </div>
+  </ng-container>
+  <ng-template #noCompetencyData>
+    <div class="no-data">
+      <span>{{'NO_COMPETENCY' | translate}}</span>
+    </div>
+  </ng-template>
+  <div class="prequisite-competencies-heading">{{'PREQUISITE_COMPETENCIES' | translate}}</div>
+  <div class="prequisite-competencies" [ngClass]="{'no-competency' : !prerequisites?.length}">
+    <ng-container *ngIf="prerequisites?.length;else noPrerequisitesData">
+      <div class="panel-container" *ngFor="let prerequisite of prerequisites">
+        <div class="panel-header">
+          <div class="title">{{prerequisite.code}}</div>
+          <div class="competency-status status-{{prerequisite.status}}"></div>
+        </div>
+        <div class="panel-body">
+          <div class="competency-description">{{prerequisite.title}}</div>
+        </div>
+      </div>
+    </ng-container>
+    <ng-template #noPrerequisitesData>
+      <div class="no-data">
+        <span>{{'NO_PREQUISITE' | translate}}</span>
+      </div>
+    </ng-template>
+  </div>
+  <div class="alt-concepts-heading">{{'ALT_CONCEPTS' | translate}}</div>
+  <div class="alt-concepts">
+    <div class="no-data">
+      <span>{{'NO_ALT_CONCEPTS' | translate}}</span>
+    </div>
+  </div>
+</div>

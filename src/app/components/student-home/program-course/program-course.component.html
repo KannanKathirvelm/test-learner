@@ -1,0 +1,22 @@
+<ion-grid *ngIf="!showProgramList" class="program-course-container">
+  <ion-row *ngIf="indepententClassList && indepententClassList.length">
+    <ion-col class="currently-studying-container" (click)="toggleClasses()">
+      <i class="material-icons">chrome_reader_mode</i>
+      <ion-text>{{ 'CURRENTLY_STUDYING' | translate }}</ion-text>
+      <ion-icon *ngIf="showClass;else downArrow" name="md-arrow-dropup"></ion-icon>
+      <ng-template #downArrow>
+        <ion-icon name="md-arrow-dropdown"></ion-icon>
+      </ng-template>
+    </ion-col>
+    <ion-row [@collapse]="!showClass">
+      <ng-container *ngFor="let class of indepententClassList">
+        <nav-premium-class-card [isProgramCard]="true" [course]="class.course" [class]="class"></nav-premium-class-card>
+      </ng-container>
+    </ion-row>
+  </ion-row>
+  <ion-row *ngIf="showProgram" class="program-card-container">
+    <app-program-card *ngFor="let programContent of programContentList" (selectedProgram)="onSelectedProgam($event)"
+      [programContent]="programContent"></app-program-card>
+  </ion-row>
+</ion-grid>
+<app-program-course-list *ngIf="showProgramList" [tenantSettings]="tenantSettings" [selectedProgram]="selectedProgram" (clickGoBack)="onGoBack()"></app-program-course-list>

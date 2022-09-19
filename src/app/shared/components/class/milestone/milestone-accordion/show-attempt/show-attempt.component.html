@@ -1,0 +1,63 @@
+<ion-grid class="info-container ion-no-padding" [ngClass]="{'suggested-item' : isCurrentSuggestedCollection || isNextSuggestedCollection,
+'teacher-suggestion': isNextTeacherSuggested || isCurrentTeacherSuggested, 'hide-alternate-path': isLastCollectionInMilestone }">
+  <ion-row class="description-row" [ngClass]="{'no-attempts' : activityAttempts && !activityAttempts.length}">
+    <ion-col class="svg-container">
+      <div class="collection-icon-downward-line">
+        <svg width="20">
+          <line x1="0" y1="0" x2="0" y2="80%" />
+        </svg>
+      </div>
+    </ion-col>
+    <ion-col class="text-container">
+      <ion-text>{{ collection.learningObjective }}</ion-text>
+    </ion-col>
+  </ion-row>
+  <ng-container *ngIf="activityAttempts && activityAttempts.length">
+    <ion-row class="attempt-container">
+      <ion-row class="previous-access">
+        <ion-col class="svg-container">
+          <div class="collection-icon-downward-line">
+            <svg style="height: 100%" width="20">
+              <line x1="0" y1="0" x2="0" y2="100%" />
+            </svg>
+          </div>
+        </ion-col>
+        <ion-col class="text-container">
+          <ion-text>{{ 'PREVIOUS_ACCESS' | translate }}</ion-text>
+        </ion-col>
+      </ion-row>
+      <ng-container *ngFor="let attempt of activityAttempts;index as attemptIndex">
+        <ion-row class="attempt-row" [ngClass]="{'last-attempt': attemptIndex === (activityAttempts?.length - 1)}">
+          <ion-col class="svg-container">
+            <div class="collection-icon-downward-line">
+              <svg width="20">
+                <line x1="0" y1="0" x2="0" y2="70%" />
+                <line class="hide" x1="0" y1="0" x2="0" y2="100%" [ngClass]="{'show': (!isCurrentSuggestedCollection && !isNextSuggestedCollection) || isNextTeacherSuggested || (isCurrentSystemSuggested && !isNextSuggestedCollection)}" />
+                <path class="path-right hide" [ngClass]="{'show': attemptIndex === (activityAttempts?.length - 1) && ((isNextSuggestedCollection && isNextSystemSuggested) || (isCurrentTeacherSuggested && !isNextSuggestedCollection))}"
+                  d="M 1 0 v38 t 0 4  7 20 -5 60" />
+              </svg>
+            </div>
+          </ion-col>
+          <ion-col class="attempt-date ion-no-padding">
+            <ion-text>{{attempt.createdDate | date: 'MMM d, y'}}</ion-text>
+          </ion-col>
+          <ion-col class="score-col score ion-no-padding format-{{attempt.type}} grade-range-{{attempt.score | gradeRange}}">
+            <ion-text class="score" *ngIf="attempt.type === 'assessment'; else showTimeSpent" [ngClass]="{'read-only' : attempt.score === null }" (click)="showAttemptReport($event, attempt)">
+              <ion-text>
+                {{attempt.score | transformPerformanceScore}}
+              </ion-text>
+            </ion-text>
+            <ng-template #showTimeSpent>
+              <div class="timespent" *ngIf="attempt.timespent; else noPerformance" [ngClass]="{'read-only' : !attempt.timespent }" (click)="showAttemptReport($event, attempt)">
+                <ion-text>{{attempt.timespent | transformPerformanceTimeSpent }}</ion-text>
+              </div>
+            </ng-template>
+          </ion-col>
+          <ng-template #noPerformance>
+            <ion-text class="no-performance-score grade-range-not-started">&mdash;</ion-text>
+          </ng-template>
+        </ion-row>
+      </ng-container>
+    </ion-row>
+  </ng-container>
+</ion-grid>

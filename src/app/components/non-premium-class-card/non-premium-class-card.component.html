@@ -1,0 +1,152 @@
+<ng-container *ngIf="class;else showLoader">
+  <ion-card class="non-premium-class" (click)="onNavigate()">
+    <ion-card-header class="no-padding">
+      <ion-label class="teacher-name ellipsis">{{class.teacher.first_name}} {{class.teacher.last_name}}</ion-label>
+      <ion-label class="class-name ellipsis">{{class.title}}</ion-label>
+    </ion-card-header>
+    <ion-card-content class="no-padding">
+      <hr class="header-line">
+      <ion-grid class="no-padding" [ngClass]="{'public-class-grid' : class.isPublic}">
+        <ion-row class="card-img-row">
+          <div class="card-img" [ngStyle]="{'background-image': class.course ? 'url(' + class.course.thumbnailUrl + ')' : ''}" [ngClass]="class.course ? 'has-course' : 'has-no-course'"></div>
+        </ion-row>
+        <ng-container *ngIf="class.isPublic; else nonPublicClass">
+          <ion-row class="milestone-row">
+            <ion-col size="2" class="ion-no-padding milestone-flag-icon-col">
+              <ion-icon class="flag-icon"></ion-icon>
+            </ion-col>
+            <ion-col size="10" class="ion-no-padding milestone-col">
+              <ion-col class="ion-no-padding completed-value-col">
+                <ion-row class="ion-no-padding milestone-header-col" *ngIf="completedLessonsInPercentage > 0;else notCompleted">
+                  <ion-text class="completed-value-text">{{completedLessonsInPercentage}}% {{'COMPLETED' | translate}}</ion-text>
+                </ion-row>
+              </ion-col>
+              <ng-template #notCompleted>
+                <ion-text class="completed-value-text">0% {{'COMPLETED' | translate}}</ion-text>
+              </ng-template>
+              <ion-col class="ion-no-padding progress-bar-col" *ngIf="class.performanceSummary;else skeletonHeaderText">
+                <milestone-report-progress-bar [lessonCount]="class.performanceSummary.total" [scoreInPercentage]="class.performanceSummary.totalCompleted"></milestone-report-progress-bar>
+              </ion-col>
+              <ng-template #skeletonHeaderText>
+                <ion-text class="skeleton-header-text">
+                  <ion-skeleton-text animated class="skeleton-header-text"></ion-skeleton-text>
+                </ion-text>
+              </ng-template>
+            </ion-col>
+          </ion-row>
+        </ng-container>
+        <ng-template #nonPublicClass>
+          <ion-row class="milestone-report-content">
+            <ion-row class="report-category-row performance-color" ngClass="milestone-grade-range-{{scoreInPercentage | gradeRange}}">
+              <ion-col size="2" class="ion-no-padding icon-col">
+                <ion-icon class="image-icon nav-tick-icon performance-tick-icon"></ion-icon>
+              </ion-col>
+              <ion-col size="7" class="ion-no-padding report-category-text">
+                <ion-text>{{ 'PERFORMANCE' | translate }}</ion-text>
+              </ion-col>
+              <ion-col size="3" class="ion-no-padding report-category-text score-col">
+                <ng-container *ngIf="performanceLoaded; else skeletonText">
+                  <ion-text *ngIf="scoreInPercentage !== null; else NAValue">{{scoreInPercentage | transformPerformanceScore}}</ion-text>
+                </ng-container>
+              </ion-col>
+            </ion-row>
+            <ion-row class="report-category-row timespent-color">
+              <ion-col size="2" class="ion-no-padding report-category-icon icon-col">
+                <ion-icon name="time"></ion-icon>
+              </ion-col>
+              <ion-col size="7" class="ion-no-padding report-category-text">
+                <ion-text>{{ 'TIMESPENT' | translate }}</ion-text>
+              </ion-col>
+              <ion-col size="3" class="ion-no-padding report-category-text score-col">
+                <ion-text *ngIf="class.classTimeSpent && class.classTimeSpent.totalTimespent !== null; else NAValue">{{class.classTimeSpent.totalTimespent | transformPerformanceTimeSpent }}</ion-text>
+              </ion-col>
+            </ion-row>
+            <ion-row class="report-category-row lessons-color">
+              <ion-col size="2" class="ion-no-padding report-category-icon icon-col">
+                <ion-icon name="remove-circle-outline"></ion-icon>
+              </ion-col>
+              <ion-col size="7" class="ion-no-padding report-category-text">
+                <ion-text>{{'LESSONS_STUDIED' | translate}}</ion-text>
+              </ion-col>
+              <ion-col size="3" class="ion-no-padding report-category-text score-col">
+                <ion-text *ngIf="class.classLessonStats && (class.classLessonStats.totalLessons && class.classLessonStats.completedLessons !== null); else NoLessons">{{class.classLessonStats.completedLessons}} /
+                  {{class.classLessonStats.totalLessons}}
+                </ion-text>
+              </ion-col>
+            </ion-row>
+            <ng-template #NAValue>
+              <ion-text>
+                &ndash;&ndash;
+              </ion-text>
+            </ng-template>
+            <ng-template #NoLessons>
+              <ion-text>
+                &ndash;&ndash; / &ndash;&ndash;
+              </ion-text>
+            </ng-template>
+            <ng-template #skeletonText>
+              <ion-text class="skeleton-text">
+                <ion-skeleton-text animated class="skeleton-header-text"></ion-skeleton-text>
+              </ion-text>
+            </ng-template>
+          </ion-row>
+        </ng-template>
+        <ion-row class="class-code-container" *ngIf="!class.isPublic">
+          <ion-col class="class-code-wrapper no-padding">
+            <span class="class-code-label">
+              {{'CLASSCODE' | translate}}
+            </span>
+            <span class="class-code">
+              {{class.code}}
+            </span>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+</ng-container>
+<ng-template #showLoader>
+  <ion-card class="premium-class class-card-skeleton">
+    <ion-card-header class="custom-skeleton no-padding">
+      <ion-grid class="custom-skeleton-grid">
+        <ion-row>
+          <ion-skeleton-text class="class-name" animated></ion-skeleton-text>
+        </ion-row>
+      </ion-grid>
+    </ion-card-header>
+    <ion-card-content class="no-padding">
+      <hr class="header-line">
+      <ion-grid class="no-padding skeleton-grid">
+        <ion-row class="class-img-skeleton">
+          <ion-skeleton-text></ion-skeleton-text>
+        </ion-row>
+        <ion-row class="class-actions-skeleton">
+          <ion-row class="class-action">
+            <ion-col size="10" class="action-text">
+              <ion-skeleton-text class="course-map action-text" animated></ion-skeleton-text>
+            </ion-col>
+            <ion-col size="2">
+              <ion-skeleton-text class="course-map" animated></ion-skeleton-text>
+            </ion-col>
+          </ion-row>
+          <ion-row class="class-action">
+            <ion-col size="10">
+              <ion-skeleton-text class="course-map action-text" animated></ion-skeleton-text>
+            </ion-col>
+            <ion-col size="2">
+              <ion-skeleton-text class="course-map" animated></ion-skeleton-text>
+            </ion-col>
+          </ion-row>
+          <ion-row class="class-action">
+            <ion-col size="10" class="action-text">
+              <ion-skeleton-text class="course-map action-text" animated></ion-skeleton-text>
+            </ion-col>
+            <ion-col size="2">
+              <ion-skeleton-text class="course-map" animated></ion-skeleton-text>
+            </ion-col>
+          </ion-row>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+</ng-template>

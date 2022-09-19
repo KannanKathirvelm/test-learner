@@ -1,0 +1,78 @@
+.rubric {
+  background-color: var(--rubric-background-color);
+
+  &.disabled {
+    pointer-events: none;
+  }
+
+  .rubric-panel-header {
+    display: grid;
+    color: var(--white);
+    grid-template-columns: 1fr 56px;
+    border-bottom: 1px solid var(--accordion-border);
+
+    .grade-info {
+      display: grid;
+
+      .grade-info-title {
+        font-size: 22px;
+        margin-left: 10px;
+        display: flex;
+        align-items: center;
+        i {
+          margin-left: 5px;
+          color: var(--attachment);
+        }
+      }
+
+      .grade-info-desc {
+        font-size: 13px;
+        margin-left: 10px;
+      }
+    }
+
+    .grade-score {
+      height: 100%;
+      margin: auto;
+      width: 100%;
+      display: flex;
+
+      &.grade-range-not-started {
+        background-color: var(--line-gray) !important;
+      }
+
+      span {
+        margin: auto;
+      }
+    }
+  }
+
+  .grade-comment-panel {
+    font-size: 16px;
+    height: 50px;
+    width: 100%;
+
+    input {
+      text-indent: 4px;
+      background-color: transparent;
+      font-size: 16px;
+      font-style: italic;
+      color: var(--white);
+      border-bottom: solid 1px;
+      margin: auto;
+      height: 100%;
+      width: 100%;
+      border-top: none;
+      border-left: none;
+      border-right: none;
+
+      &:focus {
+        outline: none;
+      }
+    }
+
+    ::-webkit-input-placeholder {
+      color: var(--white);
+    }
+  }
+}

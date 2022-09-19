@@ -1,0 +1,17 @@
+<ion-header class="player-header" no-border>
+  <ion-toolbar class="player-toolbar">
+    <ion-buttons slot="start" (click)="onBack()">
+      <i class="arrow_back material-icons">arrow_back</i>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="player-content" *ngIf="collection">
+  <div *ngIf="isOfflineActivity; else collectionPlayer" class="player-container">
+    <offline-activity [offlineActivity]="collection" [offlineActivityId]="collection.id" [playerContext]="context"></offline-activity>
+  </div>
+  <ng-template #collectionPlayer>
+    <collection-info-panel [collection]="collection"></collection-info-panel>
+    <collection-content [tenantSettings]="tenantSettings" [context]="context" [currentResourceLocation]="currentResourceLocation" [lastPlayedContentPerformance]="lastPlayedContentPerformance" [collection]="collection" (finishCollection)="onFinishCollection($event)" (scrollToContentView)="scrollToContentView($event)">
+    </collection-content>
+  </ng-template>
+</ion-content>

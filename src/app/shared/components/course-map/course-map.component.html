@@ -1,0 +1,18 @@
+<ion-content overflow-scroll="true" [scrollEvents]="true">
+  <ng-container *ngIf="courseId; else noCourseMsgTemplate">
+    <nav-course-map-accordion *ngIf="isLoaded && tenantSettings; else skeletonView" [tenantSettings]="tenantSettings" [unitList]="unitList" [classId]="classId" [courseId]="courseId" [currentLocation]="currentLocation" [contentVisibility]="contentVisibility" (scrollToView)="scrollToView($event)">
+    </nav-course-map-accordion>
+  </ng-container>
+  <ng-template #noCourseMsgTemplate>
+    <ion-row class="no-course-msg">
+      {{'NO_COURSE_ASSIGNED_MSG' | translate}}
+    </ion-row>
+  </ng-template>
+  <ng-template #skeletonView>
+    <ion-row class="skeleton-panel-header" *ngFor="let item of [].constructor(skeletonViewCount)">
+      <ion-col class="horiz-vert-center">
+        <ion-skeleton-text animated class="skeleton-header-text" *ngFor="let item of [].constructor(skeletonViewCount)"></ion-skeleton-text>
+      </ion-col>
+    </ion-row>
+  </ng-template>
+</ion-content>

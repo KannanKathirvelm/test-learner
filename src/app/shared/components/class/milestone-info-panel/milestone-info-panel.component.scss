@@ -1,0 +1,162 @@
+.milestone-info-panel-header {
+  height: 49px;
+  display: grid;
+  grid-template-columns: 49px auto 49px;
+  width: 100%;
+
+  .thumbnail-wrapper {
+    margin: auto;
+    display: flex;
+
+    ion-text {
+      width: 30px;
+      height: 30px;
+      margin: auto;
+      display: flex;
+    }
+
+    i {
+      width: 30px;
+      height: 30px;
+      align-items: center;
+      justify-content: center;
+      display: flex;
+      background: var(--journey-thumbnail-col-bg);
+      border-radius: 50px;
+      box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
+      font-size: 20px;
+      color: var(--milestone-flag-color);
+      margin: auto;
+    }
+  }
+
+  .title-wrapper {
+    display: grid;
+
+    .title-container {
+      font-weight: bold;
+      align-items: center;
+      display: grid;
+      grid-template-columns: auto 1fr;
+
+      &.name {
+        margin-top: 10px;
+      }
+
+      .milestone-title {
+        color: var(--milestone-title-color);
+        display: grid;
+
+        .lesson-count {
+          opacity: 0.6;
+          font-weight: 800;
+          display: flex;
+          font-size: 12px;
+        }
+      }
+
+      .completed-performance {
+        font-size: 12px;
+        font-weight: bold;
+
+        ion-text {
+          margin-left: 5px;
+        }
+      }
+    }
+  }
+
+  .close-icon-wrapper {
+    display: flex;
+    justify-content: center;
+
+    ion-text {
+      font-size: 24px;
+      color: var(--milestone-text-color);
+      display: flex;
+      align-items: center;
+    }
+  }
+}
+
+.milestone-info-panel-content {
+  .competency-container {
+    height: 48px;
+    display: grid;
+    grid-template-columns: 49px auto 49px;
+
+    .competency-thumbnail-col {
+      height: 48px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      .competency-img {
+        height: 40px;
+        width: 40px;
+        background-image: var(--competency-container-icon);
+        display: block;
+        background-repeat: no-repeat;
+        background-position: center;
+      }
+    }
+
+    .milestone-performance {
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      &.no-performance {
+        background-color: var(--no-performance-bg);
+        color: var(--no-performance-color);
+        margin: auto;
+      }
+
+      ion-text {
+        font-size: 12px;
+        font-weight: bold;
+        line-height: 1;
+        text-align: center;
+      }
+    }
+
+    .competency-mastered-col {
+      height: 48px;
+      padding: 8px 24px 8px 0;
+      display: flex;
+      flex-direction: column;
+
+      .competency-mastered {
+        color: var(--competency-count);
+        display: flex;
+
+        .completed-competency {
+          font-size: 15px;
+          font-weight: bold;
+        }
+
+        .total-competency {
+          text-transform: capitalize;
+          font-size: 11px;
+          padding-left: 5px;
+          font-family: var(--sans);
+          align-self: center;
+
+          &.zero-competency {
+            margin-bottom: 3px;
+          }
+        }
+      }
+    }
+
+    .competency-progress-bar {
+      ion-progress-bar {
+        height: 8px;
+        border-radius: 4px;
+        --background: var(--progress-bar-bgcolor);
+        --progress-background: var(--progress-bar-color);
+      }
+    }
+  }
+}

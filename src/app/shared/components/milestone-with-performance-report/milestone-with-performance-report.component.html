@@ -1,0 +1,54 @@
+<ion-header class="milestone-with-performance-header">
+  <ion-toolbar>
+    <ion-row class="header-title">
+      <ion-row class="title-container">
+        <ng-container *ngIf="selectedMilestoneIndex;else milestoneTitle">
+          <ion-text class="title">{{'MILESTONE' | translate}} {{selectedMilestoneIndex + 1}}</ion-text>
+        </ng-container>
+      </ion-row>
+      <ng-template #milestoneTitle>
+        <ion-text class="title">{{'MILESTONE' | translate}} {{currentSlideIndex + 1}}</ion-text>
+      </ng-template>
+      <ion-row class="close-icon" (click)="closeReport()">
+        <ion-text class="material-icons">clear</ion-text>
+      </ion-row>
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="milestone-with-performance-content">
+  <ion-row class="milestone-content-container" [@slideInLeft]="prevSlideChanged" [@slideInRight]="nextSlideChanged">
+    <ng-container *ngIf="scoreInPercentage !== null;else noPerformance">
+      <ion-row class="performance-activity" ngClass="grade-range-{{scoreInPercentage | gradeRange}}">
+        <ion-row class="performance">
+          <ion-row class="score-container">
+            <ion-text class="score">{{scoreInPercentage | transformPerformanceScore}}</ion-text>
+            <ion-text class="label">{{'SCORE' | translate}}</ion-text>
+            <ion-text class="time-spent">{{timeSpent | transformPerformanceTimeSpent }}</ion-text>
+          </ion-row>
+        </ion-row>
+        <div class="performance-img" ngClass="grade-range-{{scoreInPercentage | gradeRange}}" [ngStyle]="{'height': scoreInPercentage + '%'}">
+        </div>
+        <ion-row *ngIf="isShowCarousel" class="navigation-actions">
+          <ion-text class="material-icons left-arrow" (click)="onSlidePrevious()">arrow_left</ion-text>
+          <ion-text class="material-icons right-arrow" (click)="onSlideNext()">arrow_right</ion-text>
+        </ion-row>
+      </ion-row>
+    </ng-container>
+    <ng-template #noPerformance>
+      <ion-row class="performance-activity no-performance">
+        <ion-row class="performance">
+          <ion-row class="score-container">
+            <ion-text class="score">---</ion-text>
+          </ion-row>
+        </ion-row>
+        <ion-row *ngIf="isShowCarousel" class="navigation-actions">
+          <ion-text class="material-icons left-arrow" (click)="onSlidePrevious()">arrow_left</ion-text>
+          <ion-text class="material-icons right-arrow" (click)="onSlideNext()">arrow_right</ion-text>
+        </ion-row>
+      </ion-row>
+    </ng-template>
+    <milestone-accordion [isReportView]="true" [disableDefaultLessonToggle]="true" [disablePlay]="true" [isHideInfo]="true" [subjectCode]="classDetails.preference && classDetails.preference.subject" [frameworkCode]="classDetails.preference && classDetails.preference.framework" [classId]="classDetails.id" [courseId]="classDetails.course_id"
+      [milestones]="[selectedMilestone]">
+    </milestone-accordion>
+  </ion-row>
+</ion-content>

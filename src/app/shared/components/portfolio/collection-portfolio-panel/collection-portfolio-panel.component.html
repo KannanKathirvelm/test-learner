@@ -1,0 +1,26 @@
+<ion-card class="portfolio-card-container">
+  <div class="portfolio-card">
+    <div class="portfolio-title" (click)="onPreview()">
+      <span class="title">{{portfolioData.title}}</span>
+    </div>
+    <div class="portfolio-icon">
+      <div *ngIf="portfolioData.isCollection || portfolioData.isExternalCollection" class="activity-performance timespent">
+        <span [ngClass]="[ !portfolioData.timespent ? 'read-only': '' ]" (click)="showReport()">{{portfolioData.timespent | transformPerformanceTimeSpent}}</span>
+      </div>
+      <div *ngIf="portfolioData.isAssessment || portfolioData.isExternalAssessment || portfolioData.isOfflineActivity" class="activity-performance grade-range-{{portfolioData.score| gradeRange}}">
+        <span [ngClass]="[ portfolioData.score === null ? 'read-only': '' ]" (click)="showReport()">{{portfolioData.score | transformPerformanceScore}}</span>
+      </div>
+    </div>
+  </div>
+  <ion-grid no-padding>
+    <ion-row class="portfolio-status-container">
+      <ion-col class="portfolio-count" size="5">
+        <nav-taxonomy-list *ngIf="portfolioData.taxonomy" [taxonomy]="portfolioData.taxonomy"></nav-taxonomy-list>
+      </ion-col>
+      <ion-col class="status" size="7">
+        <span>{{portfolioStatus}}</span>
+        <span class="date">{{portfolioData.activityTimestamp | formatDate:'DD MMM YYYY'}}</span>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-card>

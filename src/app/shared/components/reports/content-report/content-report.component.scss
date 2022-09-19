@@ -1,0 +1,31 @@
+.content-report-container {
+  &.ios {
+    &:last-child {
+      padding-bottom: 100px;
+    }
+  }
+  .setting-container {
+    padding: 0 10px;
+    color: var(--white);
+    margin: 10px 0;
+
+    .hidden-anwer-text {
+      font-style: italic;
+    }
+
+    .toggle-answer {
+      display: grid;
+      grid-template-columns: auto 55px;
+      align-items: center;
+
+      ion-toggle {
+        --background-checked: var(--report-toggle-icon);
+        --handle-background-checked: var(--white);
+      }
+    }
+  }
+
+  ::ng-deep .grade-range-not-started {
+    background-color: var(--report-grade-not-content-bg);
+  }
+}

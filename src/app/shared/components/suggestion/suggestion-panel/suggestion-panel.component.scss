@@ -1,0 +1,103 @@
+.suggestion-panel {
+  ion-item {
+    --padding: 0;
+    --padding-end: 0;
+    --inner-padding-end: 0;
+
+    &.skeleton {
+      .suggestion-header {
+        .accordion-header-text {
+          width: 100%;
+          height: 100%;
+          margin: auto;
+        }
+
+        .suggestion {
+          .title {
+            height: 10px;
+            margin: auto;
+            width: 90%;
+          }
+
+          .suggestion-icon {
+            height: 100%;
+          }
+        }
+      }
+    }
+  }
+
+  ion-item-options {
+    ion-item-option {
+      background-color: var(--suggestion-panel-slider-option);
+    }
+  }
+
+  .suggestion-header {
+    height: 49px;
+    display: grid;
+    grid-template-columns: 48px 1fr;
+    width: 100%;
+    border-right: solid 1px var(--suggestion-panel-slider);
+    border-bottom: 1px solid var(--suggestion-border);
+
+    .icon-suggestion {
+      width: 31px;
+      height: 23px;
+      margin: auto;
+      background-color: var(--suggestion-panel-title);
+      mask-size: cover;
+    }
+
+    .suggestion {
+      height: 100%;
+      display: grid;
+      grid-template-columns: 1fr 48px;
+      align-items: center;
+
+      .title {
+        font-size: 15px;
+        font-weight: 700;
+        color: var(--suggestion-panel-title);
+        overflow: hidden;
+        position: relative;
+        display: inline-block;
+        text-align: left;
+        text-decoration: none;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .action {
+        align-items: center;
+        display: flex;
+        justify-content: center;
+        color: var(--suggestion-panel-action-font);
+        height: 49px;
+        border-right: 1px solid var(--suggestion-border);
+      }
+
+      .suggestion-icon {
+        display: flex;
+        height: 100%;
+        border-left: 1px solid var(--suggestion-border);
+        justify-content: center;
+        color: var(--suggestion-panel-icon);
+        align-items: center;
+      }
+    }
+  }
+
+  .content-count {
+    margin-left: auto auto auto 10px;
+    display: flex;
+    justify-content: center;
+    opacity: 0.6;
+    color: var(--suggestion-panel-count-color);
+
+    span {
+      display: flex;
+      margin: auto auto auto 2px;
+    }
+  }
+}

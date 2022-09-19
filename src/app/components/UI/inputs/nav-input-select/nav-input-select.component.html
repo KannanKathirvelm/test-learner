@@ -1,0 +1,10 @@
+<div class="input-wrapper" [formGroup]="parentForm">
+  <ion-row class="justify-content-center label">
+    <ion-label class="input-label">{{label}} {{isRequired ? '*' : ''}}</ion-label>
+  </ion-row>
+  <ion-item no-padding>
+    <ion-select formControlName="option" interface="action-sheet" no-padding>
+      <ion-select-option *ngFor="let country of countries" [value]="country">{{country.name}}</ion-select-option>
+    </ion-select>
+  </ion-item>
+</div>

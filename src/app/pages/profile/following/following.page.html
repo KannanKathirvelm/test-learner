@@ -1,0 +1,35 @@
+<ion-row class="following-page-container">
+  <div *ngIf="followingDetails" class="following-container">
+    <div *ngFor="let followingDetail of followingDetails">
+      <div class="title">
+        <span class="title-label">{{followingDetail.type}}</span>
+      </div>
+      <div *ngFor="let following of followingDetail.details" class="following-card">
+        <div class="following-icon">
+          <ion-icon class="profile-icon" [ngStyle]="{'background-image': 'url(' + following.thumbnail + ')'}"></ion-icon>
+        </div>
+        <div class="following-name">
+          <span class="name">{{following.last_name}}, {{following.first_name}}</span>
+        </div>
+        <div *ngIf="following.isFollowers" class="followers" (click)="onClickFollow(following.id)">
+          <span class="followers-button"> {{ 'FOLLOW' | translate }}</span>
+        </div>
+        <div *ngIf="following.isFollowing" class="following" (click)="onClickUnFollow(following.id)">
+          <span class="follow-button"> {{ 'UN_FOLLOW' | translate }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ng-container *ngIf="noFollowing">
+    <div class="no-following-content">
+      <span class="title-label">{{ 'FOLLOWING' | translate }}</span>
+      <div class="no-following-message">{{ 'NO_FOLLOWING' | translate }}</div>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="noFollowers">
+    <div class="no-following-content">
+      <span class="title-label">{{ 'FOLLOWERS' | translate }}</span>
+      <div class="no-following-message">{{ 'NO_FOLLOWERS' | translate }}</div>
+    </div>
+  </ng-container>
+</ion-row>

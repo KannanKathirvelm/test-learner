@@ -1,0 +1,126 @@
+.oa-answer {
+  padding-top: 10px;
+  background: var(--rubric-background-color);
+
+  .nav-offline-activity {
+    background: var(--offline-activity-bg-color);
+    width: 25px;
+    height: 25px;
+    margin-left: 10px;
+  }
+
+  .oa-task {
+    min-height: 150px;
+    margin-bottom: 20px;
+
+    .header {
+      display: flex;
+      color: var(--oa-submission-header-color);
+      font-weight: 700;
+
+      span {
+        margin-left: 5px;
+        color: var(--white);
+      }
+    }
+
+    .question {
+      width: 300px;
+      margin: auto;
+      display: grid;
+      grid-template-rows: min-content 1fr auto min-content;
+      grid-gap: 10px;
+
+      .description {
+        margin-left: 10px;
+        color: var(--white);
+      }
+
+      .free-form-text {
+        grid-row-start: 2;
+        color: var(--oa-submission-header-color);
+      }
+
+      .answer-type,
+      .uploads-label {
+        color: var(--white);
+        font-size: 14px;
+        font-weight: 700;
+      }
+
+      .answer-label {
+        font-size: 13px;
+        color: var(--white);
+      }
+
+      .answer-label,
+      .answer-type,
+      .uploads-label {
+        margin-left: 10px;
+      }
+
+      .submitted-attachment {
+        width: 70px;
+        height: 70px;
+        border: 2px solid var(--oa-file-border-color);
+        border-radius: 5px;
+        text-align: center;
+        margin: 5px;
+        display: block;
+
+        .upload-icons {
+          color: var(--oa-file-color);
+          font-size: 4.2em;
+        }
+
+        .fa-file-powerpoint-o {
+          background: var(--oa-ppt-icon);
+        }
+
+        .fa-file-pdf-o {
+          background: var(--oa-pdf-icon);
+        }
+
+        .fa-file-word-o {
+          background: var(--oa-word-icon);
+        }
+
+        .fa-file-image-o {
+          background: var(--oa-image-icon);
+        }
+
+        .fa-file-pdf-o,
+        .oa-icons {
+          height: 48px;
+          background-repeat: no-repeat;
+          width: 48px;
+          display: block;
+          margin: 8px auto;
+          background-position: center;
+        }
+      }
+
+      .submission-urls {
+        .url-container {
+          display: grid;
+          grid-template-columns: 60px auto;
+
+          .url-label {
+            color: var(--oa-submission-header-color);
+            text-transform: uppercase;
+            font-size: 14px;
+          }
+
+          .url {
+            color: var(--oa-file-color);
+            font-size: 13px;
+          }
+        }
+      }
+    }
+
+    .hz-line {
+      width: 90%;
+    }
+  }
+}

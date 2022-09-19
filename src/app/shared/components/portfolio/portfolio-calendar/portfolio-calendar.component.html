@@ -1,0 +1,47 @@
+<div class="portfolio-calendar-content">
+  <ion-header>
+    <ion-toolbar position="top">
+      <div class="portfolio-calendar-header">
+        <i class="material-icons" (click)="onCloseModel()">keyboard_backspace</i>
+      </div>
+      <div class="selected-date-info">
+        <div class="start-date" (click)="selectStartDate()" [ngClass]="{'active' : !selectionType}">
+          <span class="label">{{'START_DATE' | translate}}</span>
+          <div class="date">
+            <span class="day">{{startDay}}</span>
+            <div class="date-month-year">
+              <span class="month-year">{{startMonth}} {{startYear}}</span><span class="day-name">{{startDayInText}}</span>
+            </div>
+          </div>
+        </div>
+        <span class="line"></span>
+        <div class="end-date" (click)="selectEndDate()" [ngClass]="{'active' : selectionType,'no-date' : !showApplyFilter}">
+          <span class="label">{{'END_DATE' | translate}}</span>
+          <div class="date" *ngIf="showApplyFilter;else noDate">
+            <span class="day">{{endDay}}</span>
+            <div class="date-month-year">
+              <span class="month-year">{{endMonth}} {{endYear}}</span><span class="day-name">{{endDayInText}}</span>
+            </div>
+          </div>
+          <ng-template #noDate>
+            <div class="no-date">--</div>
+          </ng-template>
+        </div>
+      </div>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content class="calendar-content">
+    <div class="portfolio-calendar-container">
+      <p-calendar *ngIf="selectionType; else withOutRange" [(ngModel)]="dateValue" styleClass="date-picker" [inline]="true" [minDate]="startDate" [maxDate]="endDate" selectionMode="range" class="portfolio-calendar range" [numberOfMonths]="3"
+        (onSelect)="onSelectRangeDate()">
+      </p-calendar>
+      <ng-template #withOutRange>
+        <p-calendar [(ngModel)]="selectedStartDate" styleClass="date-picker" [inline]="true" [minDate]="startDate" [maxDate]="endDate" class="portfolio-calendar no-range" [numberOfMonths]="3" (onSelect)="onSelectDate()">
+        </p-calendar>
+      </ng-template>
+    </div>
+    <div class="done" [ngClass]="{'disabled' : !showApplyFilter}" (click)="onClickDone()">
+      <span>{{"DONE" | translate}}</span>
+    </div>
+  </ion-content>
+</div>

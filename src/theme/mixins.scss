@@ -1,0 +1,38 @@
+@mixin grade-range() {
+  .grade-range-not-started {
+    background-color: var(--white);
+  }
+
+  .grade-range-0-59,
+  .grade-range-60-69,
+  .grade-range-70-79,
+  .grade-range-80-89,
+  .grade-range-90-100 {
+    border-right: 0;
+    color: var(--white);
+  }
+
+  .grade-range-0-59 {
+    background-color: var(--red);
+  }
+
+  .grade-range-not-started {
+    background-color: transparent;
+  }
+
+  .grade-range-60-69 {
+    background-color: var(--grade-range-60-69);
+  }
+
+  .grade-range-70-79 {
+    background-color: var(--grade-range-70-79);
+  }
+
+  .grade-range-80-89 {
+    background-color: var(--grade-range-80-89);
+  }
+
+  .grade-range-90-100 {
+    background-color: var(--grade-range-90-100);
+  }
+}

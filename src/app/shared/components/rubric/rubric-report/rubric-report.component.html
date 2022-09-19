@@ -1,0 +1,22 @@
+<div class="rubric" *ngIf="rubric">
+  <div class="rubric-panel-header" *ngIf="!disabled">
+    <div class="grade-info">
+      <span class="grade-info-title">{{'RUBRIC' | translate}}
+        <i class="material-icons rubric-attachment" *ngIf="rubric.url" inAppBrowser url={{rubric.url}}>attachment</i>
+      </span>
+      <span class="grade-info-desc">{{'GRADE_DESC' | translate}}</span>
+    </div>
+    <div class="grade-score" ngClass="grade-range-{{scoreInPercentage | gradeRange}}">
+      <span>{{studentScore | transformCompentencyStats: totalRubricPoints}}</span>
+    </div>
+  </div>
+  <ng-container *ngFor="let category of rubric.categories;index as categoryIndex">
+    <grade-rubric-category [isCanceled]="isCanceled" [category]="category" [disabled]="disabled ? true : false" (selectedLevelScoring)="onSelectLevel($event)" [categoryIndex]="categoryIndex" [isReportViewMode]="isReportViewMode">
+    </grade-rubric-category>
+  </ng-container>
+  <ng-container *ngIf="!isPreview">
+    <div class="grade-comment-panel" [ngClass]="disabled ? 'disabled' : 'active'">
+      <input name="comments" [(ngModel)]="comments" placeholder="{{'GENERAL_COMMENTS' | translate}}" (keyup)="onEnterGeneralComments()" />
+    </div>
+  </ng-container>
+</div>

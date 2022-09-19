@@ -1,0 +1,30 @@
+.read-more {
+  &.collapse {
+    .text-container {
+      display: grid;
+      grid-template-columns: 1fr 48px;
+
+      .text-description {
+        word-break: break-all;
+      }
+    }
+  }
+
+  .text-container {
+    display: inline-block;
+
+    .text-description {
+      word-break: break-word;
+    }
+  }
+
+  .more-link {
+    color: var(--read-font);
+    text-transform: lowercase;
+    margin-top: auto;
+
+    &.less {
+      margin: auto 0 0 5px;
+    }
+  }
+}

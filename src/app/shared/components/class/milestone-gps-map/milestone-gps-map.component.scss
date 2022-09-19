@@ -1,0 +1,59 @@
+.milestone-gps-map {
+  position: absolute;
+  width: 100%;
+  display: block;
+  top: 0;
+}
+
+.milestone-gps-map-blank-route {
+  background-color: var(--milestone-gps-map-bg);
+}
+
+.current-location-popover {
+  position: absolute;
+  z-index: 15;
+  background-color: var(--popover-bg);
+  box-shadow: 0 12px 12px 0 rgba(0, 0, 0, 0.2);
+  width: 240px;
+  height: 80px;
+  border-radius: 10px;
+  margin-left: 10px;
+}
+
+.location-animate-icon {
+  position: absolute;
+  z-index: 12;
+  display: block;
+}
+
+.overlay {
+  position: absolute;
+  z-index: 13;
+  width: 100%;
+  height: 100%;
+  top: 0;
+}
+
+.zoom-out-btn-container {
+  position: absolute;
+  bottom: 155px;
+  right: 5px;
+  width: 55px;
+  height: 55px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--course-competency-stats);
+  border-radius: 50%;
+  box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.3);
+
+  .zoom-out-icon {
+    width: 32px;
+  }
+}
+
+::ng-deep .journey-page-refresher {
+  ion-refresher-content {
+    padding-bottom: 14rem;
+  }
+}

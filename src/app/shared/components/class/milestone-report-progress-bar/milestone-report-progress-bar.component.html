@@ -1,0 +1,11 @@
+<ion-row *ngIf="lessonCount" class="milestone-progress-bar">
+  <ion-row class="progress-bar" [ngStyle]="{'width':progressBarWidth}">
+    <ng-container *ngFor="let item of [].constructor(lessonCount);index as lessonSeq">
+      <ng-container *ngIf="lessonPointGap && lessonSeq < maxNumberOfLessons">
+        <ion-text class="lesson-point" [ngStyle]="{'margin-right':((lessonSeq === lessonCount) ? 0 : lessonPointGap+'px')}"></ion-text>
+      </ng-container>
+    </ng-container>
+  </ion-row>
+  <ion-row class="completed-percentage" [ngStyle]="{'width':completedPercentage}">
+  </ion-row>
+</ion-row>

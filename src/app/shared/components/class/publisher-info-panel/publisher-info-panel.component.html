@@ -1,0 +1,49 @@
+<ion-header>
+  <ion-row class="publisher-info-panel-header">
+    <ion-col size="2" class="thumbnail-wrapper no-padding">
+      <ng-container *ngIf="resourceThumbnail; else defaultImg">
+        <ion-thumbnail class="thumbnail-image pull-right">
+          <ion-img [src]="resourceThumbnail"></ion-img>
+        </ion-thumbnail>
+      </ng-container>
+      <ng-template #defaultImg>
+        <i [class]="publisherInfoContent.contentSubtype"></i>
+      </ng-template>
+    </ion-col>
+    <ion-col size="8" class="title-wrapper  no-padding">
+      <ion-grid>
+        <ion-row class="type ellipsis ion-text-capitalize">
+          <ion-text *ngIf="creatorDetails">
+            {{creatorDetails.firstName}} {{creatorDetails.lastName}}
+          </ion-text>
+        </ion-row>
+        <ion-row class="title ellipsis">
+          <ion-text class="ellipsis">{{ publisherInfoContent.title }}</ion-text>
+        </ion-row>
+      </ion-grid>
+    </ion-col>
+    <ion-col size="2" class="close-icon-wrapper  no-padding">
+      <ion-text class="material-icons" (click)="dismissModal()">clear</ion-text>
+    </ion-col>
+  </ion-row>
+</ion-header>
+<ion-content class="publisher-info-panel-content">
+  <ion-row>
+    <ion-text class="info-text" [ngClass]="{'multi-line-ellipsis' : !showMore, 'show-more': showMore}">{{ publisherInfoContent.description }}</ion-text>
+    <ion-text class="show-more-text" *ngIf="publisherInfoContent.description && publisherInfoContent.description.length > 130" (click)="showMore = !showMore">
+      {{ showMore ? ('SHOW_LESS' | translate): ('SHOW_MORE' | translate) }}</ion-text>
+  </ion-row>
+  <ion-row>
+    <ion-col size="3" class="ion-no-padding play-button">
+      <ion-button shape="round" fill="outline" (click)="playAlternateResource()">
+        <ion-row>
+          <ion-icon name="play"></ion-icon>
+          <ion-text>{{'PLAY' | translate }}</ion-text>
+        </ion-row>
+      </ion-button>
+    </ion-col>
+    <ion-col size="9" class="taxonomy-detail ion-no-padding" *ngIf="taxonomyList">
+      <nav-taxonomy-list [taxonomy]="taxonomyList"></nav-taxonomy-list>
+    </ion-col>
+  </ion-row>
+</ion-content>

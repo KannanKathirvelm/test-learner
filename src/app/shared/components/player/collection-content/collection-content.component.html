@@ -1,0 +1,137 @@
+<div class="collection-content-container" [@bounceInUp]="startPlay">
+  <div class="resource-container">
+    <ng-container #content_view></ng-container>
+  </div>
+
+  <ng-container *ngIf="isDiagnosticActive; else FinishBtn">
+    <div class="btn-container" *ngIf="collection.collectionType === 'collection' || collection.collectionType === 'assessment'">
+      <ion-button class="finish-btn" *ngIf="!showSummaryReport" [disabled]="!isLastResourcePlayed" type="submit" (click)="onDiagnosticFinish()" #finishBtn>{{'NEXT' | translate}}</ion-button>
+    </div>
+  </ng-container>
+  <ng-template #FinishBtn>
+    <div class="btn-container" *ngIf="collection.collectionType === 'collection' || collection.collectionType === 'assessment'">
+      <ion-button class="finish-btn" *ngIf="!showSummaryReport" [disabled]="!isBidirectionalPlay && !isLastResourcePlayed" type="submit" (click)="onFinish()" #finishBtn>{{'FINISH' | translate}}</ion-button>
+    </div>
+  </ng-template>
+  <ion-row *ngIf="showSummaryReport" class="body-container">
+    <ng-container *ngIf="showSummaryReport && activityPerformance">
+      <ng-container *ngIf="collection.collectionType === 'collection' || collection.collectionType === 'collection-external'">
+        <ion-row class="report-container" id="report-container" (click)="showReport($event)">
+          <collection-summary-report [performance]="activityPerformance" [isCollection]="collection.collectionType === 'collection'" [showTapMsg]="true"></collection-summary-report>
+        </ion-row>
+      </ng-container>
+      <ng-container *ngIf="collection.collectionType === 'assessment'  || collection.collectionType === 'assessment-external'">
+        <ion-row class="report-container" id="report-container" (click)="showReport($event)">
+          <assessment-summary-report [performance]=activityPerformance [isAssessment]="collection.collectionType === 'assessment'" [showTapMsg]="true"></assessment-summary-report>
+        </ion-row>
+      </ng-container>
+      <feedback [feedbackCategory]="feedbackCategory" [contentId]="collection.id" [showCollapsedView]="true" [contentType]="collection.collectionType"></feedback>
+      <ng-container *ngIf="(relatedContents && relatedContents.length && (collection.collectionType === 'collection' || collection.collectionType === 'collection-external'))">
+        <related-content id="related-content-container" (trackRelatedContentPlayEvent)="trackRelatedContentPlayEvent($event)" (openRelatedContent)="onOpenRelatedContent($event)" [relatedContents]="relatedContents"></related-content>
+      </ng-container>
+      <ion-row class="mastery-card" *ngIf="showMasteryCard">
+        <ion-row class="mastery-info-container">
+          <ion-row class="greeting-images">
+            <i class="kangaroo-img"> </i>
+          </ion-row>
+          <ion-row class="greeting-message">
+            <ion-text *ngIf="isSignatureAssessment; else showMastery">{{'BADGE_GAINED_MSG' | translate}} </ion-text>
+            <ng-template #showMastery>
+              <ion-text>{{'MASTERED_COMPETENCY_GAINED_MSG' | translate}} </ion-text>
+            </ng-template>
+            <ion-text *ngIf="!isSignatureAssessment">{{'SHOW_MASTERY_MESSAGE' | translate}}</ion-text>
+          </ion-row>
+        </ion-row>
+        <ion-row class="mastery-action-container">
+          <button type="button" class="no-thanks" (click)="closeMasteryCard()">
+            {{'NO_THANKS' | translate}}
+          </button>
+          <button type="button" class="show-me" (click)="onRedirectToProfiency()">
+            {{'SHOW_ME' | translate}}
+          </button>
+        </ion-row>
+      </ion-row>
+      <ion-row class="up-next-container" *ngIf="nextCollection">
+        <ion-text class="up-next-label">{{'UP_NEXT' | translate}}</ion-text>
+        <ion-text class="assessment-label" *ngIf="nextCollection.isAssessment">
+          {{'UP_NEXT_ASSESSMENT_MSG' | translate}}
+        </ion-text>
+      </ion-row>
+      <reroute-suggestion *ngIf="showRerouteSuggestion" [collection]="nextCollection" (scrollToSuggestion)="scrollToNextCollection()"></reroute-suggestion>
+      <ion-row class="next-lesson-container" *ngIf="nextCollection && nextCollection.lesson && nextCollection.isNextLesson" (click)="toggleLessonBoundary()" #lessonBoundary>
+        <ion-row class="next-lesson-info">
+          <div class="lesson-icon" *ngIf="!isSignatureCollection">
+            <ion-icon name="more"></ion-icon>
+          </div>
+          <span class="next-lesson-msg">
+            <ng-container *ngIf="isSignatureCollection; else showLessonBoundry">
+              {{"SIGNATURE_COLLECTION_MESSAGE" | translate}}
+            </ng-container>
+          </span>
+          <ng-template #showLessonBoundry>
+            {{"NEW_LESSON_MSG" | translate}}
+          </ng-template>
+        </ion-row>
+        <ion-row [@collapse]="isToggleLessonBoundary">
+          <ion-row class="domain-info">
+            <ion-text class="domain-name">{{nextCollection.lesson.txDomainName}}</ion-text>
+            <ion-text class="lesson-name">{{nextCollection.lesson.lessonTitle}}</ion-text>
+          </ion-row>
+          <ion-text *ngIf="!isSignatureCollection" class="lesson-desc">{{nextCollection.lesson.txCompName}}</ion-text>
+        </ion-row>
+      </ion-row>
+      <div class="next-collection-container" id="next-lesson" [ngClass]="{'suggested-content': nextCollection.isSuggested}" *ngIf="nextCollection">
+        <div class="next-collection-panel" #nextCollectionContainer>
+          <ion-row class="thumbnail-img" [ngStyle]="{'background-image': nextCollection.thumbnail ? 'url(' + nextCollection.thumbnail + ')' : ''}">
+            <nav-taxonomy-list class="hidden" *ngIf="nextCollection.taxonomy" [taxonomy]="nextCollection.taxonomy" showCount="2"></nav-taxonomy-list>
+          </ion-row>
+          <ion-row class="body-container">
+            <ion-row class="collection-title" [ngClass]="{'hide-info-icon': !(nextCollection.taxonomy | keyvalue)?.length}">
+              <ion-row *ngIf="nextCollection.isSuggested; else showCollectionIcon" class="icon suggestion-icon ion-no-padding">
+                <ion-text class="material-icons">explore</ion-text>
+              </ion-row>
+              <ng-template #showCollectionIcon>
+                <ion-row class="icon ion-no-padding">
+                  <ion-icon [ngClass]="'nav-' + nextCollection.collectionType"></ion-icon>
+                </ion-row>
+              </ng-template>
+              <ion-row class="ion-no-padding title ellipsis">
+                <ion-text class="ellipsis" tooltip [text]="nextCollection.title">{{nextCollection.title}}</ion-text>
+              </ion-row>
+              <ion-row class="info-icon" (click)="toggleInfo()" *ngIf="(nextCollection.taxonomy | keyvalue)?.length">
+                <ion-text class="material-icons info-icon">info_outlined</ion-text>
+              </ion-row>
+            </ion-row>
+            <ion-row class="info-panel" [@collapse]="showAdditionalInfo">
+              <nav-reef class="hidden"></nav-reef>
+              <nav-taxonomy-list *ngIf="nextCollection.taxonomy" [taxonomy]="nextCollection.taxonomy"></nav-taxonomy-list>
+            </ion-row>
+            <ion-row class="description-container" *ngIf="nextCollection.learningObjective">
+              <ng-container *ngIf="nextCollection.learningObjective">
+                <read-more [lineCount]="2" [maxLength]="92" [length]="nextCollection.learningObjective.length">
+                  <ion-text class="description-text">
+                    {{ nextCollection.learningObjective }}
+                  </ion-text>
+                </read-more>
+              </ng-container>
+            </ion-row>
+            <ion-row class="play-content-btn">
+              <ng-container *ngIf="nextCollection.isSuggested; else showPlayNext">
+                <ion-button class="later-btn" (click)="onDeclineSuggestion()">{{'LATER' | translate}}</ion-button>
+                <ion-button class="reroute-action-btn {{nextCollection.collectionType}}" (click)="onAcceptSuggestion()">
+                  {{ nextCollection.isAssessment ? ('TAKE_NOW' | translate) : ('STUDY_NOW' | translate) }}
+                </ion-button>
+              </ng-container>
+              <ng-template #showPlayNext>
+                <ion-button class="play-button" (click)="onPlayNext()">
+                  {{ nextCollection.isAssessment ? ('TAKE_NOW' | translate) : ('STUDY_NOW' | translate) }}
+                </ion-button>
+              </ng-template>
+            </ion-row>
+          </ion-row>
+        </div>
+      </div>
+    </ng-container>
+  </ion-row>
+</div>
+<nav-confetti *ngIf="showConfetti" (hideConfetti)="hideConfetti()"></nav-confetti>

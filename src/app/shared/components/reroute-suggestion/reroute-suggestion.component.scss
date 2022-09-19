@@ -1,0 +1,145 @@
+.reroute-suggestion-card {
+  margin-bottom: 5px;
+
+  .reroute-suggestion {
+    box-shadow: none;
+    border-radius: 0;
+    margin: 0;
+    height: 100%;
+    background-color: var(--reroute-suggestion-bg-color);
+    margin: 0 11px;
+
+    &.collection {
+      ion-card-header {
+        background-color: var(--reroute-suggestion-header);
+
+        .assessment-title {
+          display: none;
+        }
+
+        .collection-title {
+          display: block;
+        }
+      }
+
+      ion-card-content {
+        .thumbnail-img {
+          background-image: var(--reroute-suggestion-img);
+        }
+      }
+    }
+
+    ion-card-header {
+      height: 64px;
+      background-color: var(--reroute-suggestion-header-title-color);
+      padding: 7px;
+      display: flex;
+
+      .collection-title {
+        display: none;
+      }
+
+      ion-card-title {
+        margin: auto;
+        font-size: 21px;
+        text-align: center;
+        color: var(--reroute-suggestion-header-title);
+      }
+    }
+
+    ion-card-content {
+      padding: 0;
+
+      .title-container {
+        .title {
+          font-size: 12px;
+          color: var(--dark-400);
+        }
+      }
+
+      .thumbnail-img {
+        height: 225px;
+        background-image: var(--show-mastery-img);
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: contain;
+        position: relative;
+      }
+
+      .info {
+        padding-top: 10px;
+        display: flex;
+
+        nav-taxonomy-list {
+          display: flex;
+          align-items: center;
+
+          ::ng-deep {
+            .taxonomy-list {
+              .item {
+                border: solid 1px var(--dark-400);
+                border-radius: 4px;
+              }
+            }
+          }
+        }
+      }
+
+      .description {
+        font-size: 12px;
+        color: var(--dark-400);
+        padding: 10px;
+      }
+
+      .collection-message {
+        text-align: center;
+        padding: 10px;
+
+        .assessment-text,
+        .collection-text {
+          font-size: 15px;
+          color: var(--reroute-suggestion-assessment-txt-color);
+          text-align: center;
+        }
+
+        .assessment-text {
+          .content-type {
+            color: var(--reroute-suggestion-header);
+          }
+
+          .assessment-unit-txt {
+            font-weight: 700;
+          }
+        }
+      }
+
+      .collection-panel {
+        height: 48px;
+        border: 1px solid rgba(0, 0, 0, 0.3);
+        background-color: var(--reroute-suggestion-bg-color);
+        display: grid;
+        grid-template-columns: 49px 1fr 49px 49px;
+        align-items: center;
+
+        .play {
+          color: var(--reroute-suggestion-play-color);
+          display: flex;
+          margin: auto;
+        }
+
+        ion-icon {
+          display: flex;
+          margin: auto;
+        }
+
+        .info-icon {
+          i {
+            padding: 0;
+            width: 24px;
+            margin: auto;
+          }
+        }
+      }
+    }
+  }
+}

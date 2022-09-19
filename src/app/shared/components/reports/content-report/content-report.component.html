@@ -1,0 +1,16 @@
+<div class="content-report-container" [ngClass]="{'ios': !isAndroid}">
+  <div class="setting-container" *ngIf="collection.isAssessment || collection.isCollection && performance">
+    <ng-container *ngIf="isLearner">
+      <div class="hidden-anwer-text" *ngIf="isAnswerKeyHidden; else showCorrectAnswerToggle">
+        <ion-text *ngIf="collectionType !== 'collection'">{{ 'TEACHER_HIDDEN_ANSWER_KEY_TEXT' | translate }}</ion-text>
+      </div>
+    </ng-container>
+    <ng-template #showCorrectAnswerToggle>
+      <div *ngIf="isShowAnswerToggle && !isPreview" class="toggle-answer" color="light">
+        <ion-label>{{ 'SHOW_CORRECT_ANSWER' | translate }}</ion-label>
+        <ion-toggle (ionChange)="toggleShowCorrectAnswer($event)"></ion-toggle>
+      </div>
+    </ng-template>
+  </div>
+  <ng-container #report_view></ng-container>
+</div>

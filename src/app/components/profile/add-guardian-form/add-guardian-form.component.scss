@@ -1,0 +1,159 @@
+.header-wrapper {
+  ion-toolbar {
+    --background: var(--guardian-request-access-header-background);
+    --min-height: 56px;
+    box-shadow: 0 2px 4px 2px var(--guardian-request-access-header-boxshadow);
+    margin-bottom: 10px;
+
+    ion-back-button {
+      min-width: 24px;
+      --padding-start: 0;
+      --padding-end: 0;
+      margin: auto;
+    }
+
+    .col-close {
+      ion-icon {
+        font-size: 24px;
+      }
+    }
+
+    ion-grid {
+      padding: 0;
+
+      .header-title {
+        color: var(--guardian-request-header-text-color);
+
+        ion-col {
+          display: flex;
+          align-items: center;
+
+          .sign-up-title-text {
+            font-size: 20px;
+            font-weight: bold;
+            color: var(--guardian-request-header-text-color);
+            font-weight: 300;
+            font-family: var(--montserrat);
+          }
+        }
+      }
+    }
+  }
+}
+
+.guardian-form {
+  margin: 15px 10px;
+
+  .danger-text {
+    &:not(.role-error) {
+      margin-left: 5px;
+    }
+  }
+
+  .header-text-container {
+    display: flex;
+    justify-content: center;
+
+    ion-col {
+      display: flex;
+    }
+
+    ion-text {
+      font-weight: 300;
+      font-size: 14px;
+      line-height: normal;
+      text-align: center;
+      color: var(--guardian-request-header-text);
+      font-family: var(--montserrat);
+      margin: 10px 0;
+    }
+  }
+
+  .email-msg-label {
+    font-size: 11px;
+    color: var(--input-label);
+    opacity: 0.7;
+    display: block;
+    padding-left: 5px;
+    font-family: var(--montserrat);
+  }
+
+  ::ng-deep .input-wrapper {
+    ion-input {
+      text-align: left !important;
+
+      &.has-value {
+        border-color: var(--guardian-input-border-color);
+      }
+    }
+
+    .email-label,
+    .username-label {
+      justify-content: flex-start !important;
+
+      ion-label {
+        color: var(--guardian-input-label-color);
+        font-family: var(--montserrat);
+        font-size: 11px;
+        font-weight: 600;
+
+        &:not(.select-label) {
+          margin-left: 9px;
+        }
+      }
+    }
+  }
+
+  .email-container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+  }
+
+  .role-list-row {
+    padding: 15px 10px 0;
+    display: flex;
+    flex-direction: column;
+
+    ion-col {
+      padding-left: 0;
+      padding-right: 0;
+    }
+
+    .role-label {
+      font-size: 13px;
+      line-height: normal;
+      letter-spacing: normal;
+      text-align: center;
+      color: var(--guardian-input-label-color);
+      font-weight: 600;
+    }
+
+    ion-select {
+      color: var(--guardian-select-color);
+      display: flex;
+      text-transform: capitalize;
+      --padding-bottom: 0;
+      --padding-start: 0;
+      --padding-end: 0;
+
+      .select-placeholder {
+        opacity: 1;
+      }
+    }
+  }
+
+  .submit-btn {
+    --background: var(--guardian-accept-btn-color);
+    --border-radius: 0;
+    margin-top: 20px;
+    color: var(--guardian-accept-btn-text-color);
+    width: 340px;
+    height: 48px;
+    text-transform: capitalize;
+    font-weight: 300;
+    letter-spacing: 0;
+    margin-bottom: 15px;
+    font-size: 14px;
+  }
+}

@@ -1,0 +1,166 @@
+.menu-drawer-header {
+  background-color: var(--white);
+  padding: 15px;
+
+  &::after {
+    background-image: none;
+  }
+
+  .item-header {
+    width: 100%;
+    overflow: hidden;
+
+    .profile {
+      padding: 0;
+      display: flex;
+      justify-content: center;
+
+      .profile-icon {
+        background-size: 100% 100%;
+        background-position: center;
+        width: 45px;
+        height: 45px;
+        margin: auto;
+        display: flex;
+        border-radius: 50%;
+      }
+    }
+  }
+
+  .avatar-icon {
+    ::ng-deep .avatar-container {
+      .avatar-content {
+        width: 45px;
+        height: 45px;
+      }
+    }
+  }
+
+  .user-info {
+    display: grid;
+
+    .email,
+    .fullname,
+    .username {
+      height: 18px;
+      color: var(--limed-spruce);
+      margin: auto 0;
+      display: flex;
+      align-items: center;
+    }
+  }
+
+  .username {
+    font-style: italic;
+    opacity: 0.7;
+    font-size: 12px;
+  }
+
+  .email {
+    opacity: 0.7;
+    font-size: 12px;
+  }
+}
+
+.menu-drawer-content {
+  height: calc(100vh - 230px);
+  display: block;
+  position: relative;
+  z-index: 10;
+  --background: var(--nav-side-bar-color);
+
+  ion-grid {
+    background-color: var(--nav-side-bar-color);
+  }
+
+  .row-item {
+    height: 48px;
+
+    &:focus {
+      outline: none;
+    }
+
+    ion-col {
+      margin: auto 0;
+      outline: 0;
+
+      ion-icon {
+        width: 21px;
+        height: 21px;
+        margin: auto;
+        display: flex;
+
+        &.journey-icon {
+          background-image: var(--menu-journey);
+        }
+
+        &.proficiency-icon {
+          background-image: var(--proficiency);
+        }
+
+        &.profile-icon {
+          background-image: var(--menu-profile);
+        }
+      }
+
+      .material-icons {
+        font-size: 21px;
+        color: var(--tundora);
+      }
+
+      .label {
+        font-size: 14px;
+        color: var(--limed-spruce);
+        margin: auto 0;
+      }
+    }
+  }
+}
+
+.menu-drawer-footer {
+  position: absolute;
+  bottom: 0;
+  background: var(--nav-side-bar-color);
+
+  .language-container {
+    ion-select {
+      text-align: left;
+      padding: 0;
+    }
+  }
+
+  .row-item {
+    height: 48px;
+
+    &.app-version {
+      width: 100%;
+      font-size: 14px;
+      background: var(--nav-side-bar-color);
+
+      ion-col {
+        opacity: 0.5;
+        margin: auto 0 8px;
+      }
+    }
+
+    ion-col {
+      margin: auto 0;
+      padding: 0 10px;
+      font-size: 14px;
+      color: var(--limed-spruce);
+      margin: auto 0;
+    }
+
+    ion-icon {
+      width: 21px;
+      height: 21px;
+      margin: auto;
+      display: flex;
+    }
+
+    .icon {
+      display: flex;
+      justify-content: center;
+    }
+  }
+}

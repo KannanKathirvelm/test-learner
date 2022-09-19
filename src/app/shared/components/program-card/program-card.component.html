@@ -1,0 +1,13 @@
+<ion-card [ngStyle]="{'background-image': programContent.images.thumbnail ? 'url(' + programContent.images.thumbnail + ')' : ''}" class="program-card">
+  <ion-card-header class="program-header">
+    <ion-label class="program-label">{{programContent.title}}</ion-label>
+  </ion-card-header>
+  <ng-container class="program-container">
+    <ion-row class="program-description">
+      {{programContent.description}}
+    </ion-row>
+    <ion-row class="explore">
+      <ion-button class="explore-btn" (click)="onSelectProgram()">{{'EXPLORE' | translate}}</ion-button>
+    </ion-row>
+  </ng-container>
+</ion-card>

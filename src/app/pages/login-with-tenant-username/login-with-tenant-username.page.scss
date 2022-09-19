@@ -1,0 +1,123 @@
+.header-wrapper {
+  ion-toolbar {
+    --min-height: 58px;
+
+    .back-button {
+      position: absolute;
+      padding: 10px 10px 0;
+      left: 0;
+
+      ion-back-button {
+        min-width: 24px;
+        --padding-start: 0;
+        --padding-end: 0;
+        margin: auto;
+        --background-hover: none;
+        --color: var(--login-header-back-bth);
+      }
+    }
+
+    .title-container {
+      height: 58px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin: auto;
+
+      .sign-in-title-text {
+        color: var(--sign-in-title-text);
+        font-size: 20px;
+        text-align: center;
+      }
+
+      .continue-to-text {
+        color: var(--continue-to-text);
+        font-size: 12px;
+
+        .domain-text {
+          color: var(--domain-text);
+          margin-top: 2px;
+          font-weight: 700;
+        }
+      }
+    }
+  }
+}
+
+.login-content-container {
+  ion-grid {
+    padding: 0;
+    display: table;
+
+    .content-wrapper {
+      display: table-cell;
+      vertical-align: middle;
+      margin: auto 0;
+      height: calc(100vh - 124px);
+
+      .login-form {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+
+        .forgot-pwd-text {
+          font-size: 10px;
+          color: var(--forgot-pwd-text);
+          font-weight: 700;
+          margin: 5px 0;
+        }
+      }
+
+      .navigator-logo-img {
+        width: 112px;
+        height: 112px;
+        background-position: center;
+        background-size: 100%;
+        background-repeat: no-repeat;
+        border-radius: 50%;
+        border: 1px solid var(--grey);
+        margin: 14px auto auto;
+      }
+
+      .avatar-text {
+        width: 112px;
+        height: 112px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 14px auto auto;
+      }
+
+      .submit-btn {
+        --background: var(--signin-btn-bg-color);
+        color: var(--white);
+      }
+
+      .danger-text {
+        width: 100%;
+        text-align: center;
+      }
+    }
+  }
+}
+
+.footer-wrapper {
+  padding: 10px 0;
+
+  .link-text {
+    color: var(--link-text);
+    text-align: center;
+    font-size: 14px;
+    font-weight: 300;
+  }
+
+  .signin-text {
+    color: var(--signin-text);
+    text-align: center;
+    font-size: 10px;
+    margin-top: 10px;
+    font-weight: 700;
+  }
+}

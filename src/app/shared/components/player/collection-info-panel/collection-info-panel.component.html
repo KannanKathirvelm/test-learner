@@ -1,0 +1,33 @@
+<div class="collection-info-panel" [ngClass]="{'suggestion-content': isSuggested}">
+  <div class="title-container">
+    <ion-icon [ngClass]="'nav-' + collection.collectionType"></ion-icon>
+    <div class="title ellipsis" tooltip [text]="collection.title">{{ isDiagnosticActive ? nextContext.diagnostic.starting_domain_name : collection.title }}</div>
+  </div>
+  <div class="thumbnail-img" [ngStyle]="{'background-image': collection.thumbnail ? 'url(' + collection.thumbnail + ')' : ''}">
+    <ion-row class="suggestion-container" *ngIf="isSuggested">
+      <ion-row class="suggestion">
+        <ion-text class="material-icons suggestion-icon">explore</ion-text>
+      </ion-row>
+    </ion-row>
+  </div>
+  <div class="body-container">
+    <div class="collection-title">
+      <ion-text class="ellipsis" tooltip [text]="collection.title">{{ isDiagnosticActive ? nextContext.diagnostic.starting_domain_name : collection.title }}</ion-text>
+      <div class="info-icon hidden" (click)="toggleInfo()" *ngIf="(collection.taxonomy | keyvalue)?.length">
+        <i class="material-icons info">info_outlined</i>
+      </div>
+    </div>
+    <div class="info-panel hidden" [@collapse]="showAdditionalInfo">
+      <nav-reef class="hidden"></nav-reef>
+      <nav-taxonomy-list *ngIf="collection.taxonomy" [taxonomy]="collection.taxonomy"></nav-taxonomy-list>
+    </div>
+    <ion-row class="description-container" *ngIf="collection.learningObjective">
+      <read-more [lineCount]="2" [maxLength]="110" [length]="collection.learningObjective.length">
+        <ion-text class="description-text">
+          {{ collection.learningObjective }}
+        </ion-text>
+      </read-more>
+    </ion-row>
+  </div>
+  <nav-taxonomy-list *ngIf="collection.taxonomy" [taxonomy]="collection.taxonomy" showCount="2"></nav-taxonomy-list>
+</div>

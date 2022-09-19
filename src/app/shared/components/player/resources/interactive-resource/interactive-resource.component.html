@@ -1,0 +1,65 @@
+<ion-row class="interactive-resource-container content-{{componentSequence}}" [ngClass]="{'question-answered': isQuestionAnswered}">
+  <ion-row class="resource-content-container" (click)="onPlayContent()">
+    <ion-row class="hz-line"></ion-row>
+    <ion-row class="resource-sequence-content">
+      <ion-text> {{componentSequence}}. {{'INTERACTIVE_RESOURCE'| translate}}</ion-text>
+    </ion-row>
+    <ion-row class="resource-content" (click)="onClickToView()" [ngClass]="{'active-content': isActive,'blurred': !reportViewMode}">
+      <ion-row class="header-section" (click)="toggleResourseContent()">
+        <ion-row class="title" (click)="toggleInfo()">
+          <mathjax *ngIf="content.title" [content]="content.title"></mathjax>
+        </ion-row>
+        <ion-row class="icons">
+          <ion-row class="resource-icon" [ngClass]="{'preview': showResourcePreview}">
+            <ion-text class="interactive"></ion-text>
+          </ion-row>
+          <ion-row class="info-icon" (click)="toggleInfo()">
+            <ion-text class="material-icons info" *ngIf="(content.taxonomy | keyvalue)?.length">info_outlined</ion-text>
+          </ion-row>
+        </ion-row>
+      </ion-row>
+      <ion-row class="content-panel" [@collapse]="!showResourseContent && !isRelatedContent">
+        <ion-row class="info" [@collapse]="showAdditionalInfo && !isRelatedContent">
+          <nav-reef class="hidden"></nav-reef>
+          <nav-taxonomy-list *ngIf="content.taxonomy" [taxonomy]="content.taxonomy"></nav-taxonomy-list>
+        </ion-row>
+        <ion-row class="description" *ngIf="content.description">
+          <read-more [lineCount]="2" [maxLength]="110" [length]="content.description && content.description.length">
+            <ion-text class="description-text">{{content.description}}</ion-text>
+          </read-more>
+        </ion-row>
+        <ion-row class="narration" *ngIf="content.narration && !isRelatedContent">
+          <mathjax *ngIf="content.narration" [content]="content.narration"></mathjax>
+        </ion-row>
+        <ng-container *ngIf="!isPreview">
+          <ion-row class="timespent-container" *ngIf="reportViewMode && !isRelatedContent">
+            <ion-text class="material-icons clock-icon">access_time</ion-text>
+            <ion-text class="timespent-text" *ngIf="performance; else noPerformance">{{performance.timespent | transformPerformanceTimeSpent}}</ion-text>
+            <ng-template #noPerformance>
+              <ion-text class="timespent-text">&ndash;&ndash;&ndash;</ion-text>
+            </ng-template>
+            <ion-row class="reaction-icon" *ngIf="performance && performance.reaction">
+              <i class="nav-reaction-{{performance.reaction}}"></i>
+            </ion-row>
+          </ion-row>
+        </ng-container>
+        <ion-row class="button-wrapper" *ngIf="!reportViewMode && !isRelatedContent">
+          <ion-button [disabled]="disableConfirmBtn" class="play-button" (click)="onPlay($event)">{{'BROWSE'| translate}} {{'INTERACTIVE'| translate}}</ion-button>
+        </ion-row>
+        <ion-row class="horiz-vert-center" *ngIf="!isRelatedContent && isShowReaction" [ngClass]="{'disabled': disableConfirmBtn}">
+          <reaction (selectedValue)="onSelectReaction($event)" *ngIf="!reportViewMode && showReactions && !readonlyMode"></reaction>
+        </ion-row>
+      </ion-row>
+      <ion-row class="thumbnail">
+        <img *ngIf="content.thumbnail && !isThumbnailError" [src]="content.thumbnail" (error)="imageErrorHandler()"/>
+      </ion-row>
+      <ion-row class="preview-btn" *ngIf="isPreview">
+        <ion-button (click)="onClickResourceIcon()" class="preview-text">{{ 'PREVIEW' | translate }}</ion-button>
+      </ion-row>
+    </ion-row>
+    <ion-row class="feedback-container" [ngClass]="{'blurred': !isFeedback && !isActive,'question-answered': isQuestionAnswered}" *ngIf="!reportViewMode && showFeedback && !readonlyMode">
+      <feedback [feedbackCategory]="feedbackCategory" [contentId]="content.id" [showCollapsedView]="false" [contentType]="content.contentFormat" (feedbackSkiporSubmit)="feedbackSkiporSubmit()"></feedback>
+    </ion-row>
+  </ion-row>
+  <ion-row class="player-overlay" *ngIf="!isActive && !reportViewMode && !isFeedback" (click)="onClickResource()"></ion-row>
+</ion-row>

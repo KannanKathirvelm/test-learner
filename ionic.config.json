@@ -1,0 +1,12 @@
+{
+    "name": "Navigator: Learner",
+    "integrations": {
+      "capacitor": {
+        "enabled": false
+      },
+      "cordova": {}
+    },
+    "type": "angular",
+    "release-version": 1,
+    "deeplinkHost": "staging.gooru.org"
+}

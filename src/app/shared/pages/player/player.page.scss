@@ -1,0 +1,11 @@
+.player-header {
+  ion-toolbar {
+    --color: var(--white);
+    --background: var(--player-header-bg);
+    --min-height: 48px;
+  }
+}
+
+.player-content {
+  --background: var(--player-content-bg);
+}

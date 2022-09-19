@@ -1,0 +1,43 @@
+<div class="oa-answer" *ngIf="tasks">
+  <div class="oa-task" *ngFor="let task of tasks">
+    <div class="header">
+      <ion-icon class="nav-offline-activity"></ion-icon>
+      <span>{{task.title}}</span>
+    </div>
+    <div class="question" *ngIf="task.oaTaskSubmissions.submissions">
+      <div class="description" [innerHTML]="task.description">
+      </div>
+      <ng-container *ngFor="let freeFormText of task.oaTaskSubmissions.submissions.freeFormText">
+        <div class="free-form-text">
+          <span class="answer-type">{{'FREE_FORM_TEXT' | translate}}</span>
+          <p class="answer-label" [innerHTML]="freeFormText.submissionInfo"></p>
+        </div>
+      </ng-container>
+      <div *ngIf="task.oaTaskSubmissions.submissions.uploaded">
+        <span class="uploads-label">
+          {{'UPLOADS' | translate}}
+        </span>
+        <ng-container *ngFor="let uploaded of task.oaTaskSubmissions.submissions.uploaded">
+          <div *ngIf="uploaded">
+            <div class="submitted-attachment" inAppBrowser url="uploaded.submissionInfo">
+              <img *ngIf="checkSubmissionImage(uploaded);else file" [src]="uploaded.submissionInfo" />
+              <ng-template #file>
+                <i *ngIf="checkSubmissionIcons(uploaded);else loadIcons" class="pi pi-file upload-icons"></i>
+                <ng-template #loadIcons>
+                  <i [ngClass]="uploaded.submissionIcon" class="oa-icons"></i>
+                </ng-template>
+              </ng-template>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+      <ng-container *ngFor="let remote of task.oaTaskSubmissions.submissions.remote;index as remoteIndex">
+        <div class="submission-urls" *ngIf="remote;else noUrl">
+          <div class="url-container"><span class="url-label">{{'URLS' | translate}}{{remoteIndex+1}}:</span><span class="url" inAppBrowser url="{{remote.submissionInfo}}">{{remote.submissionInfo}}</span></div>
+        </div>
+        <ng-template #noUrl><span class="no-url">--</span></ng-template>
+      </ng-container>
+    </div>
+    <div class="hz-line"></div>
+  </div>
+</div>

@@ -1,0 +1,107 @@
+.calendar-content {
+  height: 100%;
+  padding-bottom: 8rem;
+
+  .calender-header {
+    ion-toolbar {
+      .calender-date-view-grid {
+        padding: 15px;
+
+        .calender-date-view-row {
+          .end-date-container,
+          .start-date-container {
+            &.active {
+              ion-grid {
+                .header {
+                  .label {
+                    color: var(--calender-active-color);
+                  }
+                }
+
+                .body {
+                  .date {
+                    color: var(--calender-active-color);
+                  }
+                }
+              }
+            }
+            padding: 0;
+
+            ion-grid {
+              padding: 12px 0;
+
+              .header {
+                .label {
+                  font-size: 22px;
+                }
+              }
+
+              .body {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                .date {
+                  font-size: 45px;
+                  padding: 0;
+                }
+
+                .month-year-day {
+                  display: grid;
+                  white-space: nowrap;
+
+                  .day {
+                    opacity: 0.5;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+
+      .line {
+        .slash-line {
+          display: block;
+          width: 2px;
+          height: 100%;
+          background: var(--calender-active-color);
+          margin: auto;
+        }
+      }
+    }
+  }
+
+  .calendar-body {
+    .done-button {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: fixed;
+      bottom: 15px;
+
+      ion-fab-button {
+        height: 65px;
+        --background: linear-gradient(
+          to right,
+          var(--calender-done-button-linear-first-half) 21%,
+          var(--calender-done-button-linear-second-half) 75%
+        );
+        width: 65px;
+        font-size: 18px;
+      }
+    }
+  }
+  ::ng-deep .class-progress-calendar {
+    width: 100%;
+
+    .ui-calendar {
+      width: 100%;
+
+      .ui-datepicker {
+        border: none;
+      }
+    }
+  }
+}

@@ -1,0 +1,135 @@
+<div class="class-activity-panel" *ngIf="activity">
+  <ion-item-sliding>
+    <ion-item class="ion-no-padding">
+      <ion-grid class="no-padding">
+        <ion-row class="no-padding activity-row-panel" [ngClass]="{'col-5': activity.meeting_url}">
+          <div class="dca-panel-icon no-padding">
+            <ion-icon class="nav-{{activity.collection.format}}"></ion-icon>
+          </div>
+          <div class="dca-panel-title no-padding" (click)="onPreview()">
+            <span class="title">{{activity.title}}</span>
+          </div>
+          <ng-container *ngIf="activity.suggestion">
+            <div class="ca-suggestion" (click)="showSuggestion()">
+              <ion-text class="material-icons">explore</ion-text>
+              <ion-text class="suggestion-count">{{activity.suggestion.total}}</ion-text>
+            </div>
+          </ng-container>
+          <ng-container *ngIf="(isOfflineActivity && isPlayable && !activity.isCompleted) || (!isOfflineActivity && isPlayable)">
+            <ion-row class="meeting-link-row" *ngIf="activity.meeting_url">
+              <ion-button class="meeting-link-btn" (click)="openMeetingLink()">
+                <ion-text class="material-icons">videocam</ion-text>
+              </ion-button>
+            </ion-row>
+            <div class="dca-panel-content no-padding" *ngIf="!activity.isCompleted">
+              <div class="ca-play" (click)="onPlay()">
+                <i class="material-icons">play_arrow</i>
+              </div>
+            </div>
+          </ng-container>
+          <div class="dca-performance no-padding">
+            <div *ngIf="activity.collection.performance;else thumbnail" class="performance">
+              <div *ngIf="activity.contentType === 'assessment' || activity.contentType === 'assessment-external' || activity.contentType === 'offline-activity';else timeSpent"
+                class="score grade-range-{{activity.collection.performance.score | gradeRange}}" [ngClass]="{'read-only' : activity.collection.performance.score === null }" (click)="showReport()">
+                <span>{{activity.collection.performance.score | transformPerformanceScore}}</span>
+              </div>
+              <ng-template #timeSpent>
+                <div class="timespent" (click)="showReport()" [ngClass]="{'read-only' : !activity.collection.performance.timeSpent }">
+                  <span class="time-spent">
+                    {{activity.collection.performance.timeSpent | transformPerformanceTimeSpent }}
+                  </span>
+                </div>
+              </ng-template>
+            </div>
+            <ng-template #thumbnail>
+              <ng-container *ngIf="activity.collection.thumbnailUrl;else showDefaultImg">
+                <img [src]="activity.collection.thumbnailUrl" />
+              </ng-container>
+              <ng-template #showDefaultImg>
+                <img [src]="activity.collection.defaultImg" />
+              </ng-template>
+            </ng-template>
+          </div>
+        </ion-row>
+        <ion-row class="ca-suggestion-container-row" [@collapse]="toggleSuggestion">
+          <ion-grid class="ca-suggestion-container" *ngIf="activity.suggestion && activity.suggestion.suggestedContents; else suggestionListSkeleton">
+            <ion-row class="ca-suggestion-list" *ngFor="let suggestedContent of activity.suggestion.suggestedContents; let suggestionIndex=index">
+              <ion-col class="col-icon">
+                <ion-icon class="nav-{{suggestedContent.suggestedContentType}}"></ion-icon>
+              </ion-col>
+              <ion-col class="col-title">
+                <ion-text>{{suggestedContent.title}}</ion-text>
+              </ion-col>
+              <ion-col class="col-play-icon">
+                <ion-text *ngIf="isLearner" class="material-icons" (click)="onSuggestionPlay(suggestedContent, suggestionIndex)">play_arrow</ion-text>
+              </ion-col>
+              <ion-col class="col-performance">
+                <div *ngIf="suggestedContent.performance;else thumbnail" class="performance">
+                  <div *ngIf="suggestedContent.suggestedContentType === 'assessment' || suggestedContent.suggestedContentType === 'assessment-external' || suggestedContent.suggestedContentType === 'offline-activity';else timeSpent"
+                    class="score grade-range-{{suggestedContent.performance.scoreInPercentage | gradeRange}}" [ngClass]="{'read-only' : suggestedContent.performance.scoreInPercentage === null }" (click)="showSuggestionReport(suggestedContent)">
+                    <span>{{suggestedContent.performance.scoreInPercentage | transformPerformanceScore}}</span>
+                  </div>
+                  <ng-template #timeSpent>
+                    <div class="timespent" (click)="showReport()" [ngClass]="{'read-only' : !suggestedContent.performance.timeSpent }">
+                      <span class="time-spent">
+                        {{suggestedContent.performance.timeSpent | transformPerformanceTimeSpent }}
+                      </span>
+                    </div>
+                  </ng-template>
+                </div>
+                <ng-template #thumbnail>
+                  <ng-container *ngIf="activity.collection.thumbnailUrl;else showDefaultImg">
+                    <img [src]="activity.collection.thumbnailUrl" />
+                  </ng-container>
+                  <ng-template #showDefaultImg>
+                    <img [src]="activity.collection.defaultImg" />
+                  </ng-template>
+                </ng-template>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+          <ng-template #suggestionListSkeleton>
+            <ion-row class="ca-suggestion-list skeleton-view">
+              <ion-col class="col-icon">
+                <ion-skeleton-text animated></ion-skeleton-text>
+              </ion-col>
+              <ion-col class="col-icon">
+                <ion-skeleton-text animated></ion-skeleton-text>
+              </ion-col>
+              <ion-col class="col-icon">
+                <ion-skeleton-text animated></ion-skeleton-text>
+              </ion-col>
+            </ion-row>
+          </ng-template>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+    <ion-item-options side="end">
+      <ion-item-option class="option">
+        <ion-row class="item-content">
+          <div class="content-count">
+            <ng-container *ngIf="activity.contentType === 'collection'">
+              <div class="count resource-count">
+                <div class="icon"></div><span class="count-value">{{activity.resourceCount}}</span>
+              </div>
+              <div class="count question-count">
+                <div class="icon"></div><span class="count-value">{{activity.questionCount}}</span>
+              </div>
+            </ng-container>
+            <ng-container *ngIf="activity.contentType === 'assessment'">
+              <div class="count question-count">
+                <div class="icon"></div><span class="count-value">{{activity.questionCount}}</span>
+              </div>
+            </ng-container>
+            <ng-container *ngIf="activity.contentType === 'offline-activity'">
+              <div class="count task-count">
+                <div class="icon"></div><span class="count-value">{{activity.taskCount}}</span>
+              </div>
+            </ng-container>
+          </div>
+          <social-share *ngIf="shareSupport" [title]="activity.title" [shareUrl]="shareUrl" [thumbnailImgUrl]="activity.collection.thumbnailUrl"></social-share>
+        </ion-row>
+      </ion-item-option>
+    </ion-item-options>
+  </ion-item-sliding>
+</div>

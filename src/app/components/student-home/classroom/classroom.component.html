@@ -1,0 +1,50 @@
+<ion-row class="class-card-list-container">
+  <ion-row *ngIf="classList && classList.length" class="class-card-list">
+    <ion-row class="class-list-dropdown" (click)="toggleClasses()">
+      <ion-col size="10" class="ion-no-padding header-col">
+        <ion-text class="classroom-title class-count">
+          {{'INSTRUCTOR_LED_CLASSROOMS' | translate}} ({{classList.length}})
+        </ion-text>
+      </ion-col>
+      <ion-col size="2" class="arrow-col ion-no-padding" *ngIf="classList?.length">
+        <ion-icon *ngIf="showClass;else downArrow" name="md-arrow-dropup"></ion-icon>
+        <ng-template #downArrow>
+          <ion-icon name="md-arrow-dropdown"></ion-icon>
+        </ng-template>
+      </ion-col>
+    </ion-row>
+    <ion-row [@collapse]="!showClass" *ngIf="classList && classList?.length; else noClassesMsg" class="class-card-list-row" [ngClass]="{'single-class-card' : classList?.length == 1}">
+      <ng-container *ngFor="let class of classList">
+        <nav-premium-class-card [course]="class.course" [class]="class"></nav-premium-class-card>
+      </ng-container>
+    </ion-row>
+  </ion-row>
+  <ion-row class="class-card-list" *ngIf="!isEnableNavigatorProgram && indepententClassList && indepententClassList?.length">
+    <ion-row class="class-list-dropdown" (click)="toggleIndepententClass()">
+      <ion-col size="10" class="ion-no-padding header-col">
+        <ion-text class="classroom-title class-count">
+          {{'COURSES_STUDYING_IN' | translate}} ({{indepententClassList.length}})
+        </ion-text>
+      </ion-col>
+      <ion-col size="2" class="arrow-col ion-no-padding">
+        <ion-icon *ngIf="showIndepententClass;else downArrow" name="md-arrow-dropup"></ion-icon>
+        <ng-template #downArrow>
+          <ion-icon name="md-arrow-dropdown"></ion-icon>
+        </ng-template>
+      </ion-col>
+    </ion-row>
+    <ion-row [@collapse]="!showIndepententClass" class="class-card-list-row" [ngClass]="{'single-class-card' : indepententClassList.length == 1}">
+      <ng-container *ngFor="let class of indepententClassList">
+        <nav-premium-class-card [course]="class.course" [class]="class"></nav-premium-class-card>
+      </ng-container>
+    </ion-row>
+  </ion-row>
+  <ion-row class="join-class-card-container" *ngIf="isShowJoinClass">
+    <nav-join-class-card class="join-class-card"></nav-join-class-card>
+  </ion-row>
+</ion-row>
+<ng-template #noClassesMsg>
+  <ion-row class="no-class-view">
+    <ion-text>{{ 'NO_CLASSES_MSG' | translate }}</ion-text>
+  </ion-row>
+</ng-template>

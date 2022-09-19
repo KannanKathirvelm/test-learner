@@ -1,0 +1,134 @@
+.portfolio-card-container {
+  ion-item {
+    --padding: 0;
+    --padding-end: 0;
+    --inner-padding-end: 0;
+  }
+
+  ion-item-options {
+    ion-item-option {
+      background-color: var(--portfolio-options-color);
+
+      .content-count {
+        display: flex;
+        color: var(--portfolio-content-color);
+        opacity: 0.8;
+
+        .count {
+          display: grid;
+          grid-template-columns: auto 1fr;
+          align-items: center;
+          justify-content: center;
+          column-gap: 5px;
+          height: 48px;
+          margin-left: auto;
+          margin-right: 5px;
+        }
+
+        %icon-style {
+          width: 20px;
+          background-size: 20px;
+          background-position: center;
+          height: 35px;
+          background-repeat: no-repeat;
+        }
+
+        .resource-count {
+          .icon {
+            background-image: var(--dca-resource);
+            @extend %icon-style;
+          }
+        }
+
+        .question-count {
+          .icon {
+            background-image: var(--question);
+            @extend %icon-style;
+            width: 18px;
+            background-size: 18px;
+          }
+        }
+
+        .task-count {
+          .icon {
+            background-image: var(--text-resource-icon);
+            @extend %icon-style;
+          }
+        }
+      }
+    }
+  }
+
+  .card-content {
+    display: grid;
+    grid-template-columns: 1fr 50px;
+    width: 100%;
+    border-bottom: 1px solid var(--portfolio-border);
+
+    &.skeleton {
+      .panel-info-container {
+        .icon {
+          height: 100%;
+        }
+
+        .activity-title {
+          margin: auto 15px;
+        }
+      }
+    }
+
+    .panel-info-container {
+      display: flex;
+      padding-left: 15px;
+
+      .activity-title {
+        margin: auto 0;
+      }
+
+      .title {
+        font-size: 13px;
+        font-weight: 400;
+        color: var(--portfolio-text-color);
+      }
+
+      .panel-icon {
+        width: 24px;
+        height: 24px;
+        display: flex;
+        background-repeat: no-repeat;
+        margin: auto;
+        background-position: center;
+        mask-size: cover;
+      }
+    }
+
+    .activity-performance {
+      width: 50px;
+      height: 48px;
+      display: flex;
+      justify-content: center;
+      text-align: center;
+      font-size: 14px;
+
+      span {
+        margin: auto;
+      }
+    }
+
+    .grade-range-not-started,
+    .timespent {
+      width: 100%;
+      margin: auto;
+      justify-content: center;
+      display: flex;
+      background-color: var(--portfolio-timespent-color);
+      font-size: 10px;
+      color: var(--portfolio-content-color);
+
+      span {
+        margin: auto;
+      }
+    }
+  }
+}
+

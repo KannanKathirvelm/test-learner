@@ -1,0 +1,28 @@
+<ion-content class="guardian-profile-container">
+  <ion-grid>
+    <ion-row class="guardian-list-container">
+      <ng-container *ngIf="isLoaded; else skeletonViewTemplate">
+        <ng-container *ngFor="let guardian of guardianList | sort: 'firstName'">
+          <nav-guardian-card [guardian]="guardian" (guardianAcceptEvent)="guardianAcceptEvent($event)"></nav-guardian-card>
+        </ng-container>
+        <ion-card class="guardian" (click)="openAddGuardianForm()">
+          <ion-card-content class="guardian-card-content">
+            <ion-thumbnail class="thumbnail-image pull-right">
+              <ion-icon name="add-circle-outline" class="add-ward-icon"></ion-icon>
+            </ion-thumbnail>
+            <ion-text> {{ 'ADD_GUARDIAN' | translate }} </ion-text>
+          </ion-card-content>
+        </ion-card>
+      </ng-container>
+      <ng-template #skeletonViewTemplate>
+        <ion-card class="guardian skeleton" *ngFor="let item of [].constructor(2)">
+          <ion-card-content class="guardian-card-content">
+            <ion-thumbnail class="thumbnail-image pull-right">
+              <ion-skeleton-text animated></ion-skeleton-text>
+            </ion-thumbnail>
+          </ion-card-content>
+        </ion-card>
+      </ng-template>
+    </ion-row>
+  </ion-grid>
+</ion-content>

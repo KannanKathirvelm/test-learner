@@ -1,0 +1,34 @@
+<ion-header class="journey-page-header">
+  <ion-toolbar>
+    <ion-grid>
+      <ion-row class="back">
+        <ion-text class="material-icons" (click)="navigateToHome()">keyboard_backspace</ion-text>
+      </ion-row>
+      <ion-row class="navigation-row" *ngIf="class">
+        <navigation-bar [readOnly]="true" [selectedDestination]="class.title" [subjectName]="selectedSubject && selectedSubject.title"></navigation-bar>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="milestone-journey-container" [scrollY]="false" [ngClass]="{'continue-course' : !fromDirections}">
+  <ion-refresher [disabled]="isShowJourneyReport" slot="fixed" class="journey-page-refresher" pullFactor="0.5" pullMin="100" pullMax="200" (ionRefresh)="onRefresh($event)">
+    <ion-refresher-content pullingIcon="chevron-down-circle-outline">
+    </ion-refresher-content>
+  </ion-refresher>
+  <pullup-with-dynamic-height [isShowPullUp]="isShowJourneyReport">
+    <ng-container *ngIf="selectedMilestones">
+      <journey-report [classPerformance]="classPerformance" [selectedMilestoneIndex]="selectedMilestoneIndex" class="pull-up-dynamic-height" [isMilestoneReport]="isMilestoneReport" [milestones]="selectedMilestones"
+        [isShowJourneyReport]="isShowJourneyReport" (closeJourneyReport)="closeJourneyReport()">
+      </journey-report>
+    </ng-container>
+  </pullup-with-dynamic-height>
+  <ion-row class="milestone-map" *ngIf="isDisplayMap && class && milestoneDetails">
+    <milestone-gps-map [isPageRefresh]="isPageRefresh" [milestones]="milestones" [class]="class" [tenantSettings]="tenantSettings" [milestoneDetails]="milestoneDetails" [contentWidth]="contentWidth" [contentHeight]="contentHeight" (openMilestoneReport)="onOpenMilestoneReport($event)" (playCollection)="onClickStart()" (gpsMapLoaded)="mapLoaded()">
+    </milestone-gps-map>
+  </ion-row>
+  <ion-row class="milestone-panel-container" *ngIf="isDisplayMap && class && milestoneDetails">
+    <milestone-panel [baseMasteredCompetencies]="baseMasteredCompetencies" [compentencyPerformance]="compentencyPerformance" [totalLessonsCount]="totalLessonsCount" [isLoading]="isLoading" [isDisabled]="isDisabled" [startCourse]="fromDirections"
+      [showPerformance]="true" [isAllContentsAreRescoped]="isAllContentsAreRescoped" [classPerformance]="classPerformance" [title]="classTitle" [computedEtlTime]="computedEtlTime" [milestoneCount]="milestoneCount" [state]="'course-map'" (clickProficiency)="onClickProficiency()"
+      (openJourneyReport)="openJourneyReport()" (clickStart)="onClickStart()" (lessonList)="onOpenLessonList()"></milestone-panel>
+  </ion-row>
+</ion-content>

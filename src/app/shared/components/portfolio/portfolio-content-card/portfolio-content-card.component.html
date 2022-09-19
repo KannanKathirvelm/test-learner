@@ -1,0 +1,67 @@
+<ion-row class="portfolio-card-container">
+  <ion-item-sliding *ngIf="activity;else skeleton">
+    <ion-item lines="none" class="ion-no-padding">
+      <ion-row class="card-content">
+        <ion-row class="panel-info-container">
+          <ng-template #skeleton>
+            <ion-icon class="panel-icon nav-{{activity.type}}"></ion-icon>
+          </ng-template>
+          <ion-row class="activity-title">
+            <span class="title">{{'LAST_ATTEMPTED'| translate}} {{activity.activityTimestamp | date: 'd MMM y'}}</span>
+          </ion-row>
+        </ion-row>
+        <ion-row *ngIf="activity.isCollection || activity.isExternalCollection" class="activity-performance timespent">
+          <span [ngClass]="[ !activity.timespent ? 'read-only': '' ]" (click)="showReport()">{{activity.timespent | transformPerformanceTimeSpent}}</span>
+        </ion-row>
+        <ion-row *ngIf="activity.isAssessment || activity.isExternalAssessment || activity.isOfflineActivity" class="activity-performance grade-range-{{activity.score| gradeRange}}">
+          <span [ngClass]="{'read-only': activity.score === null || activity.lastSessionId === null}" (click)="showReport()">{{activity.score | transformPerformanceScore}}</span>
+        </ion-row>
+      </ion-row>
+    </ion-item>
+    <ion-item-options side="end">
+      <ion-item-option class="option">
+        <ion-row class="item-content">
+          <ion-row class="content-count">
+            <ng-container *ngIf="activity.isCollection">
+              <ion-row class="count resource-count">
+                <ion-row class="icon"></ion-row><span class="count-value">{{activity.resourceCount}}</span>
+              </ion-row>
+              <ion-row class="count question-count">
+                <ion-row class="icon"></ion-row><span class="count-value">{{activity.questionCount}}</span>
+              </ion-row>
+            </ng-container>
+            <ng-container *ngIf="activity.isAssessment">
+              <ion-row class="count question-count">
+                <ion-row class="icon"></ion-row><span class="count-value">{{activity.questionCount}}</span>
+              </ion-row>
+            </ng-container>
+            <ng-container *ngIf="activity.isOfflineActivity">
+              <ion-row class="count task-count">
+                <ion-row class="icon"></ion-row><span class="count-value">{{activity.taskCount}}</span>
+              </ion-row>
+            </ng-container>
+          </ion-row>
+        </ion-row>
+      </ion-item-option>
+    </ion-item-options>
+  </ion-item-sliding>
+  <ng-template #skeleton>
+    <ion-item-sliding>
+      <ion-item class="ion-no-padding">
+        <ion-row class="card-content skeleton">
+          <ion-row class="panel-info-container">
+            <ion-skeleton-text animated class="accordion-header-text icon"></ion-skeleton-text>
+            <ion-row class="activity-title">
+              <ion-skeleton-text animated class="accordion-header-text"></ion-skeleton-text>
+            </ion-row>
+          </ion-row>
+          <ion-row class="activity-performance timespent">
+            <ion-skeleton-text animated class="accordion-header-text"></ion-skeleton-text>
+          </ion-row>
+        </ion-row>
+      </ion-item>
+      <ion-item-options side="end">
+      </ion-item-options>
+    </ion-item-sliding>
+  </ng-template>
+</ion-row>

@@ -1,0 +1,155 @@
+<ng-container *ngIf="class;else showLoader">
+  <ion-card class="premium-class" >
+    <ion-card-header class="no-padding" (click)="onNavigate()">
+      <ion-label class="teacher-name ellipsis" *ngIf="class.teacher && class.teacher.first_name && !isProgramCard; else programCourseCreator">{{class.teacher.first_name}} {{class.teacher.last_name}}</ion-label>
+      <ion-label *ngIf="!isProgramCard" class="class-name ellipsis">{{class.title}}</ion-label>
+      <ng-template #programCourseCreator>
+        <ion-label class="teacher-name ellipsis" *ngIf="navigatorProgramCourse">{{navigatorProgramCourse.navigatorProgramInfo.creator_info}}</ion-label>
+        <ion-label *ngIf="navigatorProgramCourse" class="class-name ellipsis">{{navigatorProgramCourse.navigatorProgramInfo.title}}</ion-label>
+      </ng-template>
+    </ion-card-header>
+      <ion-row class="master-pose-col ion-no-padding">
+        <ion-thumbnail (click)="onNavigate()">
+          <div class="master-pose-img"></div>
+        </ion-thumbnail>
+        <ng-container>
+          <ion-row  (click)="onClickCompetencyStats()" class="score-card">
+            <ion-text class="score">{{class.competencyStats ? class.competencyStats.completedCompetencies : 0}}</ion-text>
+          </ion-row>
+        </ng-container>
+      </ion-row>
+    <ion-card-content class="no-padding" (click)="onNavigate()">
+      <hr class="header-line">
+      <ion-grid class="no-padding" [ngClass]="{'public-class-grid' : class.isPublic}">
+        <ion-row class="card-img-row">
+          <div class="card-img" *ngIf="!isProgramCard" [ngStyle]="{'background-image': class.course || class && isProgramCard ? 'url(' + (!isProgramCard ? class.course.thumbnailUrl : class.thumbnail) + ')' : ''}" [ngClass]="class.course ? 'has-course' : 'has-no-course'"></div>
+          <div class="card-img" *ngIf="isProgramCard && navigatorProgramCourse" [ngStyle]="{'background-image': 'url(' + navigatorProgramCourse.navigatorProgramInfo.thumbnail + ')'}"></div>
+          <ion-card class="compentencies-card"  *ngIf="isCompetencyStats">
+            {{'YOU_HAVE_MASTERED' | translate}} {{class.competencyStats ? class.competencyStats.completedCompetencies : 0}} {{'COMPENTENCIES_IN_THE_CLASS' | translate}} 
+            <span class="skyline-txt" (click)="navigateToProficiency(class.id)">{{'VIEW_YOUR_SKYLINE' | translate}}</span>
+          </ion-card>
+        </ion-row>
+        <ng-container *ngIf="(class && class.course) || isProgramCard; else analyticsSection">
+          <ng-container *ngIf="class && class.currentLocation; else startStudyingBtn">
+            <ng-container *ngTemplateOutlet="analyticsSection"></ng-container>
+          </ng-container>
+        </ng-container>
+        <!-- </ng-template> -->
+        <ng-template #startStudyingBtn>
+          <ion-row class="button-section">
+            <ion-button (click)="isProgramCard ? joinPublicClass() : playCollection($event)">{{ 'START_STUDYING' | translate }}</ion-button>
+          </ion-row>
+        </ng-template>
+        <ng-template #analyticsSection>
+          <ion-row class="milestone-report-content">
+            <ion-row class="report-category-row performance-color" ngClass="milestone-grade-range-{{class.performanceSummary | classSumPerformance: class.performanceSummaryForDCA | gradeRange}}">
+              <ion-col size="2" class="ion-no-padding icon-col">
+                <ion-icon class="image-icon nav-tick-icon performance-tick-icon"></ion-icon>
+              </ion-col>
+              <ion-col size="7" class="ion-no-padding report-category-text">
+                <ion-text>{{ 'PERFORMANCE' | translate }}</ion-text>
+              </ion-col>
+              <ion-col size="3" class="ion-no-padding report-category-text score-col">
+                <ng-container *ngIf="class.isLoadedperformanceSummary && class.isLoadedperformanceSummaryForDCA; else skeletonText">
+                  <ion-text>{{class.performanceSummary | classSumPerformance: class.performanceSummaryForDCA | transformPerformanceScore}}</ion-text>
+                </ng-container>
+              </ion-col>
+            </ion-row>
+            <ion-row class="report-category-row timespent-color">
+              <ion-col size="2" class="ion-no-padding report-category-icon icon-col">
+                <ion-icon name="time"></ion-icon>
+              </ion-col>
+              <ion-col size="7" class="ion-no-padding report-category-text">
+                <ion-text>{{ 'TIMESPENT' | translate }}</ion-text>
+              </ion-col>
+              <ion-col size="3" class="ion-no-padding report-category-text score-col">
+                <ion-text *ngIf="class.classTimeSpent && class.classTimeSpent.totalTimespent !== null; else NAValue">{{class.classTimeSpent.totalTimespent | transformPerformanceTimeSpent }}</ion-text>
+              </ion-col>
+            </ion-row>
+            <ion-row class="report-category-row lessons-color">
+              <ion-col size="2" class="ion-no-padding report-category-icon icon-col">
+                <ion-icon class="image-icon flag-icon"></ion-icon>
+              </ion-col>
+              <ion-col size="7" class="ion-no-padding report-category-text">
+                <ion-text>{{ 'PROGRESS' | translate }}</ion-text>
+              </ion-col>
+              <ion-col size="3" class="ion-no-padding report-category-text score-col">
+                <ion-text *ngIf="class.competencyStats;else NAValue">{{class.competencyStats.completionPercentage}}%</ion-text>
+              </ion-col>
+            </ion-row>
+            <ng-template #NAValue>
+              <ion-text>
+                &ndash;&ndash;
+              </ion-text>
+            </ng-template>
+            <ng-template #NoLessons>
+              <ion-text>
+                &ndash;&ndash; / &ndash;&ndash;
+              </ion-text>
+            </ng-template>
+            <ng-template #skeletonText>
+              <ion-text class="skeleton-text">
+                <ion-skeleton-text animated class="skeleton-header-text"></ion-skeleton-text>
+              </ion-text>
+            </ng-template>
+          </ion-row>
+        </ng-template>
+        <ion-row class="class-code-container" *ngIf="!class.isPublic && !isProgramCard">
+          <ion-col class="class-code-wrapper no-padding">
+            <span class="class-code-label">
+              {{'CLASSCODE' | translate}}
+            </span>
+            <span class="class-code">
+              {{class.code}}
+            </span>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+</ng-container>
+<ng-template #showLoader>
+  <ion-card class="premium-class class-card-skeleton">
+    <ion-card-header class="custom-skeleton no-padding">
+      <ion-grid class="custom-skeleton-grid">
+        <ion-row>
+          <ion-skeleton-text class="class-name" animated></ion-skeleton-text>
+        </ion-row>
+      </ion-grid>
+    </ion-card-header>
+    <ion-card-content class="no-padding">
+      <hr class="header-line">
+      <ion-grid class="no-padding skeleton-grid">
+        <ion-row class="class-img-skeleton">
+          <ion-skeleton-text></ion-skeleton-text>
+        </ion-row>
+        <ion-row class="class-actions-skeleton">
+          <ion-row class="class-action">
+            <ion-col size="10" class="action-text">
+              <ion-skeleton-text class="course-map action-text" animated></ion-skeleton-text>
+            </ion-col>
+            <ion-col size="2">
+              <ion-skeleton-text class="course-map" animated></ion-skeleton-text>
+            </ion-col>
+          </ion-row>
+          <ion-row class="class-action">
+            <ion-col size="10">
+              <ion-skeleton-text class="course-map action-text" animated></ion-skeleton-text>
+            </ion-col>
+            <ion-col size="2">
+              <ion-skeleton-text class="course-map" animated></ion-skeleton-text>
+            </ion-col>
+          </ion-row>
+          <ion-row class="class-action">
+            <ion-col size="10" class="action-text">
+              <ion-skeleton-text class="course-map action-text" animated></ion-skeleton-text>
+            </ion-col>
+            <ion-col size="2">
+              <ion-skeleton-text class="course-map" animated></ion-skeleton-text>
+            </ion-col>
+          </ion-row>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+</ng-template>

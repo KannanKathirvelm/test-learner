@@ -1,0 +1,139 @@
+.class-content-wrapper {
+  background: var(--light-white);
+  overflow: auto;
+  position: absolute;
+  height: 100%;
+
+  .suggestion-backdrop {
+    z-index: 5;
+  }
+
+  .notification-panel-container,
+  .suggestion-panel-container {
+    position: fixed;
+    z-index: 5;
+    background: var(--suggestion-panel-container-color);
+    max-height: calc(100% - 56px);
+    width: 100%;
+    top: 56px;
+    overflow-y: auto !important;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);
+  }
+}
+
+.class-home-panels {
+  width: 100%;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
+
+  .home-panels-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .home-panel-container {
+    width: 100%;
+
+    class-activities-panel,
+    class-journey-panel {
+      width: 100%;
+    }
+  }
+}
+
+.class-header {
+  .class-header-container {
+    --min-height: 56px;
+    --background: var(--class-nav-bgcolor);
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
+  }
+}
+
+.class-home-container {
+  height: calc(100% - 56px);
+
+  .no-course-msg {
+    background: var(--coursemap-no-course-bg-color);
+    padding: 20px;
+    width: 90%;
+    margin: 20px auto;
+    font-style: italic;
+    text-align: center;
+    color: var(--coursemap-no-course-text-color);
+  }
+
+  milestone {
+    &.premium-class::ng-deep {
+      .milestone-page {
+        max-height: calc(100% - 205px);
+      }
+    }
+  }
+
+  course-map::ng-deep {
+    ion-content {
+      max-height: calc(100% - 197px);
+      display: grid;
+      top: 8px;
+    }
+  }
+  .incomplete-msg-container {
+    display: grid;
+    padding: 10px 20px;
+
+    .msg-heading {
+      font-size: 19px;
+      font-weight: 700;
+      font-family: var(--sans);
+      text-align: center;
+    }
+
+    .msg-body {
+      padding-top: 10px;
+      font-family: var(--sans);
+      text-align: center;
+    }
+  }
+
+  .class-progress {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    color: var(--title-color);
+    border-top: 1px solid var(--class-activity-border);
+    border-bottom: 2px solid var(--border-gray);
+    cursor: pointer;
+    .article-icon {
+      width: 30px;
+      height: 30px;
+      -webkit-box-align: center;
+      align-items: center;
+      -webkit-box-pack: center;
+      justify-content: center;
+      display: -webkit-box;
+      display: flex;
+      background: var(--journey-thumbnail-col-bg);
+      border-radius: 50px;
+      box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
+      margin: 0px 10px 0px;
+      .article-img {
+        font-size: 20px;
+        color: var(--class-journey-icon);
+      }
+    }
+    .back-btn {
+      padding: 0 10px;
+    }
+    .performance-titles {
+      ion-text {
+        display: block;
+        color: var(--light-400);
+        font-size: 14px;
+        &.sub-title {
+          font-size: 12px;
+          font-weight: bold;
+        }
+      }
+    }
+  }
+}

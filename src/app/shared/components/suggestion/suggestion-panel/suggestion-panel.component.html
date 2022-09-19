@@ -1,0 +1,71 @@
+<div class="suggestion-panel">
+  <ion-item-sliding *ngIf="content;else skeleton">
+    <ion-item lines="none" class="ion-no-padding" (click)="onPlay()">
+      <ion-grid class="no-padding">
+        <ion-row class="no-padding">
+          <div class="suggestion-header">
+            <ion-icon *ngIf="content.isAssessment" class="icon-suggestion nav-assessment"></ion-icon>
+            <ion-icon *ngIf="content.isCollection" class="icon-suggestion nav-collection"></ion-icon>
+            <ion-icon *ngIf="content.isOfflineActivity" class="icon-suggestion nav-offline-activity"></ion-icon>
+            <div class="suggestion">
+              <ion-text class="title ellipsis">
+                {{content.title}}
+              </ion-text>
+              <ion-row class="suggestion-icon">
+                <ion-text class="material-icons">explore</ion-text>
+              </ion-row>
+            </div>
+          </div>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+    <ion-item-options side="end">
+      <ion-item-option class="option">
+        <div class="content-count">
+          <ng-container *ngIf="content.questionCount || content.resourceCount">
+            <span *ngIf="content.resourceCount > 0">
+              <i class="material-icons">local_library</i>
+            </span>
+            <span *ngIf="content.resourceCount > 0">
+              {{content.resourceCount}}</span>
+            <span *ngIf="content.questionCount > 0">
+              <i class="material-icons">help_outline</i>
+            </span>
+            <span *ngIf="content.questionCount > 0">
+              {{content.questionCount}}
+            </span>
+          </ng-container>
+        </div>
+      </ion-item-option>
+    </ion-item-options>
+  </ion-item-sliding>
+  <ng-template #skeleton>
+    <ion-item-sliding>
+      <ion-item class="ion-no-padding skeleton">
+        <ion-grid class="no-padding">
+          <ion-row class="no-padding">
+            <div class="suggestion-header">
+              <ion-skeleton-text animated class="accordion-header-text"></ion-skeleton-text>
+              <div class="suggestion">
+                <div class="title ellipsis">
+                  <ion-skeleton-text animated class="accordion-header-text"></ion-skeleton-text>
+                </div>
+                <div class="action">
+                  <ion-skeleton-text animated class="accordion-header-text"></ion-skeleton-text>
+                </div>
+                <span class="suggestion-icon">
+                  <ion-skeleton-text animated class="accordion-header-text"></ion-skeleton-text>
+                </span>
+              </div>
+            </div>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+      <ion-item-options side="end">
+        <ion-item-option class="option">
+          <ion-skeleton-text animated class="accordion-header-text"></ion-skeleton-text>
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ng-template>
+</div>

@@ -1,0 +1,126 @@
+.guardian {
+  width: 250px;
+  min-height: 210px;
+  background: var(--guardian-card-bg-color);
+  margin: 3px 1px;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+
+  &.skeleton {
+    ion-thumbnail {
+      ion-skeleton-text {
+        border-radius: 50%;
+        height: 100%;
+      }
+    }
+
+    ion-skeleton-text {
+      height: 10px;
+      width: 100%;
+    }
+  }
+
+  .guardian-card-content {
+    padding: 0;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    .thumbnail-image {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      .add-ward-icon {
+        font-size: 50px;
+      }
+    }
+
+    .guardian-card-grid {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      height: 100%;
+      width: 100%;
+
+      .guardian-requested {
+        &.guardian-name-text {
+          margin: 10px 20px;
+          text-align: center;
+        }
+      }
+
+      .guardian-accepted,
+      .guardian-pending {
+        margin: 10px 20px;
+        display: grid;
+        text-align: center;
+
+        .guardian-username {
+          font-weight: bold;
+          text-transform: capitalize;
+        }
+
+        .relation-label {
+          text-transform: capitalize;
+          font-weight: bold;
+        }
+
+        .guardian-invite-status {
+          margin-top: 5px;
+        }
+      }
+
+      .accept-btn {
+        --background: var(--guardian-accept-btn-bg-color);
+        margin-top: 12px;
+        font-size: 12px;
+        font-weight: bold;
+      }
+
+      ion-row {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        &.guardian-name-row {
+          overflow: hidden;
+          width: 100%;
+
+          .guardian-name-text {
+            text-transform: capitalize;
+            font-weight: bold;
+            margin-top: 5px;
+          }
+        }
+
+        &.guardian-status-row {
+          ion-text {
+            font-weight: bold;
+            text-transform: capitalize;
+          }
+        }
+
+        &.guardian-invited-by-row {
+          .guardian-invited-by {
+            text-transform: capitalize;
+          }
+        }
+
+        &.guardian-accept {
+          .accept-btn {
+            --background: var(--guardian-accept-btn-bg-color);
+            margin-top: 12px;
+            font-size: 12px;
+            font-weight: bold;
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,42 @@
+.my-learner-identity-page-header {
+  &::after {
+    background-image: none;
+  }
+
+  ion-toolbar {
+    --min-height: var(--toolbar-height);
+    border-bottom: 1px solid var(--header-border);
+
+    ion-title {
+      padding: 0;
+      font-family: var(--sans);
+      font-size: 15px;
+      font-weight: bold;
+      color: var(--learner-identity-header-color);
+    }
+  }
+}
+
+.my-learner-identity-page-container {
+  background-color: var(--learner-identity-proficiency-background-color);
+  position: relative;
+  --overflow: hidden;
+
+  .proficiency-chart::ng-deep {
+    .learner-proficiency-chart {
+      height: 100%;
+
+      .chart-view {
+        height: calc(100% - 48px);
+
+        .graph-visual {
+          height: 100%;
+
+          .scrollable-chart {
+            height: calc(100% - 80px);
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,14 @@
+<div class="youtube-player-container">
+  <div class="loading-container" *ngIf="isLoading">
+    <span>{{'LOADING_VIDEO' | translate}}</span>
+    <ion-spinner name="dots"></ion-spinner>
+  </div>
+  <ng-container *ngIf="isAndroid">
+    <ion-row class="full-screen" (click)="onClickFullScreen()">
+    </ion-row>
+  </ng-container>
+  <div [ngClass]="{'hide' : isLoading}">
+    <div [id]="videoId" class="player" allowfullscreen="allowfullscreen">
+    </div>
+  </div>
+</div>

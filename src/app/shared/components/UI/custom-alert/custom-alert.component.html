@@ -1,0 +1,14 @@
+<div *ngIf="displayAlert" class="alert-container" @alertFadeAnimation>
+  <div class="success-checkmark" @fadeUpAnimation>
+    <div class="check-icon">
+      <span class="icon-line line-tip"></span>
+      <span class="icon-line line-long"></span>
+      <div class="icon-circle"></div>
+      <div class="icon-fix"></div>
+    </div>
+  </div>
+  <div class="message" @fadeSlowAnimation>
+    <h5 *ngIf="successMessage1">{{successMessage1}}<span *ngIf="successMessage2">,</span></h5>
+    <h5 *ngIf="successMessage2">{{successMessage2}}</h5>
+  </div>
+</div>

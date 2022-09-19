@@ -1,0 +1,45 @@
+.input-wrapper {
+  margin-top: 12px;
+
+  select {
+    width: 150px;
+    height: 30px;
+    padding: 5px;
+    color: green;
+  }
+
+  ion-label {
+    width: 250px;
+    color: var(--input-field);
+  }
+
+  .input-label {
+    font-weight: 600;
+    font-size: 13px;
+    line-height: normal;
+    letter-spacing: normal;
+    color: var(--input-label);
+  }
+
+  .input-field {
+    width: 250px;
+    border-bottom: 2px solid var(--hr-line-grey);
+    color: var(--input-field);
+  }
+
+  ion-select,
+  select {
+    font-size: 14px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.43;
+    letter-spacing: normal;
+    color: var(--input-field);
+  }
+
+  ion-select {
+    max-width: 100%;
+    width: 100%;
+  }
+}

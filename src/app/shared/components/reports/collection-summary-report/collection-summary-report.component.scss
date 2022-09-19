@@ -1,0 +1,75 @@
+.collection-summary-report {
+  padding: 10px;
+
+  &.report-collection-external {
+    .time-spent-container {
+      height: 240px;
+    }
+  }
+
+  .time-spent-container {
+    height: 192px;
+    background-color: var(--collection-summary-report-bg-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    .label {
+      font-size: 16px;
+      text-align: center;
+      color: var(--collection-summary-report-text-color);
+    }
+
+    .time-spent {
+      font-size: 56px;
+      font-weight: bold;
+      line-height: 1.14;
+      text-align: center;
+      color: var(--collection-summary-report-text-color);
+    }
+
+    .tap-msg {
+      display: flex;
+      align-items: flex-end;
+      height: 40px;
+      font-size: 13px;
+      font-weight: normal;
+      font-stretch: normal;
+      font-style: italic;
+      line-height: 1.33;
+      letter-spacing: normal;
+      text-align: center;
+      color: var(--white);
+    }
+  }
+
+  .answers {
+    display: flex;
+    width: 100%;
+
+    .correct-answer,
+    .in-correct-answer {
+      display: flex;
+      height: 104px;
+      background-color: var(--summary-report-bg-color);
+      width: calc(100% / 2);
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+
+      .score {
+        font-size: 34px;
+        line-height: 1.09;
+        text-align: center;
+        color: var(--assessment-summary-report-label-color);
+      }
+
+      .label {
+        font-size: 16px;
+        text-align: center;
+        color: var(--collection-summary-report-text-color);
+      }
+    }
+  }
+}

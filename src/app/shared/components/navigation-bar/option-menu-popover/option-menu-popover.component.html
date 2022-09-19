@@ -1,0 +1,15 @@
+<ion-content>
+  <ion-row class="menu-title">
+    <ion-text>
+      {{'SET_YOUR_SKYLINE' | translate}}
+    </ion-text>
+  </ion-row>
+  <ion-row class="menu-option">
+    <ion-row (click)="onTakeDiagnostic()">
+      {{'TAKE_THE_DIAGNOSTIC' | translate}}
+    </ion-row>
+    <ion-row (click)="onChooseLevel()">
+      {{'SET_YOUR_CURRENT_LEVEL' | translate}}
+    </ion-row>
+  </ion-row>
+</ion-content>

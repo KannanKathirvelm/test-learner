@@ -1,0 +1,35 @@
+<ion-grid #chartEl class="reroute-suggestion-container" [ngClass]="{'router': isRoute }">
+  <div class="route-suggestion-expand"><i class="material-icons" (click)="toggleZoom()">{{isZoom ? 'zoom_in_map' :
+      'zoom_out_map' }}</i></div>
+  <div class="route-line-chart"></div>
+  <ng-container *ngFor="let row of totalRows; let i = index;">
+    <ion-row class="reroute-path-panel" [ngClass]="{'right-align-content': i%2 !== 0}">
+      <ng-container *ngFor="let suggestion of suggestedContent; let suggestIndex = index">
+        <ng-container *ngIf=" suggestIndex < ((i + 1) * 3) && suggestIndex >= (i * 3)">
+          <ion-col class="collection-panel-sections">
+            <div *ngIf="i % 2 === 0" class="card-panel top-card">
+              <span class="competency-code"
+                ngClass="grade-range-{{(suggestion.contextContext.performance ? suggestion.contextContext.performance.scoreInPercentage :  null) | gradeRange}}">{{suggestion.competencyDisplayCode}}</span>
+              <app-route-path-view-card *ngIf="isZoom" (showReport)="showReport($event)"
+                (playContent)="onPlaySuggestion($event)" [suggestion]="suggestion"></app-route-path-view-card>
+              <i class="material-icons-outlined" *ngIf="isZoom">
+                change_history
+              </i>
+            </div>
+            <ion-icon (click)="onSelectLesson(suggestion)" class="collection-icon"
+              ngClass="nav-{{suggestion.format}}-icon"></ion-icon>
+            <div *ngIf="i % 2 !== 0" class="card-panel bottom-card">
+              <i class="material-icons-outlined" *ngIf="isZoom">
+                change_history
+              </i>
+              <app-route-path-view-card *ngIf="isZoom" (showReport)="showReport($event)"
+                (playContent)="onPlaySuggestion($event)" [suggestion]="suggestion"></app-route-path-view-card>
+              <span class="competency-code"
+                ngClass="grade-range-{{(suggestion.contextContext.performance ? suggestion.contextContext.performance :  null) | gradeRange}}">{{suggestion.competencyDisplayCode}}</span>
+            </div>
+          </ion-col>
+        </ng-container>
+      </ng-container>
+    </ion-row>
+  </ng-container>
+</ion-grid>

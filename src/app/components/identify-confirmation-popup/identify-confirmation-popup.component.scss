@@ -1,0 +1,22 @@
+.confirmation-popup-container {
+    box-shadow: none;
+    padding: 10px;
+    .confirmation-popup-panel {
+      text-align: center;
+      .popup-header {
+        padding: 10px;
+        font-size: 25px;
+        font-weight: 100;
+        margin: 0 auto;
+      }
+      .popup-description {
+        padding: 10px;
+        font-size: 14px;
+        color: var(--dark-300);
+      }
+      .dismiss-btn {
+        margin: 0 auto;
+        --background: var(--dark-gray);
+      }
+    }
+  }

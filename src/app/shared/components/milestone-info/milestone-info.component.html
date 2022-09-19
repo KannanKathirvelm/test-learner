@@ -1,0 +1,78 @@
+<ion-header class="navigator-info-header" no-border>
+  <ion-toolbar position="top">
+    <ion-row class="navigator-info-header">
+      <ion-text class="title ellipsis">
+        {{classTitle}}
+      </ion-text>
+      <ion-row>
+        <i class="material-icons right-arrow">keyboard_arrow_right</i>
+      </ion-row>
+      <ion-button class="navigator-button-row info-button" shape="round" fill="outline">
+        <ion-row>
+          <i class="material-icons menu-icon">menu</i>
+          <ion-text>{{'INFO' | translate}}</ion-text>
+        </ion-row>
+      </ion-button>
+      <ion-text class="close" (click)="onClose()">
+        <i class="close material-icons">close</i>
+      </ion-text>
+    </ion-row>
+    <ion-row class="action-container" [ngClass]="{'diagnostic-options': showPublicClassDiagnostic}">
+      <ng-container *ngIf="isShowCourseMap && !showPublicClassDiagnostic">
+        <ion-button class="navigator-button-row navigate-button" [ngClass]="{'disabled' : isDisabled}" (click)="onClickStart()" shape="round">
+          <ion-row>
+            <ion-icon name="navigate"></ion-icon>
+            <ion-text>
+              {{ 'START' | translate }}
+            </ion-text>
+          </ion-row>
+        </ion-button>
+        <ion-button class="navigator-button-row lesson-list-button" shape="round" fill="outline" (click)="onClickLessonList()">
+          <ion-row>
+            <i class="material-icons menu-icon">menu</i>
+            <ion-text>{{ 'LESSON_LIST' | translate }}</ion-text>
+          </ion-row>
+        </ion-button>
+      </ng-container>
+      <ng-container *ngIf="isShowDirections && !showPublicClassDiagnostic">
+        <ion-button class="navigator-button-row navigate-button" (click)="onClickDirection()" shape="round">
+          <ion-row>
+            <ion-icon name="navigate"></ion-icon>
+            <ion-text class="title">{{'DIRECTION' | translate}}</ion-text>
+          </ion-row>
+        </ion-button>
+      </ng-container>
+      <ng-container *ngIf="isShowDiagnosticPlay && !showPublicClassDiagnostic">
+        <ion-button class="navigator-button-row navigate-button" shape="round" (click)="onDiagnosticPlay()">
+          <ion-row>
+            <ion-icon name="navigate"></ion-icon>
+            <ion-text>{{'TAKE_THE_DIAGNOSTIC' | translate}}</ion-text>
+          </ion-row>
+        </ion-button>
+      </ng-container>
+      <ng-container *ngIf="showPublicClassDiagnostic">
+        <ion-button class="navigator-button-row navigate-button" (click)="onClickDirection()" shape="round">
+          <ion-row>
+            <ion-icon name="navigate"></ion-icon>
+            <ion-text class="title">{{'DIRECTION' | translate}}</ion-text>
+          </ion-row>
+        </ion-button>
+      </ng-container>
+      <ng-container *ngIf="isBaseLineInProgress && !showPublicClassDiagnostic">
+        <ion-text class="baseline-message">{{'BASELINE_TAKING_TIME_MSG' | translate}}</ion-text>
+      </ng-container>
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="navigator-info-content">
+  <ng-container *ngIf="currentGrade && currentGrade.description;else noDescription">
+    <ion-row class="grade-info" [innerHtml]="currentGrade.description"></ion-row>
+  </ng-container>
+  <ng-template #noDescription>
+    <ion-row class="no-description">
+      <ion-text>
+        {{'NO_DATA_AVAILABLE' | translate}}
+      </ion-text>
+    </ion-row>
+  </ng-template>
+</ion-content>

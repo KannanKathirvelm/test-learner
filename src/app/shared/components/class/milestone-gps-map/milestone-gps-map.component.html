@@ -1,0 +1,29 @@
+<canvas class="milestone-gps-map-blank-route" #mapElementBlankRoute [width]="contentWidth" [height]="contentHeight"></canvas>
+<canvas class="milestone-gps-map" #mapElement [width]="contentWidth" [height]="contentHeight"></canvas>
+<img class="milestone-icon hidden" src="assets/images/icons/milestone-flag.svg" #milestoneIconElement />
+<img class="domain-icon  hidden" src="assets/images/icons/domain-icon.svg" #domainIconElement />
+<img class="topic-icon  hidden" src="assets/images/icons/topic-icon.svg" #topicIconElement />
+<img class="competency-icon  hidden" src="assets/images/icons/competency-icon.svg" #competencyIconElement />
+<img class="destination-icon hidden" src="assets/images/icons/destination-red.svg" #destinationIconElement />
+<img class="initial-grade-icon hidden" src="assets/images/icons/initial-grade.svg" #startPointIconElement />
+<img class="publisher-icon hidden" src="assets/images/icons/resource.svg" #publisherIconElement />
+<img class="location-icon hidden" src="assets/images/icons/map-icons/nav-icon.svg" #locationIconElement />
+<img class="location-animate-icon" *ngIf="isShowCurrentLocationAnimation && !(currentZoomLevel > 0)" (click)="handleCurrentLocationPopOver($event)" [ngStyle]="{left: currentLocationPosition.left+ 'px', top: currentLocationPosition.top+ 'px'}" src="assets/images/ripple.svg" />
+<ng-container *ngIf="currentZoomLevel > 0">
+  <ion-row class="zoom-out-btn-container" (click)="zoomOut()">
+    <img class="zoom-out-icon" src="assets/images/icons/zoom_out.svg" />
+  </ion-row>
+</ng-container>
+<ng-container *ngFor="let image of resourceDefaultImages">
+  <img class="{{image.id}} hidden" [src]="image.url" />
+</ng-container>
+<ng-container *ngFor="let image of resourceLoaderImages">
+  <img class="{{image.id}} resource-loader hidden" [src]="image.url" />
+</ng-container>
+<ion-row class="current-location-popover hide" #popoverElement>
+  <your-location-popover *ngIf="currentLesson && currentLocation" [lessonSequence]="lessonSequence" [currentLesson]="currentLesson" [collection]="collection" [currentLocation]="currentLocation"></your-location-popover>
+</ion-row>
+<ion-row *ngIf="isShowCurrentLocation" class="overlay" (click)="toggleCurrentLocationPopOver()">
+</ion-row>
+<ion-row *ngIf="isLoadingContent" class="overlay">
+</ion-row>

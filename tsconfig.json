@@ -1,0 +1,44 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "baseUrl": "src",
+    "outDir": "./dist/out-tsc",
+    "sourceMap": true,
+    "declaration": false,
+    "skipLibCheck": true,
+    "paths": {
+      "@app/*": ["app/*"],
+      "@environment/*": ["environments/*"],
+      "@components/*": ["app/components/*"],
+      "@models/*": ["app/models/*"],
+      "@pages/*": ["app/pages/*"],
+      "@providers/*": ["app/providers/*"],
+      "@pipes/*": ["app/pipes/*"],
+      "@utils/*": ["app/utils/*"],
+      "@constants/*": ["app/constants/*"],
+      "@directives/*": ["app/directives/*"],
+      "@stores/*": ["app/stores/*"],
+      "@shared/*": ["app/shared/*"],
+      "@tours/*": ["app/tours/*"],
+      "@config/*": ["config/*"],
+      "@assets/*": ["assets/*"]
+    },
+    "module": "esnext",
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "es2015",
+    "typeRoots": [
+      "node_modules/@types"
+    ],
+    "lib": [
+      "es2018",
+      "dom"
+    ]
+  },
+  "angularCompilerOptions": {
+    "fullTemplateTypeCheck": true,
+    "strictInjectionParameters": true
+  }
+}

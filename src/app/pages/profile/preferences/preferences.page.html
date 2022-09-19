@@ -1,0 +1,53 @@
+<ion-content class="preferences-container">
+
+  <ion-row class="toggle-row" *ngIf="tenantValue === 'on'">
+    <ion-col class="toggle-content ion-no-padding">
+      <ion-text class="toggle-title title">{{ 'DATA_VISIBILITY' | translate }}</ion-text>
+      <ion-row>
+        <ion-text class="toggle-title description">{{ 'DATA_VISIBILITY_MSG' | translate }}</ion-text>
+      </ion-row>
+    </ion-col>
+    <ion-col class="toggle-button ion-no-padding">
+      <ion-toggle class="toggle-icon ion-no-padding" [(ngModel)]="dataVisibility" (ionChange)="onToggleDataVisibility($event)"></ion-toggle>
+    </ion-col>
+  </ion-row>
+
+  <preferences-category-panel *ngIf="classificationType" (selectFramework)="onSelectFramework($event)" (deleteCategory)="onDeleteCategory($event)" [classificationType]="classificationType"></preferences-category-panel>
+  <!-- <div class="card-container">
+    <div class="preferences-slider">
+      <div class="content">
+        <ion-icon class="icon-video"></ion-icon>
+        <ion-range min="1000" max="2000" step="100" snaps="true" ticks="false" color="secondary"></ion-range>
+        <span class="text">{{ 'VIDEO' | translate }}</span>
+      </div>
+    </div>
+    <div class="preferences-slider">
+      <div class="content">
+        <span class="material-icons icon-audio">volume_up</span>
+        <ion-range min="1000" max="2000" step="100" snaps="true" ticks="false" color="secondary"></ion-range>
+        <span class="text">{{ 'AUDIO' | translate }}</span>
+      </div>
+    </div>
+    <div class="preferences-slider">
+      <div class="content">
+        <ion-icon class="icon-text"></ion-icon>
+        <ion-range min="1000" max="2000" step="100" snaps="true" ticks="false" color="secondary"></ion-range>
+        <span class="text">{{ 'TEXT' | translate }}</span>
+      </div>
+    </div>
+    <div class="preferences-slider">
+      <div class="content">
+        <ion-icon class="icon-webpage"></ion-icon>
+        <ion-range min="1000" max="2000" step="100" snaps="true" ticks="false" color="secondary"></ion-range>
+        <span class="text">{{ 'WEBPAGE' | translate }}</span>
+      </div>
+    </div>
+    <div class="preferences-slider">
+      <div class="content">
+        <ion-icon class="icon-interactive"></ion-icon>
+        <ion-range min="1000" max="2000" step="100" snaps="true" ticks="false" color="secondary"></ion-range>
+        <span class="text">{{ 'INTERACTIVE' | translate }}</span>
+      </div>
+    </div>
+  </div> -->
+</ion-content>

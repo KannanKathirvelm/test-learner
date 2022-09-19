@@ -1,0 +1,132 @@
+<div *ngIf="offlineActivity" class="offline-activity-panel" [ngClass]="{'completed': isOaCompleted}">
+  <div class="header-container">
+    <div class="title-container">
+      <ion-icon class="nav-offline-activity"></ion-icon>
+      <span class="title">{{offlineActivity.title}}</span>
+    </div>
+    <div class="thumbnail-container" [ngStyle]="{'background-image': offlineActivity.thumbnailUrl ? 'url(' + offlineActivity.thumbnailUrl + ')' : ''}">
+      <div class="oa-meta-info">
+        <div class="first-layer">
+          <nav-taxonomy-list *ngIf="offlineActivity.standards" [taxonomy]="offlineActivity.standards" showCount="2"></nav-taxonomy-list>
+          <div *ngIf="offlineActivity.authorEtlSecs > 0" class="etc">ETC: {{etlTime}}</div>
+        </div>
+        <div class="second-layer">
+          <div class="project-info">
+            <span>{{'PROJECT' | translate}}: </span>
+            <span>{{ offlineActivity.subFormat | translate }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="details-container">
+      <div class="oa-title">
+        <ion-text>{{offlineActivity.title}}</ion-text>
+        <div class="info-icon" (click)="isShowMoreInfo = !isShowMoreInfo" *ngIf="(offlineActivity.standards | keyvalue)?.length">
+          <i class="material-icons info">info_outlined</i>
+        </div>
+      </div>
+      <div class="info-panel" [@collapse]="isShowMoreInfo">
+        <nav-reef class="hidden"></nav-reef>
+        <nav-taxonomy-list *ngIf="offlineActivity.standards" [taxonomy]="offlineActivity.standards"></nav-taxonomy-list>
+      </div>
+      <div class="description-container" *ngIf="offlineActivity.learningObjectives">
+        <ion-text class="description-text">
+          {{ offlineActivity.learningObjectives }}
+        </ion-text>
+      </div>
+    </div>
+  </div>
+  <div class="body-container">
+    <ng-container *ngIf="offlineActivity.references">
+      <div class="reference-container">
+        <div class="reference-title-container">
+          <div class="icon-wrapper">
+            <ion-icon class="nav-text-resource-light icon"></ion-icon>
+          </div>
+          <div class="title-container">
+            <ion-text class="reference-title">{{'STUDENT_REFERENCE' | translate }} | </ion-text>
+            <ion-text class="reference-count">
+              {{offlineActivity.references.length}}
+              <span *ngIf="offlineActivity.references.length > 1; else linkTextTemplate">
+                {{ 'LINKS' | translate}}
+              </span>
+              <ng-template #linkTextTemplate>
+                {{ 'LINK' | translate}}
+              </ng-template>
+            </ion-text>
+          </div>
+        </div>
+        <div class="reference-link-list">
+          <ion-text class="reference-link" inAppBrowser [url]="reference.location" *ngFor="let reference of offlineActivity.references; let i=index">{{reference.name}}</ion-text>
+        </div>
+        <div class="hz-line"></div>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="offlineActivity.tasks && oaSubmissions">
+      <div class="task-container" *ngFor="let task of offlineActivity.tasks; let i=index">
+        <offline-activity-task [task]="task" [playerContext]="playerContext" [oaTimespent]="timespentInMilliSec" [isPreview]="isOaCompleted" [isStudyPlayer]="isStudyPlayer" [sequenceId]="i+1" (taskValidate)="checkValidation($event)">
+        </offline-activity-task>
+      </div>
+      <div class="timespent-container">
+        <div class="timespent-header">
+          <ion-icon class="time-icon" name="time"></ion-icon>
+          <span class="timespent-label">{{'TIMESPENT' | translate}}</span>
+          <ion-icon class="toggle-icon" name="{{isToggleTimespent ? 'arrow-dropdown' : 'arrow-dropup'}}" (click)="isToggleTimespent = !isToggleTimespent"></ion-icon>
+        </div>
+        <form [formGroup]="offlineForm" (ngSubmit)="onSaveTimespent()" class="offline-form" autofill="off">
+          <div class="timespent-body" [ngClass]="{'read-only': isOaCompleted}" [@collapse]="isToggleTimespent">
+            <ion-input class="timespent" name="hours" formControlName="hours" min="0" type="number" [(ngModel)]="timeSpent.hour"> h</ion-input>
+            <ion-input class="timespent" name="minute" formControlName="minute" min="0" max="59" type="number" [(ngModel)]="timeSpent.minute"> m</ion-input>
+          </div>
+          <div *ngIf="offlineForm.controls.minute.errors" class="minute-error-msg">
+            <span>{{'INVALID_MINUTES' | translate}}</span>
+          </div>
+          <div *ngIf="!isOaCompleted" class="timespent-footer" [@collapse]="isToggleTimespent">
+            <ion-button type="submit" class="save" [disabled]="timeSpentSaveIsDisabled">{{'SAVE' | translate}}</ion-button>
+          </div>
+        </form>
+      </div>
+      <div class="hz-line"></div>
+    </ng-container>
+    <ng-container *ngIf="!isOaCompleted">
+      <div class="progress-report">
+        <div class="completed-percentage">
+          <div class="fill-layer" [ngStyle]="{'height': completedPercentage + '%'}"></div>
+          <div class="percentage-value">{{completedPercentage | transformPerformanceScore}}</div>
+          <div class="percentage-label">{{'COMPLETED' | translate}}</div>
+        </div>
+        <div class="progress-info">
+          <div class="total-task report-info">
+            <span class="task-value">{{offlineActivity.tasks.length}}</span>
+            <span class="label-text">{{'TASKS' | translate}}</span>
+          </div>
+          <div class="timespent-report report-info">
+            <span class="timespent-value">{{timeSpent.hour}}h {{timeSpent.minute}}m</span>
+            <span class="label-text">{{'TIMESPENT' | translate}}</span>
+          </div>
+          <div class="completed-task report-info">
+            <span class="task-value">{{completedTasks.length}}</span>
+            <span class="label-text">{{'COMPLETED' | translate}}</span>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+  <div class="footer-container">
+    <ion-button *ngIf="!isOaCompleted && !isSubmitted" class="mark-complete-btn" (click)="toggleConfirmation()" [ngClass]="{'disabled': !isEnableCompletionButton}">{{'MARK_COMPLETED' | translate}}</ion-button>
+    <div class="confirmation-container" *ngIf="isSubmitted">
+      <div class="content-container">
+        <ion-text class="title-text">{{ 'OA_COMPLETE_CONFIRMATION' | translate }}</ion-text>
+      </div>
+      <div class="confirmation-btn">
+        <ion-button class="cancel-btn" (click)="toggleConfirmation()">{{ 'NO' | translate }}</ion-button>
+        <ion-button class="confirm-btn" (click)="markOACompleted()">{{ 'YES' | translate }}</ion-button>
+      </div>
+    </div>
+    <div *ngIf="isOaCompleted && offlineActivity && oaSubmissions" class="player-grading">
+      <offline-activity-grading [isTeacherGraded]=isTeacherGraded [offlineActivity]="offlineActivity" [activityId]="playerContext.caContentId" [classId]="playerContext.classId" [submissions]="oaSubmissions" (showAlert)="showAlert()">
+      </offline-activity-grading>
+    </div>
+  </div>
+  <nav-custom-alert *ngIf="showSuccessAlert" (dismissAlert)="dismissAlert($event)" [successMessage1]="successMessage1" [successMessage2]="successMessage2"></nav-custom-alert>
+</div>

@@ -1,0 +1,106 @@
+.student-home-header {
+  &::after {
+    background-image: none;
+  }
+
+  ion-toolbar {
+    --background: var(--student-home-header-bg);
+    --color: var(--student-home-header-color);
+    --border-width: 0;
+
+    ion-grid {
+      display: flex;
+      padding: 14px;
+      align-items: baseline;
+
+      .menu-row {
+        margin-right: 5px;
+
+        ion-buttons {
+          height: 24px;
+          width: 24px;
+
+          ion-menu-button {
+            --padding-start: 0;
+            --padding-end: 0;
+            --color: var(--menu-icon-color);
+            width: 24px;
+          }
+        }
+      }
+
+      .navigation-row {
+        width: 100%;
+
+        ::ng-deep navigation-bar {
+          width: 100%;
+        }
+      }
+    }
+  }
+}
+
+.student-home-container {
+  --background: var(--student-home-bg);
+
+  ::ng-deep #student-home-refresher {
+    ion-refresher-content {
+      background-color: var(--student-home-bg);
+    }
+  }
+
+  .journey-tab {
+    display: none;
+
+    &.show-recent-journey-tab {
+      display: flex;
+    }
+
+    &.show-recommended-journey-tab {
+      display: block;
+    }
+  }
+
+  .program-navigate-card {
+    width: 100%;
+  }
+
+  .no-featured-course {
+    color: white;
+    font-size: 16px;
+    font-style: italic;
+    text-align: center;
+    margin: 20px auto;
+    width: 90%;
+
+    ion-text {
+      margin: auto;
+    }
+  }
+}
+
+.student-home-tabs {
+  background-color: var(--student-home-tabs);
+  --min-height: 40px;
+
+  .journey-tab-border {
+    border-bottom: 4px solid var(--journey-tab-border);
+  }
+
+  .tab-item {
+    --background: var(--student-home-tabs);
+    color: var(--journey-tab-border);
+    font-size: 13px;
+    --border-style: none;
+
+    .tab-label {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: initial;
+      white-space: normal;
+      text-align: center;
+      margin: 0;
+    }
+  }
+}

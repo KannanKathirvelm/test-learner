@@ -1,0 +1,55 @@
+.journey-report-container {
+  background-color: var(--journey-report-container);
+  width: 100%;
+  overflow-y: auto;
+  z-index: 13;
+  max-height: calc(100% - 76px);
+}
+
+.milestone-report-block {
+  width: 100%;
+}
+
+.journey-report-header-row {
+  padding: 16px 16px 0;
+  width: 100%;
+  background-color: var(--journey-report-container);
+  height: 76px;
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+  z-index: 13;
+
+  .journey-report-header-col {
+    display: grid;
+    align-items: center;
+    font-weight: 700;
+
+    .time-spent-count {
+      ion-text {
+        font-size: 0.8rem;
+      }
+
+      .time-lapsed {
+        margin-right: 3px;
+      }
+
+      .total-time {
+        color: var(--milestone-report-time);
+      }
+    }
+  }
+
+  .close-icon-col {
+    justify-content: flex-end;
+    align-items: center;
+    display: flex;
+
+    ion-icon {
+      font-size: 40px;
+    }
+  }
+}
+
+.backdrop {
+  z-index: 4;
+}

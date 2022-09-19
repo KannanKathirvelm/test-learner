@@ -1,0 +1,42 @@
+  <ion-header class="user-subject-header" no-border>
+    <ion-toolbar>
+      <ion-row class="user-subject-header-container">
+        <ion-text class="material-icons" (click)="onClose()">keyboard_backspace</ion-text>
+        <ion-text class="user-subject-label">
+          {{'CHOOSE_A_USER_SUBJECT'| translate}}
+        </ion-text>
+      </ion-row>
+    </ion-toolbar>
+  </ion-header>
+  <div class="user-subject-chart">
+    <ng-container *ngIf="subjectCompetencyMatrixData;else loader">
+      <ion-row class="user-subject-title-container" [ngStyle]="{'width': subjectCompetencyMatrixData.length * userSubjectWidth + 'px'}">
+        <ion-text class="user-subject-title" [ngStyle]="{'width': userSubjectWidth + 'px'}" [ngClass]="{'active' : userSubject && userSubject.isActive}" *ngFor="let userSubject of subjectCompetencyMatrixData;index as sequence" (click)="onChooseUserSubject(userSubject)">
+          <ng-container *ngIf="userSubject">
+            {{userSubject.subjectName}}
+          </ng-container>
+        </ion-text>
+      </ion-row>
+    </ng-container>
+    <div id="user-subject-chart-view">
+    </div>
+    <ion-row *ngIf="subjectCompetencyMatrixData" class="line" [ngStyle]="{'width': subjectCompetencyMatrixData.length * userSubjectWidth + 'px'}">
+    </ion-row>
+    <ng-container *ngIf="subjectCompetencyMatrixData">
+      <ion-row class="user-subject-placeholder" [ngStyle]="{'width': subjectCompetencyMatrixData.length * userSubjectWidth + 'px'}">
+        <ion-col class="user-subject-count" *ngFor="let userSubject of subjectCompetencyMatrixData;index as sequence" (click)="onChooseUserSubject(userSubject)">
+          <ng-container *ngIf="userSubject">
+            <ion-text class="user-subject-mastered-count">
+              {{userSubject.masteredCompetenciesCount}}
+            </ion-text>
+            <ion-text class="user-subject-total-competencies">
+              {{'OF'| translate}} {{userSubject.totalCompetenciesCount}}
+            </ion-text>
+          </ng-container>
+        </ion-col>
+      </ion-row>
+    </ng-container>
+    <ng-template #loader>
+      <ion-spinner class="subject-competency-loader" name="bubbles"></ion-spinner>
+    </ng-template>
+  </div>

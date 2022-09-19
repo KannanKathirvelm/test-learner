@@ -1,0 +1,88 @@
+.navigation-bar {
+  display: grid;
+  grid-gap: 16px;
+
+  %navigator-input {
+    margin-left: 5px;
+    height: 33px;
+    border-radius: 2px;
+    font-size: 14px;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.24), 0 0 2px 0 rgba(0, 0, 0, 0.12);
+    --padding-start: 10px;
+    --placeholder-color: var(--white);
+    --placeholder-font-weight: 50px;
+    --background: rgba(255, 255, 255, 0.26);
+    --placeholder-opacity: 3;
+    --padding-end: 30px;
+  }
+
+  .start-location-row {
+    .location-icon-col {
+      width: 30px;
+
+      .navigator-logo-img {
+        width: 24px;
+        height: 24px;
+        background-image: var(--navmath-logo);
+        background-position: center;
+        background-size: 100%;
+        margin: auto;
+        background-repeat: no-repeat;
+        border-radius: 50%;
+        border: 1px solid var(--white);
+      }
+    }
+
+    .your-location-col {
+      width: calc(100% - 30px);
+      overflow: inherit;
+      position: relative;
+      align-items: center;
+
+      ion-input {
+        @extend %navigator-input;
+      }
+
+      .menu-icon {
+        width: 42px;
+        display: flex;
+        justify-content: center;
+        position: absolute;
+        right: 0;
+
+        i {
+          font-size: 28px;
+          z-index: 11111;
+        }
+      }
+    }
+  }
+
+  .destination-row {
+    .destination-icon-col {
+      width: 30px;
+      position: relative;
+
+      .destination-icon {
+        width: 14px;
+        height: 45px;
+        background-image: var(--place);
+        background-position: center;
+        background-size: contain;
+        margin: auto;
+        background-repeat: no-repeat;
+        position: absolute;
+        left: 8px;
+        top: -18px;
+      }
+    }
+
+    .destination-col {
+      width: calc(100% - 30px);
+
+      ion-input {
+        @extend %navigator-input;
+      }
+    }
+  }
+}

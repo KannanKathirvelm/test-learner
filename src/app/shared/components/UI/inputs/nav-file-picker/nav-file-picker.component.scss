@@ -1,0 +1,102 @@
+.nav-file-picker {
+  width: 104px;
+  height: 104px;
+
+  .file-preview {
+    position: relative;
+    width: inherit;
+    height: inherit;
+    border: 1px solid rgba(151, 151, 151, 0.4);
+    ion-img {
+      width: 100%;
+      height: 100%;
+      margin: auto;
+      object-fit: cover;
+      &.uploading {
+        opacity: 0.3;
+      }
+    }
+    .icon-preview {
+      width: inherit;
+      height: inherit;
+      display: grid;
+      align-items: center;
+      justify-content: center;
+      .fa-file-powerpoint-o {
+        background: var(--oa-ppt-icon);
+      }
+
+      .fa-file-pdf-o {
+        background: var(--oa-pdf-icon);
+      }
+
+      .fa-file-word-o {
+        background: var(--oa-word-icon);
+      }
+
+      .fa-file-image-o {
+        background: var(--oa-image-icon);
+      }
+
+      .fa-file-pdf-o,
+      .file-icon {
+
+        height: 48px;
+        background-repeat: no-repeat;
+        width: 48px;
+        background-position: center;
+      }
+    }
+    .remove-file  {
+      position: absolute;
+      top: -5px;
+      right: -5px;
+      background-color: rgba(255, 255, 255, 0.8);
+      width: 25px;
+      height: 25px;
+      border-radius: 50%;
+      display: grid;
+      justify-content: center;
+      align-items: center;
+      ion-icon {
+        color: var(--dark-400);
+        font-size: 19px;
+      }
+    }
+
+    .spinner-dots {
+      position: absolute;
+      top: 40px;
+      left: 35px;
+    }
+  }
+  .file-pick {
+    position: relative;
+    width: inherit;
+    height: inherit;
+    border: 1px dashed rgba(151, 151, 151, 0.6);
+    display: grid;
+    align-items: baseline;
+    grid-template-rows: 1fr 1fr;
+    justify-content: center;
+    ion-icon {
+      font-size: 50px;
+      color: rgba(151, 151, 151, 0.6);
+      margin-top: 15px;
+    }
+    .label-text {
+      font-size: 11px;
+      opacity: 0.5;
+      color: var(--white);
+      text-align: center;
+    }
+    .file-input {
+      position: absolute;
+      opacity: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      bottom: 0;
+    }
+  }
+}

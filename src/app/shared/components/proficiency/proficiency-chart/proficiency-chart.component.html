@@ -1,0 +1,105 @@
+<div class="learner-proficiency-chart" [ngClass]="{'disabled': isSkeletonChart}">
+  <div class="chart-header" *ngIf="showHeader">
+  <mat-accordion>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header class="profile-header">
+       <span class="title">{{ 'COURSE_INFO' | translate }}</span>
+       <ion-row class="chart-icons ion-no-padding">
+        <ion-row class="legend-icon">
+          <i class="material-icons" (click)="onClickLegend($event)">info_outlined</i>
+        </ion-row>
+        <ion-row class="info-popover" *ngIf="showLegendInfoPopover">
+          <ion-text class="label">
+            {{ 'LEGEND_INFO_POPOVER_MSG' | translate }}
+          </ion-text>
+          <ion-text (click)="onCloseLegendInfoPopover()" class="close material-icons">close</ion-text>
+        </ion-row>
+      </ion-row>
+      </mat-expansion-panel-header>
+        <ion-row class="actions disabled" [ngClass]="{'disabled': enableNavigatorProgram}">
+          <ion-row class="categories" [ngClass]="{ 'no-active-grade': !activeGrade }" *ngIf="taxonomyGrades && !isProfileProficiency && !isClassProficiency">
+            <ng-container *ngIf="masteredCompetencies && activeGrade;else gradeDropdown">
+              <ion-label class="mastered-label">{{activeGrade.grade}}</ion-label>
+            </ng-container>
+            <ng-template #gradeDropdown>
+              <ion-row class="header-text"><ion-label>{{ 'DESTINATION' | translate }}</ion-label></ion-row>
+              <ion-item lines="none">
+                <ion-select [compareWith]="compareWithCode" disabled="{{!isProfileProficiency}}" (ionChange)="selectGrade($event)" [value]="activeGrade" dropdownScrollIntoView>
+                  <ion-select-option *ngFor="let taxonomyGrade of taxonomyGrades" [value]="taxonomyGrade">{{ taxonomyGrade.grade }}</ion-select-option>
+                </ion-select>
+              </ion-item>
+            </ng-template>
+          </ion-row>
+          <ion-row class="categories" *ngIf="subjects && activeSubject && !isProfileProficiency && !isClassProficiency">
+            <ng-container *ngIf="masteredCompetencies && activeSubject;else subjectDropdown">
+              <ion-label class="mastered-label">{{activeSubject.title}}</ion-label>
+            </ng-container>
+            <ng-template #subjectDropdown>
+                <ion-row class="header-text"><ion-label>{{ 'FACETS' | translate }}</ion-label></ion-row>
+                <ion-item lines="none">
+                  <ion-select [compareWith]="compareWithCode" disabled="{{!isProfileProficiency}}" (ionChange)="onSelectSubject($event)" [value]="activeSubject" dropdownScrollIntoView>
+                    <ion-select-option *ngFor="let subject of subjects" [value]="subject">{{subject.id}} / {{class.preference.framework}}</ion-select-option>
+                  </ion-select>
+                </ion-item>
+            </ng-template>
+          </ion-row>
+          <!-- profile proficiency view -->
+          <ion-row class="categories" *ngIf="categories && activeCategory && !isProfileProficiency && isClassProficiency && taxonomyGrades && taxonomyGrades.length">
+            <ion-item lines="none">
+              <ion-select [compareWith]="compareWithCode" (ionChange)="selectGrade($event)" [value]="activeGrade" dropdownScrollIntoView>
+                <ion-select-option *ngFor="let taxonomyGrade of taxonomyGrades" [value]="taxonomyGrade">{{ taxonomyGrade.grade }}</ion-select-option>
+              </ion-select>
+            </ion-item>
+        </ion-row>
+          <ion-row class="categories" *ngIf="(categories && activeCategory && isProfileProficiency) || isClassProficiency">
+              <ion-item lines="none">
+                <ion-select [compareWith]="compareWithCode" (ionChange)="onSelectCategory($event)" [value]="activeCategory" dropdownScrollIntoView>
+                  <ion-select-option *ngFor="let category of categories" [value]="category">{{ category.title }}</ion-select-option>
+                </ion-select>
+              </ion-item>
+          </ion-row>
+          <ion-row class="categories" *ngIf="(subjects && activeSubject && isProfileProficiency) || isClassProficiency">
+                <ion-item lines="none">
+                  <ion-select [compareWith]="compareWithCode" (ionChange)="onSelectSubject($event)" [value]="activeSubject" dropdownScrollIntoView>
+                    <ion-select-option *ngFor="let subject of subjects" [value]="subject">{{ subject.title }}</ion-select-option>
+                  </ion-select>
+                </ion-item>
+          </ion-row>
+          <!-- profile proficiency view end -->
+        </ion-row>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+  <div class="chart-view">
+    <div class="graph-visual">
+      <div class="domain-list">
+        <div class="domain-info" [ngClass]="{'collapsed': !domain.isExpanded, 'expanding': isExpanding, 'active': domain.isActive}" (click)="onCloseDomain(domain)" *ngFor="let domain of chartData;index as domainSeq"
+          [ngStyle]="{'min-width': (domain.isExpanded ? domain.topics.length * cellWidth : cellWidth) + 'px' }">
+          <ion-row class="domain-number">
+            <ion-text class="ellipsis">{{domain.domainName}}</ion-text>
+            <ion-text class="close material-icons">close</ion-text>
+          </ion-row>
+        </div>
+      </div>
+      <div [ngClass]="{'disabled': isDefaultSkyline}" class="scrollable-chart" #chartContainer>
+        <div id="chart-area" [ngClass]="{ 'expanded-chart': isShowExpandedGraph }">
+        </div>
+      </div>
+      <div class="domains-seq-list" [ngClass]="{'disabled': isDefaultSkyline}" *ngIf="domainCoordinates">
+        <div class="domain-seq domain-{{domain.domainSeq}}" [ngClass]="{'expanded' : domain.isExpanded,'expanding': isExpanding, 'show-mastered-competency': domain.isShowMasteredCompetency }" *ngFor="let domain of chartData;index as domainSeq"
+          [ngStyle]="{ width: cellWidth + 'px' }">
+          <div class="topics-seq-list">
+            <div class="topic-seq domain-{{domain.domainSeq}}-topic-{{topic.topicSeq}}" *ngFor="let topic of domain.topics" [ngStyle]="{ width: cellWidth + 'px' }">
+              <span (click)="onSelectTopic(topic,domain)">
+                {{domain.domainSeq}}.{{topic.topicSeq}}
+              </span>
+            </div>
+          </div>
+          <span *ngIf="!domain.isExpanded" class="domain-seq-value" (click)="onExpandDomain(domain)">
+            {{domain.domainSeq}}
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

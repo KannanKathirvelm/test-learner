@@ -1,0 +1,80 @@
+.class-card-list-container {
+  overflow: hidden;
+
+  .class-card-list {
+    overflow: auto;
+
+    .class-list-dropdown {
+      width: 100vw;
+      color: white;
+      margin: 20px 20px 0;
+
+      .header-col {
+        .classroom-title {
+          font-weight: bold;
+          font-size: 14px;
+        }
+      }
+
+      .arrow-col {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+      }
+    }
+
+    .class-card-list-row {
+      display: grid;
+      grid-auto-flow: column;
+      overflow-x: auto !important;
+      margin-right: 20px;
+
+      &.single-class-card {
+        margin: auto;
+
+        ::ng-deep nav-premium-class-card {
+          .premium-class {
+            margin: 15px 0;
+          }
+        }
+      }
+    }
+  }
+
+  .join-class-card-container {
+    width: 100%;
+
+    .join-class-card {
+      width: 100%;
+    }
+  }
+}
+
+.classroom-label {
+  width: calc(100% - 48px);
+  margin: 20px auto 8px;
+  color: var(--classroom-txt);
+  font-size: 13px;
+  padding-left: 8px;
+}
+
+.show-more {
+  width: 100%;
+  color: var(--classroom-txt);
+  text-transform: uppercase;
+
+  ion-text {
+    margin: auto auto 24px;
+    font-size: 13px;
+    font-weight: bold;
+  }
+}
+
+.no-class-view {
+  width: 90%;
+  margin: 20px auto;
+  font-style: italic;
+  color: var(--no-class-text-color);
+  text-align: center;
+  justify-content: center;
+}

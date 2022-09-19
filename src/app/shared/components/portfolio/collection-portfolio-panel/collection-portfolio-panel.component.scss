@@ -1,0 +1,123 @@
+.portfolio-card-container {
+  border-radius: 0;
+  margin: auto;
+  padding: 0 10px;
+  width: 100%;
+
+  .portfolio-card {
+    margin: auto;
+    height: 50px;
+    display: grid;
+    grid-template-columns: 1fr 48px;
+    background: var(--profile-color);
+    border-bottom: 1px solid var(--portfolio-border-color);
+
+    .portfolio-title {
+      display: grid;
+      margin: auto 0;
+      padding-left: 8px;
+      font-family: var(--sans);
+
+      .title {
+        font-size: 12px;
+        color: var(--portfolio-bg-color);
+      }
+    }
+
+    .portfolio-icon {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: var(--portfolio-search-icon-color);
+      background: var(--portfolio-border-color);
+
+      .activity-performance {
+        width: 50px;
+        height: 48px;
+
+        span {
+          display: flex;
+          height: 100%;
+          align-items: center;
+          width: 100%;
+          justify-content: center;
+        }
+      }
+
+      .timespent {
+        width: 100%;
+        margin: auto;
+        justify-content: center;
+        display: flex;
+        background-color: var(--portfolio-timespent-color);
+        font-size: 10px;
+        color: var(--portfolio-content-color);
+      }
+    }
+  }
+
+  ion-grid {
+    width: 100%;
+
+    .portfolio-status-container {
+      margin: auto;
+      height: 32px;
+      width: 100%;
+      background: var(--profile-color);
+      border-bottom: 1px solid var(--portfolio-border-color);
+
+      .portfolio-count {
+        display: flex;
+        padding-left: 7px;
+        align-items: center;
+
+        ::ng-deep .taxonomy-list {
+          .item {
+            height: 20px;
+            border-radius: 12px;
+            background-color: var(--taxonomy-list-color);
+            min-width: max-content;
+
+            .label {
+              max-width: 11em;
+              padding-right: 5px;
+              padding-left: 5px;
+              color: var(--taxonomy-list-font-color);
+              font-size: 12px;
+              font-weight: 700;
+
+              .sub-label {
+                display: none;
+              }
+            }
+          }
+
+          .more-items {
+            opacity: 0.3;
+          }
+        }
+      }
+
+      .status {
+        display: flex;
+        align-items: center;
+        color: var(--portfolio-search-icon-color);
+        font-family: var(--sans);
+        font-size: 12px;
+        text-align: right;
+        justify-content: flex-end;
+        padding-right: 10px;
+
+        span {
+          text-transform: capitalize;
+        }
+
+        .date {
+          padding-left: 5px;
+          font-weight: bold;
+          color: var(--portfolio-bg-color);
+        }
+      }
+    }
+  }
+}

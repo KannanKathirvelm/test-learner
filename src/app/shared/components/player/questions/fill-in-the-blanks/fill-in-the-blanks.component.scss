@@ -1,0 +1,374 @@
+.fill-in-the-blanks-question {
+  padding: 10px 10px 0;
+  position: relative;
+
+  %blur-content {
+    filter: blur(1.2px);
+    transition: filter 2s;
+    -webkit-filter: blur(1.2px);
+  }
+
+  &.disabled {
+    opacity: 0.5;
+  }
+
+  .header-section {
+    display: flex;
+    color: var(--player-content-title-color);
+
+    .type {
+      flex: 1;
+      opacity: 0.7;
+      font-size: 11px;
+      line-height: 1.45;
+    }
+
+    .toggle-icon {
+      ion-icon {
+        width: 22px;
+        height: 20px;
+      }
+    }
+  }
+
+  .answer-container {
+    width: 100%;
+
+    .answer-content {
+      width: 100%;
+    }
+
+    .reaction-row {
+      width: 100%;
+    }
+  }
+
+  .question-container {
+    display: grid;
+    grid-template-columns: auto max-content;
+    padding-bottom: 10px;
+    grid-gap: 5px;
+
+    .title-container {
+      display: flex;
+      color: var(--player-content-title-color);
+      flex-direction: column;
+
+      .title {
+        font-size: 16px;
+        line-height: 1.33;
+
+        ::ng-deep {
+          span {
+            font-family: var(--sans);
+            font-size: 16px;
+            font-style: italic;
+          }
+        }
+      }
+    }
+
+    .performance-content {
+      height: 56px;
+      width: 56px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .info-icon {
+      display: flex;
+      justify-content: flex-end;
+      color: var(--white);
+      width: 48px;
+
+      i {
+        width: 22px;
+        height: 20px;
+        font-size: 20px;
+        margin: 0;
+      }
+    }
+  }
+
+  .info {
+    height: 100%;
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    grid-gap: 10px;
+
+    &.active {
+      nav-taxonomy-list {
+        padding-bottom: 10px;
+      }
+    }
+
+    nav-taxonomy-list {
+      display: flex;
+      align-items: center;
+
+      ::ng-deep {
+        .taxonomy-list {
+          .item {
+            margin: 0;
+            border-radius: 4px;
+          }
+        }
+      }
+    }
+  }
+
+  .timespent-container {
+    height: 40px;
+    color: var(--white);
+    display: grid;
+    grid-template-columns: 10% auto 10% 15%;
+    align-items: center;
+
+    .clock-icon {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      grid-column-start: 1;
+      width: 35px;
+    }
+
+    .timespent-text {
+      grid-column-start: 2;
+      display: flex;
+      align-items: center;
+      font-size: 15px;
+    }
+
+    .reaction-icon {
+      display: flex;
+      grid-column-start: 3;
+      justify-content: center;
+    }
+
+    .show-answer-col {
+      display: flex;
+      align-items: center;
+      grid-column-start: 4;
+      justify-content: center;
+
+      .incorrect {
+        background-image: var(--wrong);
+        background-repeat: no-repeat;
+        background-position: center;
+        height: 24px;
+        width: 24px;
+      }
+
+      .correct {
+        background-image: var(--correct-answer-icon);
+        background-repeat: no-repeat;
+        background-position: center;
+        height: 24px;
+        width: 24px;
+      }
+
+      .partial-correct {
+        background-image: var(--partial-correct-icon);
+        background-repeat: no-repeat;
+        background-position: center;
+        height: 24px;
+        width: 24px;
+      }
+    }
+  }
+
+  .thumbnail {
+    padding: 10px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    img {
+      object-fit: contain;
+      width: 100%;
+      height: 150px;
+    }
+  }
+
+  .in-active::ng-deep {
+    .feedback-card {
+      @extend %blur-content;
+      filter: blur(1.2px);
+      -webkit-filter: blur(1.2px);
+    }
+  }
+
+  feedback::ng-deep {
+    .feedback-card {
+      transition: filter 2s;
+    }
+  }
+
+  .active-feedback::ng-deep {
+    .feedback-card {
+      filter: none;
+      -webkit-filter: none;
+    }
+  }
+
+  .answer-container {
+    .answer {
+      color: var(--player-answer-color);
+      position: relative;
+      width: 100%;
+
+      #math {
+        display: inline-block;
+      }
+
+      &.show-answer {
+        .answer-input {
+          pointer-events: none;
+        }
+      }
+
+      .answer-input {
+        position: absolute;
+        width: 100px;
+        border: none;
+        background: transparent;
+        border-bottom: 1px solid var(--player-answer-border-color);
+        --padding-top: 0;
+        --padding-bottom: 0;
+        --padding-start: 0;
+        height: 29px;
+
+        input {
+          padding: 0;
+        }
+
+        &:focus {
+          outline: none;
+        }
+
+        &.correct {
+          border-bottom: 1px solid var(--correct-answer);
+          color: var(--correct-answer);
+          background-image: var(--tick);
+          background-repeat: no-repeat;
+          background-position: right;
+        }
+
+        &.incorrect {
+          border-bottom: 1px solid var(--wrong-answer);
+          color: var(--wrong-answer);
+          background-image: var(--wrong);
+          background-repeat: no-repeat;
+          background-position: right;
+        }
+      }
+    }
+
+    .confirm {
+      width: 100%;
+      padding: 15px 0;
+      display: flex;
+      color: var(--player-confirm-txt-color);
+
+      ion-button {
+        margin: auto;
+        width: 100%;
+        height: 40px;
+        box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.5);
+        color: var(--player-confirm-txt-color);
+        --box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.5);
+        --background: linear-gradient(to right, var(--question-submit-btn-color) 21%, var(--dark-blue) 75%);
+        --border-radius: 0;
+      }
+
+      &.disabled {
+        opacity: 0.5;
+      }
+    }
+    .file-upload-container {
+      display: grid;
+      width: 100%;
+
+      .evidence-title {
+        font-family: var(--sans);
+        font-size: 12px;
+        line-height: 1.33;
+        color: var(--white);
+        margin-top: 15px;
+      }
+  
+      .evidence-file-upload {
+        margin-top: 10px;
+        display: block;
+        width: 100%;
+      }
+    }
+  }
+
+  &.question-answered {
+    background: var(--player-question-answered-bg);
+    transition: 1s;
+
+    .header-section {
+      color: var(--player-question-answered-font);
+    }
+
+    .question-container {
+      .title-container {
+        color: var(--player-question-answered-font);
+      }
+
+      .info-icon {
+        color: var(--player-question-answered-font);
+      }
+    }
+
+    %disabled {
+      pointer-events: none;
+      opacity: 0.5;
+    }
+
+    &.bidirectional-restrict {
+      .answer-container .answer-input,
+      .reaction {
+        @extend %disabled;
+      }
+
+      &.already-played {
+        .answer-container {
+          @extend %disabled;
+
+          ::ng-deep feedback {
+            ion-button {
+              pointer-events: none;
+            }
+          }
+
+          .confirm {
+            display: none;
+          }
+        }
+      }
+    }
+
+    .answer-container {
+      .answer {
+        color: var(--player-question-answered-font);
+
+        .answer-input {
+          border-bottom: 1px solid var(--player-question-answered-font);
+        }
+      }
+    }
+  }
+
+  .blur-question {
+    @extend %blur-content;
+  }
+
+  .active-content {
+    filter: none;
+    -webkit-filter: none;
+  }
+}

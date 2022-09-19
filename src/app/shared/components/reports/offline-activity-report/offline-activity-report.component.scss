@@ -1,0 +1,214 @@
+.offline-activity-report-container {
+  height: 100%;
+
+  .header-section {
+    display: grid;
+    grid-template-columns: 15% 70% 15%;
+
+    .collection-content {
+      display: grid;
+
+      .collection-title {
+        font-size: 12px;
+        letter-spacing: normal;
+        color: var(--collection-default);
+        word-break: break-all;
+      }
+
+      .collection-performance-text {
+        font-size: 11px;
+        letter-spacing: normal;
+        color: var(--collection-default);
+      }
+    }
+
+    .collection-icon {
+      ion-icon {
+        width: 24px;
+        height: 24px;
+      }
+    }
+  }
+
+  .report-container {
+    height: calc(100% - 56px);
+    --background: var(--collection-default);
+
+    .attempts-list-container {
+      .attempt-date-container {
+        height: 48px;
+        display: grid;
+        grid-template-columns: 130px auto;
+
+        ion-label {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          color: var(--white);
+        }
+
+        ion-text {
+          display: flex;
+          justify-content: flex-end;
+          align-items: center;
+          color: var(--white);
+          padding-right: 15px;
+        }
+      }
+
+      .attempts-list {
+        width: 100%;
+        padding: 0;
+        overflow: auto;
+        max-height: 432px;
+      }
+
+      .attempt-list-wrapper {
+        position: absolute;
+        width: 100%;
+        height: auto;
+        z-index: 10;
+        overflow: scroll;
+        background: var(--attempt-list-bg);
+      }
+
+      ion-row {
+        &:first-child {
+          .individual-attempt {
+            border-top: 1px solid var(--attempt-border-color);
+          }
+        }
+
+        .individual-attempt {
+          display: grid;
+          grid-template-columns: auto 48px;
+          align-items: center;
+          height: 48px;
+          padding: 0;
+          border-bottom: 1px solid var(--attempt-border-color);
+
+          &.active-attempt {
+            background: var(--attempt-list-active-bg);
+          }
+
+          .attempt-date {
+            font-size: 12px;
+            color: var(--dark-400);
+            padding: 0 15px;
+          }
+
+          .attempt-score {
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 14px;
+            font-weight: 700;
+
+            &.grade-range-not-started {
+              background-color: var(--attempt-no-score-bg);
+              color: var(--white);
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.skeleton-report {
+  padding: 10px;
+
+  .skeleton-date-container {
+    height: 59px;
+
+    ion-skeleton-text {
+      height: 43px;
+    }
+  }
+
+  .skeleton-summary-report {
+    .skeleton-performance-activity {
+      display: grid;
+      position: relative;
+      background: var(--collection-report-skeleton-bg);
+
+      ion-skeleton-text {
+        height: 240px;
+        margin: 0;
+      }
+    }
+
+    .skeleton-answers {
+      display: flex;
+
+      .small-skeleton-text {
+        width: 40%;
+        height: 20%;
+      }
+
+      .big-skeleton-text {
+        width: 70%;
+        height: 20%;
+      }
+
+      .skeleton-correct-answer,
+      .skeleton-in-correct-answer,
+      .skeleton-timespent-container {
+        display: flex;
+        height: 104px;
+        background-color: var(--summary-report-bg-color);
+        width: calc(100% / 3);
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        flex-direction: column;
+        -webkit-box-align: center;
+        align-items: center;
+        -webkit-box-pack: center;
+        justify-content: center;
+      }
+    }
+  }
+
+  .skeleton-question-container {
+    padding: 16px 8px 0;
+
+    .skeleton-setting-container {
+      .toggle-container {
+        ion-skeleton-text {
+          height: 30px;
+          margin-bottom: 15px;
+        }
+      }
+    }
+
+    .skeleton-question {
+      .skeleton-header-section {
+        ion-skeleton-text {
+          height: 25px;
+        }
+      }
+    }
+
+    .skeleton-questions-container {
+      display: grid;
+      grid-template-columns: auto 56px;
+
+      .skeleton-title-container {
+        .skeleton-description,
+        .skeleton-title {
+          ion-skeleton-text {
+            width: 80%;
+            height: 25px;
+          }
+        }
+      }
+
+      .skeleton-performance-container {
+        ion-skeleton-text {
+          height: 56px;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,91 @@
+.journey-container {
+  height: 48px;
+  display: grid;
+  width: 100%;
+  grid-template-columns: 49px 1fr 50px 56px;
+
+  .journey-thumbnail-col {
+    height: 30px;
+    margin: auto;
+
+    ion-row {
+      width: 30px;
+      height: 30px;
+      align-items: center;
+      justify-content: center;
+      display: flex;
+      background: var(--journey-thumbnail-col-bg);
+      border-radius: 50px;
+      box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
+      margin: auto;
+
+      .journey-img {
+        font-size: 20px;
+        color: var(--class-journey-icon);
+        background-image: var(--map-outline-icon);
+      }
+    }
+  }
+
+  .journey-col {
+    height: 48px;
+    display: flex;
+    align-items: center;
+    padding: 5px;
+
+    .journey-row {
+      display: grid;
+      justify-content: center;
+      align-items: center;
+
+      .journey-title {
+        text-transform: capitalize;
+        font-size: 12px;
+        color: var(--class-journey-title);
+      }
+
+      .total-timespent {
+        font-weight: bold;
+        font-style: italic;
+        font-size: 9px;
+        color: var(--class-journey-title);
+      }
+    }
+
+    ion-skeleton-text {
+      width: 75%;
+    }
+  }
+
+  .info-container {
+    margin: auto;
+    display: flex;
+    opacity: 0.7;
+    justify-content: center;
+
+    .info {
+      font-size: 20px;
+      width: 20px;
+    }
+  }
+
+  .class-performance {
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &.no-performance {
+      background-color: var(--no-performance-bg);
+      color: var(--no-performance-color);
+      margin: auto;
+    }
+
+    ion-text {
+      font-size: 12px;
+      font-weight: bold;
+      line-height: 1;
+      text-align: center;
+    }
+  }
+}

@@ -1,0 +1,31 @@
+<div class="suggestion-collection">
+  <div class="icon collection-icon">
+    <ion-icon class="nav-{{suggestion.suggestedContentType}}"></ion-icon>
+  </div>
+  <div class="collection-label">
+    <span class="label">{{suggestion.title}}</span>
+  </div>
+  <div class="icon play-icon" (click)="onPlay()">
+    <ng-container *ngIf="isLearner">
+      <i class="material-icons play-arrow">play_arrow</i>
+    </ng-container>
+  </div>
+  <div class="suggestion-performance no-padding">
+    <div *ngIf="suggestion.performance;else thumbnail" class="performance">
+      <div *ngIf="suggestion.suggestedContentType === 'assessment';else timeSpent" class="score grade-range-{{suggestion.performance.scoreInPercentage | gradeRange}}" [ngClass]="{'read-only' : suggestion.performance.scoreInPercentage === null }"
+        (click)="showReport()">
+        <span>{{suggestion.performance.scoreInPercentage | transformPerformanceScore}}</span>
+      </div>
+      <ng-template #timeSpent>
+        <div class="timespent" (click)="showReport()" [ngClass]="{'read-only' : !suggestion.performance.timeSpent }">
+          <span class="time-spent">
+            {{suggestion.performance.timeSpent | transformPerformanceTimeSpent }}
+          </span>
+        </div>
+      </ng-template>
+    </div>
+    <ng-template #thumbnail>
+      <img [src]="suggestion.thumbnail" />
+    </ng-template>
+  </div>
+</div>

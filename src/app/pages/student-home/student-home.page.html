@@ -1,0 +1,58 @@
+<ion-header class="student-home-header">
+  <ion-toolbar class="ion-no-padding">
+    <ion-grid>
+      <ion-row class="menu-row">
+        <ion-buttons>
+          <ion-menu-button autoHide="false"></ion-menu-button>
+        </ion-buttons>
+      </ion-row>
+      <ion-row class="navigation-row">
+        <navigation-bar [isShowJoinClass]="isShowJoinClass"></navigation-bar>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+</ion-header>
+<ion-row class="student-home-tabs">
+  <ion-col size="6" class="ion-no-padding" [ngClass]="{'journey-tab-border': isShowRecentJounrey}" (click)="onClickJourneyTab()">
+    <ion-item class="tab-item">
+      <ion-label class="tab-label">{{ (enableNavigatorProgram ? 'CLASSROOMS' : 'RECENT_JOURNEYS') | translate }}</ion-label>
+    </ion-item>
+  </ion-col>
+  <ion-col size="6" class="ion-no-padding" [ngClass]="{'journey-tab-border': !isShowRecentJounrey}" (click)="onClickCourseTab()">
+    <ion-item class="tab-item">
+      <ion-label class="tab-label">{{ (enableNavigatorProgram ? 'MY_NAVIGATOR' : 'RECOMMENDED_COURSES') | translate }}</ion-label>
+    </ion-item>
+  </ion-col>
+</ion-row>
+<ion-content class="student-home-container">
+  <ion-refresher slot="fixed" id="student-home-refresher" pullFactor="0.5" pullMin="100" pullMax="200" (ionRefresh)="onRefresh($event)">
+    <ion-refresher-content pullingIcon="chevron-down-circle-outline">
+    </ion-refresher-content>
+  </ion-refresher>
+  <ion-row *ngIf="enableNavigatorProgram" (click)="onClickCourseTab()">
+    <app-program-navigate-card class="journey-tab program-navigate-card" [ngClass]="{'show-recent-journey-tab': isShowRecentJounrey}"></app-program-navigate-card>
+  </ion-row>
+  <ng-container *ngIf="isClassesLoaded;else classroomSkeletonTemplate">
+    <nav-classroom class="journey-tab" [isShowJoinClass]="isShowJoinClass" [isEnableNavigatorProgram]="enableNavigatorProgram" [ngClass]="{'show-recent-journey-tab': isShowRecentJounrey}" *ngIf="classList" [classList]="classList" [indepententClassList]="indepententClassList"></nav-classroom>
+  </ng-container>
+  <ion-row class="journey-tab" [ngClass]="{'show-recommended-journey-tab': !isShowRecentJounrey}">
+    <ng-container *ngIf="!enableNavigatorProgram;else showProgram">
+      <nav-featured-course *ngIf="isLoaded && featuredCourseList && featuredCourseList?.length; else noFeaturedCourse" (toggleClassCards)="onToggleClassCards($event)" (clickCourseListShowMore)="clickCourseListShowMore($event)"
+        (scrollToIonContent)="scrollToTop()" [featuredCourseList]="featuredCourseList" [classList]="classList">
+      </nav-featured-course>
+    </ng-container>
+    <ng-template #showProgram>
+      <app-program-course [tenantSettings]="tenantSettings" *ngIf="indepententClassList" [indepententClassList]="indepententClassList"></app-program-course>
+    </ng-template>
+  </ion-row>
+  <ng-template #noFeaturedCourse>
+    <ion-row class="no-featured-course">
+      <ion-text>{{ 'NO_RECOMMENDED_COURSE' | translate }}</ion-text>
+    </ion-row>
+  </ng-template>
+  <ng-template #classroomSkeletonTemplate>
+    <ion-row class="journey-tab" [ngClass]="{'show-recent-journey-tab': isShowRecentJounrey}" *ngFor="let items of [].constructor(3)">
+      <nav-premium-class-card></nav-premium-class-card>
+    </ion-row>
+  </ng-template>
+</ion-content>

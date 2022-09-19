@@ -1,0 +1,11 @@
+.popover-text-row {
+  padding: 5px;
+  background: var(--popover-bgcolor);
+
+  ion-text {
+    font-size: 11px;
+    font-family: var(--sans);
+    color: var(--popover-text);
+    font-weight: bold;
+  }
+}

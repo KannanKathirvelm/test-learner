@@ -1,0 +1,80 @@
+<ion-header no-border class="class-header">
+  <ion-toolbar class="ion-no-padding class-header-container">
+    <class-header [title]="classTitle" [showBack]="true" (clickBackButton)="clickBackButton()" (openSuggestionContainer)="openSuggestionContainer()" (openNotificationContainer)="openNotificationContainer()"></class-header>
+  </ion-toolbar>
+</ion-header>
+<div #container class="class-content-wrapper">
+  <ion-row class="backdrop suggestion-backdrop" *ngIf="showSuggestion || showNotification" (click)="closePopup()"></ion-row>
+  <app-suggestion *ngIf="class" [@collapse]="!showSuggestion" class="suggestion-panel-container" [classId]="classId" [toggleSuggestion]="showSuggestion"></app-suggestion>
+  <app-notification *ngIf="notifications" [@collapse]="!showNotification" class="notification-panel-container" [classId]="classId"></app-notification>
+</div>
+  <ion-content class="class-home-container" [scrollY]="false">
+    <ion-refresher [disabled]="isShowJourneyReport" slot="fixed" class="page-refresher" pullFactor="0.5" pullMin="100" pullMax="200" (ionRefresh)="onRefresh($event)">
+      <ion-refresher-content pullingIcon="chevron-down-circle-outline">
+      </ion-refresher-content>
+    </ion-refresher>
+    <pullup-with-dynamic-height [isShowPullUp]="isShowJourneyReport">
+      <ng-container *ngIf="selectedMilestones">
+        <journey-report [classPerformance]="classPerformance" class="pull-up-dynamic-height" [selectedMilestoneIndex]="selectedMilestoneIndex" [isMilestoneReport]="isMilestoneReport" [milestones]="selectedMilestones"
+          [isShowJourneyReport]="isShowJourneyReport" (closeJourneyReport)="closeJourneyReport()">
+        </journey-report>
+      </ng-container>
+    </pullup-with-dynamic-height>
+    <class-competency-panel [baseMasteredCompetencies]="baseMasteredCompetencies" [isCompetencyPerformanceLoaded]="isCompetencyPerformanceLoaded" [classId]="classId" [compentencyPerformance]="compentencyPerformance"></class-competency-panel>
+    <ng-container>
+      <ion-row class="class-progress" (click)="onProgressReport()">
+        <ion-col class="article-icon">
+          <i class="material-icons-outlined article-img">article</i>
+        </ion-col>
+        <ion-col class="performance-titles">
+          <ion-text class="sub-title">{{'REVIEW_YOUR_PROGRESS_PERFORMANCE' | translate }}</ion-text>
+          <ion-text>{{'PERFORMANCE_OVERVIEW' | translate }}</ion-text>
+        </ion-col>
+        <ion-col class="back-btn">
+          <i class="material-icons">arrow_forward</i>
+        </ion-col>
+      </ion-row>
+    </ng-container>
+    <ion-grid class="class-home-panels ion-no-padding">
+      <ion-row class="home-panels-row">
+        <ng-container *ngIf="isPublicClass;else homePanel">
+          <ion-col size="12" class="ion-no-padding">
+            <class-journey-panel [isShowJourney]="isShowJourney" (openJourneyReport)="openJourneyReport()" (toggleRescopedInfo)="onToggleRescopedInfo()" [classPerformance]="classPerformance" [isPremiumClass]="isPremiumClass"
+              [milestoneViewApplicable]="milestoneViewApplicable" [classId]="classId" [isMilestonePerformanceLoaded]="isMilestonePerformanceLoaded"></class-journey-panel>
+          </ion-col>
+        </ng-container>
+        <ng-template #homePanel>
+          <ion-row class="home-panel-container">
+            <class-activities-panel [isCAPerformanceLoaded]="isCAPerformanceLoaded" [classId]="classId" [caPerformance]="caPerformance"></class-activities-panel>
+          </ion-row>
+          <ion-row class="home-panel-container" *ngIf="!classSetupInComplete">
+            <class-journey-panel [isShowJourney]="isShowJourney" (openJourneyReport)="openJourneyReport()" (toggleRescopedInfo)="onToggleRescopedInfo()" (clickClassJourney)="onClickClassJourney()" [classPerformance]="classPerformance"
+              [milestoneViewApplicable]="milestoneViewApplicable" [isPremiumClass]="isPremiumClass" [classId]="classId" [isMilestonePerformanceLoaded]="isMilestonePerformanceLoaded" [unitList]="unitList">
+            </class-journey-panel>
+          </ion-row>
+        </ng-template>
+      </ion-row>
+    </ion-grid>
+    <ng-container *ngIf="isLoadView && !classSetupInComplete">
+      <ng-container *ngIf="hasCourse; else noCourseMsgTemplate">
+        <ng-container *ngIf="isPremiumClass && milestoneViewApplicable && isMilestoneViewEnabledForTenant;else nonPremiumClass">
+          <milestone [tenantSettings]="tenantSettings" [ngClass]="{'premium-class': isPremiumClass && !isPublicClass}" (openMilestoneReport)="onOpenMilestoneReport($event)" [isToggleRescopedInfo]="isToggleRescopedInfo" [isHideInfo]="true" [currentLocation]="currentLocation"
+            [isLoaded]="isLoaded" [milestones]="milestones"></milestone>
+        </ng-container>
+        <ng-template #nonPremiumClass>
+          <course-map [contentVisibility]="contentVisibility" [unitList]="unitList" [isLoaded]="isLoaded" [showCourseMapReport]="showCourseMapReport"></course-map>
+        </ng-template>
+      </ng-container>
+      <ng-template #noCourseMsgTemplate>
+        <ion-row class="no-course-msg">
+          {{'NO_COURSE_ASSIGNED_MSG' | translate}}
+        </ion-row>
+      </ng-template>
+    </ng-container>
+    <ng-container *ngIf="classSetupInComplete">
+      <ion-grid class="incomplete-msg-container">
+        <ion-text class="msg-heading">{{ 'SETUP_INCOMPLETE_HEADING' | translate }}</ion-text>
+        <ion-text class="msg-body">{{ 'SETUP_INCOMPLETE_DESCRIPTION' | translate }}</ion-text>
+      </ion-grid>
+    </ng-container>
+  </ion-content>

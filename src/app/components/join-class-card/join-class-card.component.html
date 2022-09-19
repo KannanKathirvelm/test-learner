@@ -1,0 +1,18 @@
+<ion-card class="join-class">
+  <ion-card-content class="no-padding">
+    <ion-grid class="join-class-grid no-padding">
+      <ion-row class="join-class-card-row">
+        <ion-row class="join-class-text">
+          <ion-text>{{ 'JOIN_A_CLASS' | translate }}</ion-text>
+        </ion-row>
+      </ion-row>
+      <hr class="header-line">
+      <ion-row class="class-code-row">
+        <ion-row class="enter-classroom-code">
+          <ion-input type="text" class="input-field" minlength=0 maxlength=7 placeholder="{{'ENTER_CLASSROOM_CODE' | translate}}" (ionInput)="onEnterClassCode($event)"></ion-input>
+          <ion-text class="click-join-class" (click)="joinClass()">{{'JOIN_CLASSROOM' | translate}}</ion-text>
+        </ion-row>
+      </ion-row>
+    </ion-grid>
+  </ion-card-content>
+</ion-card>

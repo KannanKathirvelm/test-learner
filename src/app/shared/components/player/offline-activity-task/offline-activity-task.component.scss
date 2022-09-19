@@ -1,0 +1,303 @@
+#offline-activity-task {
+  padding: 12px 15px 0;
+  background-color: var(--dark-400);
+
+  .task-header {
+    .title-container {
+      display: grid;
+      grid-template-columns: 25px 1fr 15px;
+      align-items: center;
+
+      .icon-wrapper {
+        width: 100%;
+        height: 100%;
+      }
+
+      .text-sequence {
+        flex: 1;
+        opacity: 0.7;
+        font-size: 14px;
+        line-height: 1.45;
+        color: var(--white);
+      }
+
+      ion-icon.task-submitted {
+        color: var(--white);
+        font-size: 22px;
+      }
+
+      .title {
+        color: var(--white);
+        font-size: 14px;
+      }
+
+      ion-icon.toggle-icon {
+        color: var(--white);
+        font-size: 20px;
+      }
+
+      .nav-text-resource-light {
+        background-color: var(--white);
+      }
+
+      .title-wrapper {
+        display: flex;
+        flex-wrap: wrap;
+      }
+    }
+
+    .expected-submission-container {
+      .expected-submission-label {
+        font-size: 12px;
+        font-weight: bold;
+        color: var(--white);
+        opacity: 0.8;
+        margin-right: 5px;
+      }
+
+      .expected-submission-value {
+        font-size: 12px;
+        color: var(--white);
+        opacity: 0.6;
+
+        span {
+          text-transform: capitalize;
+        }
+      }
+    }
+
+    .pending-submission-info {
+      .pending-info-container {
+        .pending-title {
+          font-size: 12px;
+          font-weight: bold;
+          color: var(--white);
+          opacity: 0.8;
+          margin-right: 5px;
+          text-transform: capitalize;
+        }
+
+        .pending-info {
+          font-size: 12px;
+          color: var(--white);
+          opacity: 0.6;
+          text-transform: capitalize;
+        }
+      }
+    }
+
+    .description-container {
+      color: var(--white);
+      font-size: 12px;
+      padding-bottom: 10px;
+      padding-top: 10px;
+    }
+
+    .student-reference-container {
+      padding-top: 12px;
+
+      .reference-title-container {
+        display: grid;
+        grid-template-columns: 24px auto;
+        margin-bottom: 5px;
+
+        .icon-wrapper {
+          .icon {
+            background-color: var(--oa-task-default-color);
+          }
+        }
+
+        .reference-container {
+          .reference-title {
+            color: var(--oa-task-default-color);
+            font-size: 14px;
+          }
+
+          .reference-count {
+            color: var(--oa-task-default-color);
+            font-size: 11px;
+          }
+        }
+      }
+
+      .reference-link-list {
+        padding-bottom: 15px;
+        padding-top: 10px;
+
+        .reference-link {
+          color: var(--oa-task-default-color);
+          font-size: 14px;
+          display: block;
+          padding: 2px 0;
+          font-weight: bold;
+          text-decoration: underline;
+          line-height: 21px;
+        }
+      }
+
+      .hz-line {
+        width: 100%;
+      }
+    }
+  }
+
+  .task-body {
+    display: grid;
+
+    %label-style {
+      font-size: 11px;
+      color: var(--white);
+      padding-bottom: 8px;
+    }
+
+    .answer-text-container {
+      padding-bottom: 10px;
+
+      .text-label {
+        @extend %label-style;
+        padding: 0;
+      }
+
+      ion-input {
+        --color: var(--white);
+        --background: var(--dark-400);
+        --placeholder-color: var(--white);
+        --placeholder-opacity: 0.5;
+        --placeholder-font-size: 15px;
+        --placeholder-font-style: italic;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+      }
+
+      .answer-text {
+        color: var(--white);
+      }
+    }
+
+    .file-upload-container {
+      padding-bottom: 10px;
+
+      .upload-label {
+        @extend %label-style;
+      }
+
+      .uploads-container {
+        display: flex;
+        flex-flow: wrap;
+
+        nav-file-picker {
+          padding: 5px;
+        }
+      }
+
+      .no-uploads {
+        color: var(--white);
+      }
+    }
+
+    .url-upload-container {
+      padding-bottom: 10px;
+
+      .url-label {
+        @extend %label-style;
+      }
+
+      .urls-container {
+        .url-preview {
+          color: var(--white);
+          margin: 10px 0;
+          display: flex;
+          flex-direction: column;
+
+          .text-url-no {
+            text-transform: uppercase;
+            font-size: 11px;
+            color: var(--white);
+            opacity: 0.7;
+          }
+
+          .text-url {
+            font-size: 15px;
+          }
+        }
+
+        ion-input.url-input {
+          color: var(--offline-activity-task-color);
+        }
+
+        .url-container {
+          --background: var(--offline-activity-url-color);
+          border: 1px solid var(--offline-activity-task-color);
+          height: 40px;
+          border-radius: 5px;
+          margin: 10px 0;
+          display: flex;
+          align-items: center;
+          width: 100%;
+          --highlight-color-invalid: transparent;
+          --highlight-color-valid: transparent;
+
+          &.answered {
+            pointer-events: none;
+
+            ion-input.url-input {
+              opacity: 1;
+            }
+          }
+
+          &.submit-btn {
+            --padding-start: 5px;
+          }
+
+          .add-url-icon {
+            color: var(--offline-activity-task-color);
+            opacity: 0.5;
+            margin-left: auto;
+          }
+
+          .nav-verified-icon {
+            width: 28px;
+            height: 28px;
+            background: var(--offline-activity-task-color);
+            margin-left: auto;
+          }
+        }
+
+        .add-url {
+          text-transform: initial;
+          border-radius: 5px;
+          margin: 0;
+          color: var(--offline-activity-task-color);
+          opacity: 0.5;
+          font-size: 15px;
+          font-style: italic;
+
+          .add-url-icon {
+            color: var(--offline-activity-task-color);
+          }
+        }
+      }
+
+      .no-uploads {
+        color: var(--offline-activity-task-color);
+      }
+    }
+
+    .save-task-btn {
+      justify-self: center;
+      padding: 0 15px;
+      margin-bottom: 15px;
+
+      &.disabled {
+        opacity: 0.6;
+      }
+    }
+  }
+
+  .hz-line {
+    width: 100%;
+  }
+
+  &.show-preview {
+    .task-body {}
+  }
+}

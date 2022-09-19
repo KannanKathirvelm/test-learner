@@ -1,0 +1,106 @@
+.featured-course-list-container {
+  margin: 0;
+
+  .featured-course-list-row {
+    display: flex;
+    flex-direction: column;
+
+    .featured-course-header-row {
+      margin: 20px 0;
+      height: 35px;
+
+      .icon-col {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .competency-img {
+          height: 100%;
+          width: 100%;
+          background-image: var(--proficiency-icon-without-bg);
+          display: block;
+          background-repeat: no-repeat;
+          background-position: center;
+          font-size: 22px;
+        }
+      }
+
+      .header-col {
+        display: grid;
+        align-items: center;
+
+        .classroom-currently-studying {
+          font-weight: bold;
+          font-size: 15px;
+          color: var(--classroom-txt);
+        }
+
+        .classroom-label {
+          color: var(--classroom-txt);
+          font-size: 13px;
+        }
+
+        .class-count {
+          font-weight: 600;
+        }
+
+        .title {
+          font-size: 15px;
+          font-weight: 400;
+        }
+      }
+
+      .arrow-col {
+        display: flex;
+        align-items: center;
+        color: white;
+        justify-content: center;
+        font-size: 22px;
+      }
+    }
+
+    .featured-course-list {
+      width: 100%;
+
+      .featured-course-card-content {
+        width: 100%;
+
+        nav-featured-course-card {
+          width: 100%;
+        }
+      }
+    }
+
+    .show-more {
+      width: 100%;
+      color: var(--classroom-txt);
+      text-transform: uppercase;
+
+      ion-text {
+        margin: auto auto 24px;
+        font-size: 13px;
+        font-weight: bold;
+      }
+    }
+
+    .show-more {
+      width: 100%;
+      color: var(--classroom-txt);
+      text-transform: uppercase;
+
+      ion-text {
+        margin: auto auto 24px;
+        font-size: 13px;
+        font-weight: bold;
+      }
+    }
+
+    .no-featured-course-view {
+      width: 90%;
+      margin: 20px auto;
+      font-style: italic;
+      color: var(--no-featured-course-text-color);
+      text-align: center;
+    }
+  }
+}

@@ -1,0 +1,12 @@
+<ion-content class="items-to-grade-container">
+  <ion-refresher slot="fixed" class="page-refresher" pullFactor="0.5" pullMin="100" pullMax="200" (ionRefresh)="onRefresh($event)">
+    <ion-refresher-content pullingIcon="chevron-down-circle-outline">
+    </ion-refresher-content>
+  </ion-refresher>
+  <ng-container *ngFor="let grade of gradeItemsList;index as gradeIndex">
+    <nav-items-to-grade-panel *ngIf="grade" [grade]="grade" class="items-to-grade-panel" (click)="openItemsToGradePullUp(grade,gradeIndex)"></nav-items-to-grade-panel>
+  </ng-container>
+  <div *ngIf="noItemsToGrade" class="no-activity">
+    <span>{{"NO_ITEMS_TO_GRADE" | translate}}</span>
+  </div>
+</ion-content>

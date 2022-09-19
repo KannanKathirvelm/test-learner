@@ -1,0 +1,32 @@
+<div class="ca-calendar">
+  <div class="views">
+    <span [ngClass]="{'active': isDailyView}" (click)="onClickView('daily')">
+      {{"DAILY" | translate}}
+    </span>
+    <span [ngClass]="{'active': isWeeklyView}" (click)="onClickView('weekly')">
+      {{"WEEKLY" | translate}}
+    </span>
+    <span [ngClass]="{'active': isMonthlyView}" (click)="onClickView('monthly')">
+      {{"MONTHLY" | translate}}
+    </span>
+  </div>
+  <div class="calendar" [ngClass]="{'active': isDailyView}">
+    <p-calendar [disabledDates]="disabledDates" [(ngModel)]="currentDate" styleClass="date-picker" [inline]="true" (onMonthChange)="onDailyViewMonthChange($event)" (onSelect)="onDailyViewDateChange($event)">
+      <ng-template pTemplate="date" let-date>
+        <span [ngClass]="isActivityExists(date)">{{date.day}}</span>
+      </ng-template>
+    </p-calendar>
+  </div>
+  <div class="calendar" [ngClass]="{'active': isWeeklyView}">
+    <p-calendar [(ngModel)]="currentWeek" [disabledDates]="disabledDates" [(ngModel)]="currentWeek" styleClass="week-picker" selectionMode="range" (onMonthChange)="onWeeklyViewMonthChange($event)" (onSelect)="onWeeklyViewDateChange($event)"
+      [inline]="true">
+      <ng-template pTemplate="date" let-date>
+        <span [ngClass]="isActivityExists(date)">{{date.day}}</span>
+      </ng-template>
+    </p-calendar>
+  </div>
+  <div class="calendar" [ngClass]="{'active': isMonthlyView}">
+    <p-calendar [(ngModel)]="currentMonth" styleClass="month-picker" view="month" dateFormat="mm/yy" (onSelect)="onMontlyViewMonthChange($event)" [inline]="true"></p-calendar>
+  </div>
+  <ion-button type="button" class="today" (click)="onDailyViewDateChange(todayDate)">{{'TODAY' | translate}}</ion-button>
+</div>

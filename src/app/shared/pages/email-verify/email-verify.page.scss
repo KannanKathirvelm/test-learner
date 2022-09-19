@@ -1,0 +1,125 @@
+.email-verification-header {
+  ion-toolbar {
+    --min-height: 48px;
+
+    .back-button {
+      position: absolute;
+      padding: 0 10px;
+      left: 0;
+
+      ion-back-button {
+        min-width: 24px;
+        --padding-start: 0;
+        --padding-end: 0;
+        margin: auto;
+        --background-hover: none;
+        --color: var(--dark-400);
+      }
+    }
+
+    .title-container {
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+
+      ion-text {
+        font-size: 20px;
+        color: var(--email-verify-header-color);
+      }
+
+      .header-title {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+  }
+}
+
+%submit-btn {
+  --background: var(--email-verify-btn-bg-color);
+  --border-radius: 0;
+  margin-top: 12px;
+  color: var(--white);
+  width: 75%;
+  height: 50px;
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+
+.email-verification-container {
+  width: 100%;
+
+  ion-grid {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .navigator-logo-img {
+    width: 112px;
+    height: 112px;
+    margin: 14px auto auto;
+  }
+
+  .message {
+    font-size: 15px;
+    padding: 20px;
+    text-align: center;
+  }
+
+  .resend-email-form {
+    width: 100%;
+
+    .email {
+      .email-msg-label {
+        font-size: 11px;
+        color: var(--input-label);
+        opacity: 0.7;
+        display: block;
+      }
+
+      ::ng-deep.input-wrapper {
+        .email-label {
+          .input-label {
+            opacity: 0.8;
+          }
+        }
+
+        ion-input {
+          text-align: center;
+
+          input {
+            padding: 10px 0;
+          }
+        }
+      }
+
+      ion-item {
+        ion-label {
+          font-size: 14px;
+        }
+      }
+    }
+
+    .submit-btn {
+      @extend %submit-btn;
+    }
+  }
+
+  .account-verified-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 15px;
+    text-align: center;
+
+    .submit-btn {
+      @extend %submit-btn;
+    }
+  }
+}

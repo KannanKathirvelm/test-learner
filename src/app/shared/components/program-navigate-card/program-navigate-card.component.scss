@@ -1,0 +1,22 @@
+.program-card {
+    background-color: var(--dark-blue);
+    .navigator-program-logo {
+      padding: 0;
+      .navigator-logo-img {
+        ion-img {
+          height: 100%;
+          width: 100%;
+          object-fit: fill;
+        }
+      }
+    }
+   .text-col {
+      margin: auto;
+      text-align: center;
+      .program-description {
+        font-size: 19px;
+        color: var(--white);
+        line-height: 1.5;
+      }
+    }
+  }

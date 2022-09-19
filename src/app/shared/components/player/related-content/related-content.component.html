@@ -1,0 +1,17 @@
+<ion-row class="related-content">
+  <ion-row class="related-content-tab" (click)="onOpenRelatedContent()">
+    <ion-col class="related-content-header">
+      <ion-text class="title">{{'RELATED_CONTENT_TITLE' | translate}}</ion-text>
+      <ion-text class="title-desc">{{'RELATED_CONTENT_DESC' | translate}}</ion-text>
+    </ion-col>
+    <ion-col class="arrow">
+      <i class="material-icons" *ngIf="!isActive">arrow_drop_up</i>
+      <i class="material-icons" *ngIf="isActive">arrow_drop_down</i>
+    </ion-col>
+  </ion-row>
+  <ion-row class="resource-content-container" [ngClass]="{'resource-active-container' : !isActive}" [@collapse]="isActive">
+    <ion-row class="related-content-container">
+      <ng-container #related_content_view></ng-container>
+    </ion-row>
+  </ion-row>
+</ion-row>

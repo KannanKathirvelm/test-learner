@@ -1,0 +1,51 @@
+<ion-content class="class-activities">
+  <ion-refresher slot="fixed" class="page-refresher" pullFactor="0.5" pullMin="100" pullMax="200" (ionRefresh)="onRefresh($event)">
+    <ion-refresher-content pullingIcon="chevron-down-circle-outline">
+    </ion-refresher-content>
+  </ion-refresher>
+  <ion-grid class="no-padding">
+    <ion-row class="calendar-container">
+      <i class="material-icons left-arrow" (click)="onPreviousDate()">keyboard_arrow_left</i>
+      <div class="calendar-panel">
+        <div class="label-conatiner" (click)="onToggleCalendar()">
+          <ng-container *ngIf="isDailyView">
+            <div class="date-label">
+              {{dailyViewDate | formatDate:'DD MMM YYYY'}}
+            </div>
+          </ng-container>
+          <ng-container *ngIf="isWeeklyView">
+            <div class="date-label">
+              {{weeklyViewStartDate | formatDate:'DD MMM YYYY'}} - {{weeklyViewEndDate | formatDate:'DD MMM YYYY'}}
+            </div>
+          </ng-container>
+          <ng-container *ngIf="isMonthlyView">
+            <div class="date-label">
+              {{monthlyViewStartDate | formatDate:'DD MMM YYYY'}} - {{monthlyViewEndDate | formatDate:'DD MMM YYYY'}}
+            </div>
+          </ng-container>
+          <i class="material-icons dropdown-icon">arrow_drop_down</i>
+        </div>
+        <nav-ca-calendar class="ca-calendar" [highlightDates]="highlightDates" [disabledDates]="disabledDates" [dailyViewDate]="dailyViewDate" [weeklyViewDate]="weeklyViewStartDate" [monthlyViewDate]="monthlyViewStartDate" [isDailyView]="isDailyView"
+          [isWeeklyView]="isWeeklyView" [isMonthlyView]="isMonthlyView" [ngClass]="showCalendar ? 'show' : 'hide'" (selectView)="onSelectView($event)" (toggleCalendar)="onToggleCalendar()" (dailyViewDateChanged)="dailyViewDateChanged($event)"
+          (dailyViewMonthChanged)="dailyViewMonthChanged($event)" (weeklyViewMonthChanged)="weeklyViewMonthChanged($event)" (weeklyViewDateChanged)="weeklyViewDateChanged($event)" (monthlyViewMonthChanged)="monthlyViewMonthChanged($event)">
+        </nav-ca-calendar>
+      </div>
+      <i class="material-icons right-arrow" (click)="onNextDate()">keyboard_arrow_right</i>
+    </ion-row>
+  </ion-grid>
+  <div *ngIf="showCalendar" class="backdrop" (click)="onToggleCalendar()"></div>
+  <ng-container *ngIf="!isLoading">
+    <ng-container *ngFor="let activity of classActivities |keyvalue">
+      <ion-row class="class-activity-panel">
+        <div class="date-title" *ngIf="!isDailyView">{{activity.key | formatDate:'DD MMM'}}</div>
+        <ng-container *ngFor="let item of activity.value">
+          <nav-class-activity-panel [tenantSettings]="tenantSettings" [activity]="item" [selectedDate]="selectedDate" (addSuggestions)="onAddCASuggestions($event)" (updateSuggestionPerformance)="onUpdateSuggestionPerformance($event)"
+           class="class-activity-panel" (updatePerformance)="onUpdatePerformance($event)"></nav-class-activity-panel>
+        </ng-container>
+      </ion-row>
+    </ng-container>
+  </ng-container>
+  <ion-row *ngIf="noActivities" class="no-activity">
+    <ion-text>{{"NO_ACTIVITY" | translate}}</ion-text>
+  </ion-row>
+</ion-content>

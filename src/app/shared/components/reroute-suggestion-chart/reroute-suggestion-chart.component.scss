@@ -1,0 +1,106 @@
+.reroute-suggestion-container {
+    position: relative;
+    padding-left: 40px;
+    
+    &.router {
+      padding-bottom: 40px;
+    }
+    .route-suggestion-expand {
+      position: absolute;
+      right: 0;
+      z-index: 2;
+      text-align: right;
+    }
+    .route-line-chart {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+        ::ng-deep svg {
+            path {
+              fill: none;
+              stroke: var(--explore-orange);
+              stroke-width: 1.5;
+            }
+          }
+    }
+    .reroute-path-panel {
+      display: flex;
+      align-items: center;
+      z-index: 2;
+
+      &.right-align-content {
+        flex-direction: row-reverse;
+      } 
+      .collection-panel-sections {
+          width: calc(100% / 3);
+          max-width: calc(100% / 3);
+          margin: 10px 0;
+          position: relative;
+          z-index: 1;
+          display: grid;
+          align-items: center;
+          justify-content: center;
+          text-align: center;
+
+          .card-panel {
+            padding-top: 2px;
+            
+            background-color: var(--white);
+            &.bottom-card {
+              i {
+                position: absolute;
+                top: 16px;
+                width: 100%;
+                text-align: center;
+                color: var(--submarine);
+                transform: scaleX(2);
+                font-size: 20px;
+                left: 0;
+                z-index: -1;
+              }
+            }
+            &.top-card {
+              i {
+                transform: rotateX(180deg) scaleX(2);
+                position: absolute;
+                width: fit-content;
+                text-align: center;
+                bottom: 16px;
+                padding-bottom: 5px;
+                color: var(--submarine);
+                font-size: 20px;
+                left: calc(80% / 2);
+                z-index: -1;
+              }
+            }
+          }
+
+          .competency-code {
+            padding: 0 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            line-height: 1.4;
+
+            &.grade-range-not-started {
+             background-color: var(--light-white);
+            }
+          }
+
+          .collection-icon {
+              background: var(--carrot-orange);
+              margin: 0 auto;
+              width: 25px;
+              height: 25px;
+              z-index: 2;
+
+              &.nav-lesson-icon {
+                mask-image: var(--lesson-blue-img);
+                transform: scale(0.8);
+              }
+          }
+      }
+    }
+}

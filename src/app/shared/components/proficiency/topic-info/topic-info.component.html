@@ -1,0 +1,92 @@
+<div class="topic-info-pull-up-container">
+  <ion-toolbar position="top" *ngIf="content">
+    <div class="topic-info">
+      <div class="domain-header">
+        <div class="domain-panel">
+          <div class="domain-info ellipsis">
+            <span class="domain-name" tooltip [text]="content.domain.domainName">
+              {{content.domain.domainName}}
+            </span>
+            <span class="topic-name ellipsis" tooltip [text]="content.topic.topicName">
+              {{content.topic.topicName}}
+            </span>
+          </div>
+          <span class="close" (click)="onClose($event)">
+            <i class="close material-icons">close</i>
+          </span>
+        </div>
+        <div class="domain-seq">{{'DOMAIN' | translate}} {{content.topic.domainSeq}} | {{'TOPIC' | translate}} {{content.topic.topicSeq}}</div>
+      </div>
+    </div>
+  </ion-toolbar>
+  <ion-content>
+    <ion-row class="domain-chart-container">
+      <ng-container *ngIf="!listView">
+        <ion-row id="domain-competency-progressbar-container"></ion-row>
+        <ion-row class="competency-progressbar-count">
+          <ion-row class="count-container mastered">
+            <ion-text>{{masteredCompetenciesCount}}</ion-text>
+            <ion-text>{{'MASTERED' | translate}}</ion-text>
+          </ion-row>
+          <ion-row class="count-container in-progress">
+            <ion-text>{{inProgressCompetenciesCount}}</ion-text>
+            <ion-text>{{'IN_PROGRESS' | translate}}</ion-text>
+          </ion-row>
+          <ion-row class="count-container not-started">
+            <ion-text>{{notStartedCompetenciesCount}}</ion-text>
+            <ion-text>{{'NOT_STARTED' | translate}}</ion-text>
+          </ion-row>
+        </ion-row>
+      </ng-container>
+    </ion-row>
+    <ng-container *ngIf="content">
+      <ng-container *ngIf="listView;else gridView">
+        <ion-row class="competency-list-view-container">
+          <ion-row class="compentency-container">
+            <ion-row class="competency-accordion-panel">
+              <ion-row class="competency-card-header">
+                <ion-row class="competency">
+                  <ion-row class="competency-status status-{{content.competency.competencyStatus}}"></ion-row>
+                  <ion-row class="title">
+                    {{
+                      fwCompetencies | competencyGutToFwTransform:
+                      content.competency.competencyCode:
+                      content.competency.competencyCode:
+                      'frameworkCompetencyDisplayCode':
+                      false:
+                      true
+                     }}
+                  </ion-row>
+                </ion-row>
+              </ion-row>
+              <ion-row class="competency-desc">
+                {{content.competency.competencyName}}
+              </ion-row>
+            </ion-row>
+          </ion-row>
+        </ion-row>
+      </ng-container>
+      <ng-template #gridView>
+        <div class="competency-report-container">
+          <div class="competency-card" *ngFor="let competency of content.topic.competencies" (click)="onSelectCompetency($event,competency)">
+            <div class="competency">
+              <div class="title">
+                {{fwCompetencies | competencyGutToFwTransform:
+                  competency.competencyCode:
+                  competency.competencyCode:
+                  'frameworkCompetencyDisplayCode':
+                  false:
+                  true
+                 }}
+              </div>
+              <div class="competency-status status-{{competency.competencyStatus}}"></div>
+            </div>
+            <div class="competency-desc">
+              {{competency.competencyName}}
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </ng-container>
+  </ion-content>
+</div>

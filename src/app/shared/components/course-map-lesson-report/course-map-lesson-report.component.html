@@ -1,0 +1,72 @@
+<ion-row class="course-lesson-report">
+  <ion-header>
+    <ion-toolbar position="top">
+      <ion-row class="header-section">
+        <ion-row>
+          <ion-icon class="nav-lesson-icon"></ion-icon>
+          <ion-row class="lesson-title ellipsis" *ngIf="lessonInfo">{{lessonInfo.title}}</ion-row>
+        </ion-row>
+        <ion-row class="close-wrapper" (click)="closeReport()">
+          <i class="material-icons">clear</i>
+        </ion-row>
+      </ion-row>
+    </ion-toolbar>
+  </ion-header>
+  <ng-container *ngIf="lessonInfo; else skeletonViewTemplate">
+    <ion-row class="performance-activity"
+      ngClass="grade-range-{{lessonInfo.performance.scoreInPercentage | gradeRange}}">
+      <ion-row class="performance">
+        <ion-row class="score-container" *ngIf="lessonInfo.performance.scoreInPercentage >= 0; else showTimeSpent">
+          <ion-row class="score">{{lessonInfo.performance.scoreInPercentage | transformPerformanceScore }}</ion-row>
+          <ion-row class="label">{{lessonInfo.performance.timeSpent | transformPerformanceTimeSpent}}</ion-row>
+        </ion-row>
+        <ng-template #showTimeSpent>
+          <ion-row class="time-container">
+            <ion-row class="time">{{lessonInfo.performance.timeSpent | transformPerformanceTimeSpent}}</ion-row>
+          </ion-row>
+        </ng-template>
+      </ion-row>
+      <ion-row class="performance-img" ngClass="grade-range-{{lessonInfo.performance.scoreInPercentage| gradeRange}}"
+        [ngStyle]="{'height': 0+ '%'}"></ion-row>
+    </ion-row>
+    <ng-container *ngFor="let collection of lessonInfo.collections">
+      <ion-row class="course-lesson-report-contain"
+        [ngClass]="{'read-only' :!collection.performance ||  ( collection.performance?.scoreInPercentage === null || collection.performance?.timeSpent === null)}"
+        (click)="showCourseMapLessonReport($event,collection)">
+        <ion-row>
+          <ion-icon class="nav-{{collection.format}} collection-icon"></ion-icon>
+          <ion-text class="collection-name ellipsis">{{collection.title}}</ion-text>
+        </ion-row>
+          <ion-row *ngIf="collection.performance  && (!collection.isOfflineActivity || collection.performance.gradingStatus !== 'in-progress'); else noPerformance" class="collection-score no-padding format-{{collection.format}} grade-range-{{collection.performance.scoreInPercentage | gradeRange}}">
+          <ion-row class="score" *ngIf="collection.isAssessment|| collection.isExternalAssessment || collection.isOfflineActivity; else showTimeSpent">
+            <ion-text class="score-value" *ngIf="collection.performance.scoreInPercentage ; else noPerformance">
+              {{collection.performance.scoreInPercentage | transformPerformanceScore}}
+            </ion-text>
+          </ion-row>
+          <ng-template #showTimeSpent>
+            <ion-row class="timespent" *ngIf="collection.performance.timeSpent; else noPerformance" >
+              <ion-text  class="time-value">{{collection.performance.timeSpent | transformPerformanceTimeSpent }}</ion-text>
+            </ion-row>
+          </ng-template>
+        </ion-row>
+       </ion-row>
+       <ng-template #noPerformance>
+        <ion-row class="no-performance">
+          <ion-col class="grade-range-not-started"></ion-col>
+        </ion-row>
+      </ng-template>
+    </ng-container>
+  </ng-container>
+  <ng-template #skeletonViewTemplate>
+    <ion-grid class="skeleton-grid">
+      <ion-row class="skeleton-row" *ngFor="let items of [].constructor(3)">
+        <ion-col class="title-col">
+          <ion-skeleton-text animated></ion-skeleton-text>
+        </ion-col>
+        <ion-col class="performance-col">
+          <ion-skeleton-text animated></ion-skeleton-text>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ng-template>
+</ion-row>

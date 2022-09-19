@@ -1,0 +1,125 @@
+<div id="offline-activity-task" [ngClass]="{'show-preview': isPreview}">
+  <div class="task-header" (click)="isShowSubmission = !isShowSubmission">
+    <div class="title-container">
+      <div class="icon-wrapper">
+        <ion-icon *ngIf="!task.submissions; else taskSubmittedIcon" class="nav-text-resource-light"></ion-icon>
+        <ng-template #taskSubmittedIcon>
+          <ion-text class="text-sequence">{{sequenceId}}. </ion-text>
+        </ng-template>
+      </div>
+      <div class="title-wrapper">
+        <span class="title">{{task.title}}</span>
+      </div>
+      <ng-container *ngIf="!isContentPreview">
+        <ion-icon class="toggle-icon" name="{{isShowSubmission ? 'arrow-dropup' : 'arrow-dropdown'}}"></ion-icon>
+      </ng-container>
+    </div>
+    <div class="expected-submission-container" *ngIf="!isPreview && mandatoryFileUpload.length">
+      <span class="expected-submission-label">{{'SUBMISSIONS_EXPECTED' | translate}}:</span>
+      <ion-text *ngFor="let file of mandatoryFileUpload; let i=index" class="expected-submission-value">
+        <span>{{file.pendingCount}} {{file.type}}</span>
+        <span *ngIf="(i+1) < mandatoryFileUpload.length">|</span>
+      </ion-text>
+    </div>
+    <ng-container *ngIf="isContentPreview && references">
+      <div class="student-reference-container">
+        <div class="reference-title-container">
+          <div class="icon-wrapper">
+            <ion-icon class="nav-text-resource-light icon"></ion-icon>
+          </div>
+          <div class="reference-container">
+            <ion-text class="reference-title">{{'STUDENT_REFERENCE' | translate }} | </ion-text>
+            <ion-text class="reference-count">
+              {{references.length}}
+              <span *ngIf="references.length > 1; else linkTextTemplate">
+                {{ 'LINKS' | translate}}
+              </span>
+              <ng-template #linkTextTemplate>
+                {{ 'LINK' | translate}}
+              </ng-template>
+            </ion-text>
+          </div>
+        </div>
+        <div class="reference-link-list">
+          <ion-text class="reference-link" inAppBrowser [url]="reference.location" *ngFor="let reference of references; let i=index">{{reference.name}}</ion-text>
+        </div>
+      </div>
+    </ng-container>
+    <div class="pending-submission-info">
+      <div class="pending-info-container" *ngIf="pendingUploadSubmissions">
+        <span class="pending-title">{{'SUBMISSIONS_PENDING'| translate}}:</span>
+        <span class="pending-info">{{pendingUploadSubmissions}} uploads</span>
+      </div>
+    </div>
+    <div class="description-container">
+      <mathjax *ngIf="task.description" [content]="task.description"></mathjax>
+    </div>
+  </div>
+  <ng-container *ngIf="!isContentPreview">
+    <div class="task-body" [@collapse]="!isShowSubmission">
+      <div class="answer-text-container">
+        <div class="text-label">
+          {{'ANSWER' | translate}}
+        </div>
+        <ion-input *ngIf="!isPreview; else answerPreview;" type="text" name="answer-text" [attr.readonly]="isPreview ? 'readonly' : null" placeholder="{{'ENTER_YOUR_ANSWER' | translate}}" clear-input="true" [(ngModel)]="answerText"
+          (keyup)="onEnterAnswer($event)">
+        </ion-input>
+        <ng-template #answerPreview>
+          <mathjax class="answer-text" *ngIf="answerText && answerText !== ''; else notAvailableText" [content]="answerText"></mathjax>
+          <ng-template #notAvailableText><span class="answer-text">--</span></ng-template>
+        </ng-template>
+      </div>
+      <div class="file-upload-container">
+        <div class="upload-label">
+          {{'FILE_UPLOAD' | translate}}
+        </div>
+        <div class="uploads-container">
+          <ng-container *ngIf="submittedUploads.length">
+            <nav-file-picker [fileUri]="upload.submissionInfo" [isPreview]="true" *ngFor="let upload of submittedUploads" [fileType]="upload.submissionSubtype">
+            </nav-file-picker>
+          </ng-container>
+          <ng-container *ngIf="!isPreview">
+            <nav-file-picker [file]="file" [key]="fileIndex" [isPreview]="true" *ngFor="let file of taskUploads; let fileIndex = index;" (selectFile)="onSelectFile($event)" (removeFile)="onRemoveFile($event)">
+            </nav-file-picker>
+          </ng-container>
+          <!-- Dummy file picker component -->
+          <nav-file-picker *ngIf="!isPreview" (selectFile)="onSelectFile($event)"></nav-file-picker>
+          <ng-container *ngIf="!submittedUploads.length && isPreview">
+            <div class="no-uploads">--</div>
+          </ng-container>
+        </div>
+      </div>
+      <div class="url-upload-container">
+        <div class="url-label">
+          {{'URL_UPLOAD' | translate}}
+        </div>
+        <div class="urls-container">
+          <ng-container *ngIf="!isPreview">
+            <ion-item class="url-container" *ngFor="let url of taskUrls">
+              <ion-input class="url-input" type="url" name="task-url" [(ngModel)]="url.value" (keyup)="onEnterUrl(taskUrls)"></ion-input><i class="add-url-icon material-icons">edit</i>
+            </ion-item>
+          </ng-container>
+          <ng-container *ngIf="submittedUrls.length">
+            <ion-item class="url-container answered" *ngFor="let url of submittedUrls; let urlIndex=index" inAppBrowser [url]="url.submissionInfo">
+              <ion-input class="url-input" type="url" name="task-url" [(ngModel)]="url.submissionInfo"></ion-input>
+              <ion-icon class="icon nav-verified-icon"></ion-icon>
+            </ion-item>
+          </ng-container>
+          <ion-item *ngIf="!isPreview" class="url-container submit-btn" (click)="onAddUrl()">
+            <ion-button class="add-url" expand="block" fill="clear">{{"ENTER_INPUT_URL" | translate}}
+            </ion-button>
+            <i class="add-url-icon material-icons">radio_button_unchecked</i>
+          </ion-item>
+          <ng-container *ngIf="!submittedUrls.length && isPreview">
+            <div class="no-uploads">--</div>
+          </ng-container>
+        </div>
+      </div>
+      <ion-button *ngIf="!isPreview" class="save-task-btn" [ngClass]="{'read-only': isSaving, 'disabled' : !isUrlUpload && !isFileUpload && !isAnswerText}" (click)="onSaveTask()">
+        {{isSaving ? 'SAVING' : 'SAVE' | translate}}
+        <ion-spinner *ngIf="isSaving" color="light" name="bubbles"></ion-spinner>
+      </ion-button>
+    </div>
+  </ng-container>
+  <div class="hz-line"></div>
+</div>

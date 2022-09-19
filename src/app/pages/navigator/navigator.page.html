@@ -1,0 +1,40 @@
+<ion-header class="navigator-page-header">
+  <ion-toolbar class="ion-no-padding">
+    <ion-grid>
+      <ion-row class="back">
+        <ion-text class="material-icons" (click)="onBack()">keyboard_backspace</ion-text>
+      </ion-row>
+      <ion-row class="navigation-row">
+        <navigation-bar [selectedDestination]="enableNavigatorProgram && studentDestinationLevel ? (classTitle + ' - ' + studentDestinationLevel.grade) : classTitle" [subjectCode]="subjectCode" [subjectName]="selectedSubject && selectedSubject.title" [showUpdateLocationOption]="showNavigateProgramGradeEdit && showPublicClassDiagnostic" (selectedOption)="onSelectedOption($event)"></navigation-bar>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+</ion-header>
+<ng-container *ngIf="classSetupInComplete;else setupCompleted">
+  <class-setup-not-completed></class-setup-not-completed>
+</ng-container>
+<ng-template #setupCompleted>
+  <ion-content class="navigator-page-container" [ngClass]="{'show-navigator-header' : isShowMilestoneModal && isLoaded}" [scrollY]="true" [scrollX]="true">
+    <ion-row *ngIf="isLoaded" class="category-facets-panel">
+      <ion-text class="category" *ngIf="activeCategory">
+        {{activeCategory.title}}
+      </ion-text>
+      <ion-text class="facets ellipsis" *ngIf="selectedSubject">
+        {{selectedSubject.title}}
+      </ion-text>
+    </ion-row>
+    <ng-container *ngIf="activeSubject && domainTopicCompetencyMatrix && isShowProficiency">
+      <proficiency-chart class="proficiency-chart" [showLegendInfoPopover]="showLegendInfoPopover" [gradeLowerBound]="gradeLowerBound" [isDefaultSkyline]="isDefaultSkyline" [class]="class" [destinationClass]="class" [subjects]="subjects"
+        [showHeader]="true" [categories]="categories" [frameworkId]="frameworkId" [activeSubject]="activeSubject" [activeCategory]="activeCategory" [fwCompetencies]="fwCompetencies" [domainCoordinates]="domainCoordinates"
+        [showCompetencyInfo]="showCompetencyInfo" [showDomainInfo]="showDomainInfo" (selectDomain)="onSelectDomain($event)" (selectTopic)="onSelectTopic($event)" (closeLegendInfoPopover)="closeLegendInfo()" (skylinePresent)="skylinePresent()"
+        (selectLegend)="onSelectLegend()" (selectCompetency)="onSelectCompetency($event)" [domainTopicCompetencyMatrix]="domainTopicCompetencyMatrix" [taxonomyGrades]="taxonomyGrades" [userSelectedUpperBound]="userSelectedUpperBound" (chartLoded)="chartLoded()">
+      </proficiency-chart>
+    </ng-container>
+    <ion-row class="milestone-panel-container" *ngIf="isShowMilestoneModal && isLoaded">
+      <milestone-panel [enableNavigatorProgram]="enableNavigatorProgram" [title]="classTitle" [defaultGradeLevel]="defaultGradeLevel" [startCourse]="startJourney" [isDisabled]="isDisabled" [isIlpInProgress]="isIlpInProgress" [state]="state" [isPublic]="class.isPublic" (toggleInfo)="onToggleInfo()" (lessonList)="navigateToHome()"
+        (clickDirection)="onClickDirection()" [showPublicClassDiagnostic]="showPublicClassDiagnostic" (publicClassDiagnosticPlay)="publicClassDiagnosticPlay()"
+        (skipDiagnostic)="onSkipDiagnostic()" [studentDestinationLevel]="studentDestinationLevel" (clickStart)="onClickStart()" (diagnosticPlay)="onDiagnosticPlay()">
+      </milestone-panel>
+    </ion-row>
+  </ion-content>
+</ng-template>

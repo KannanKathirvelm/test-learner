@@ -1,0 +1,20 @@
+<div class="nav-file-picker">
+  <!-- NOTE get file location to show preview -->
+  <div *ngIf="isPreview; else pickerContainer" class="file-preview">
+    <ion-img *ngIf="isImageFile; else iconThumbnail" inAppBrowser [url]="fileUri" [src]="fileUri" [ngClass]="{'uploading': file && file.isUploading}"></ion-img>
+    <ng-template #iconThumbnail>
+      <span class="icon-preview" inAppBrowser [url]="fileUri"><i [ngClass]="faIconClass" class="file-icon"></i></span>
+    </ng-template>
+    <span *ngIf="file && !file.isUploaded" class="remove-file" (click)="onRemoveFile()">
+      <i class="material-icons">clear</i>
+    </span>
+    <ion-spinner *ngIf="file && file.isUploading" class="spinner-dots" color="primary" name="dots"></ion-spinner>
+  </div>
+  <ng-template #pickerContainer>
+    <div class="file-pick">
+      <ion-icon name="cloud-upload"></ion-icon>
+      <span class="label-text">{{'UPLOAD' | translate}}</span>
+      <input type="file" class="file-input" name="file-input" (change)="onFileChange($event)" />
+    </div>
+  </ng-template>
+</div>

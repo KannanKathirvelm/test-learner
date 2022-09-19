@@ -1,0 +1,105 @@
+/* ---start external icons--- */
+ion-icon {
+  &[class*="nav-"] {
+    mask-size: contain;
+    mask-position: 50% 50%;
+    mask-repeat: no-repeat;
+    width: 20px;
+    height: 20px;
+    background: var(--inactive-bg);
+  }
+
+  &[class*="nav-assessment"] {
+    mask-image: var(--assessment);
+  }
+
+  &[class*="nav-language"] {
+    mask-image: var(--language-icon);
+  }
+
+  &[class*="nav-collection"] {
+    mask-image: var(--collection);
+  }
+
+  &[class*="nav-assessment-external"] {
+    mask-image: var(--assessment);
+  }
+
+  &[class*="nav-collection-external"] {
+    mask-image: var(--collection);
+  }
+
+  &[class*="nav-offline-activity"] {
+    width: 28px;
+    height: 28px;
+    mask-image: var(--offline);
+  }
+
+  &[class*="notification"] {
+    mask-image: var(--notification-icon);
+  }
+
+  &[class*="nav-class-activity"] {
+    mask-image: var(--dca-icon);
+  }
+
+  &[class*="nav-proficiency"] {
+    mask-image: var(--proficiency);
+  }
+
+  &[class*="nav-text-resource-light"] {
+    mask-image: var(--text-resource-icon);
+  }
+
+  &[class*="nav-grade"] {
+    mask-image: var(--grade-icon);
+  }
+
+  &[class*="nav-verified-icon"] {
+    mask-image: var(--tick);
+  }
+  &[class*="nav-lesson-icon"] {
+    mask-image: var(--feature-lesson-icon);
+  }
+
+  &[class*="nav-course-icon"] {
+    mask-image: var(--course);
+  }
+  &[class*="nav-destination-icon"] {
+    mask-image: var(--destination-red-img);
+  }
+  &[class*="nav-tick-icon"] {
+    mask-image: var(--tick-icon);
+  }
+}
+
+i {
+  &[class*="nav-"] {
+    background-size: contain;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    width: 24px;
+    height: 24px;
+  }
+
+  &[class*="nav-reaction-1"] {
+    background-image: var(--reaction1);
+  }
+
+  &[class*="nav-reaction-2"] {
+    background-image: var(--reaction2);
+  }
+
+  &[class*="nav-reaction-3"] {
+    background-image: var(--reaction3);
+  }
+
+  &[class*="nav-reaction-4"] {
+    background-image: var(--reaction4);
+  }
+
+  &[class*="nav-reaction-5"] {
+    background-image: var(--reaction5);
+  }
+}
+/* ---end external icons--- */

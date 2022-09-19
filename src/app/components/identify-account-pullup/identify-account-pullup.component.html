@@ -1,0 +1,59 @@
+<div class="identify-account-pullup-container">
+  <ion-header >
+      <ion-toolbar position="top">
+          <ion-row class="identify-account-pullup-head">
+              <ion-col class="identify-account-pullup-section">
+                  <ion-text>{{userProfile.email}}</ion-text>
+                  <ion-text>{{'IDENTIFY_YOUR_ACCOUNT' | translate}}</ion-text>
+              </ion-col>
+              <ion-col class="close-icon" (click)="onCloseModal()">
+                  <i class="material-icons">clear</i>
+              </ion-col>
+          </ion-row>
+  </ion-toolbar>
+  </ion-header>
+  <ion-row class="identify-account-pullup-search-panel" *ngIf="!isShowSearchResult">
+      <ion-col class="identify-account-pullup-description">
+          <ion-text class="description">{{'ENTER_USERNAME_EMAIL' | translate}}</ion-text>
+      </ion-col>
+      <ion-col class="account-search-box">
+          <ion-input type="text" [(ngModel)]="searchTerms" placeholder="Search..." class="input-field"></ion-input>
+          <i class="material-icons-outlined" (click)="onClear()">delete</i>
+      </ion-col>
+      <ion-col class="account-search-action">
+          <ion-button class="search-btn" (click)="onSearchUser()">{{'IDENTIFY_MY_ACCOUNT' | translate}}</ion-button>
+      </ion-col>
+  </ion-row>
+  <ion-row class="identify-account-pullup-result-panel" *ngIf="isShowSearchResult">
+      <ion-col class="result-panel-header">
+          <ion-text>{{'ARE_ANY_OF_THIS_YOU' | translate}}</ion-text>
+      </ion-col>
+      <ion-row class="search-result-box">
+          <ion-row class="search-result-box-panel">
+              <ng-container *ngIf="usersList.length;else noUsers;">
+                  <ion-col class="search-result-item" *ngFor="let user of usersList" size="12">
+                      <ion-col class="user-icon" [ngStyle]="{'background-image': 'url('+user.thumbnail+')'}"></ion-col>
+                      <ion-col class="title-section">
+                          <ion-text class="username">{{user.lastName}}, {{user.firstName}}</ion-text>
+                          <ion-text class="email-address">{{user.email}}</ion-text>
+                      </ion-col>
+                      <ion-col class="radio-checkbox">
+                          <ion-checkbox (ionChange)="onSelectedUser(user)"></ion-checkbox>
+                      </ion-col>
+                  </ion-col>
+              </ng-container>
+              <ng-template #noUsers>
+                  <ion-text class="no-data-found">{{'NO_RECORDS_FOUND' | translate}}</ion-text>
+              </ng-template>
+          </ion-row>
+      </ion-row>
+      <ion-row class="link-action-section">
+          <ion-col class="try-again-btn">
+              <ion-button (click)="onClose()">{{'TRY_AGAIN' | translate}}</ion-button>
+          </ion-col>
+          <ion-col class="link-action-btn">
+              <ion-button (click)="onConfirm($event)">{{'YES_LINK_ACCOUNTS' | translate}}</ion-button>
+          </ion-col>
+      </ion-row>
+  </ion-row>
+</div>

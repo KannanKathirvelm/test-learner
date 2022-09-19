@@ -1,0 +1,33 @@
+ion-content {
+    --background: var(--seashell);
+  
+    .menu-title {
+      font-size: 16px;
+      color: var(--black);
+      font-weight: bold;
+      padding-bottom: 5px;
+      border-bottom: 2px solid var(--border-gray);
+      background: var(--white);
+      padding-left: 10px;
+      padding-right: 10px;
+      padding-top: 10px;
+    }
+  
+    .menu-option {
+      display: grid;
+  
+      ion-row {
+        color: var(--lochmara);
+        font-weight: bold;
+        font-size: 16px;
+        height: 49px;
+        align-items: center;
+        padding: 10px;
+        background-color: var(--white);
+  
+        &:first-child {
+          margin-bottom: 15px;
+        }
+      }
+    }
+  }

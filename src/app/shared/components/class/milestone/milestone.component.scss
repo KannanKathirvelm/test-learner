@@ -1,0 +1,42 @@
+%message-container {
+  background: var(--white);
+  padding: 20px;
+  width: 90%;
+  margin: 20px auto;
+  font-style: italic;
+  color: var(--dark-400);
+}
+
+.milestone-page {
+  display: grid;
+  max-height: calc(100% - 155px);
+  top: 8px;
+
+  .class-not-ready-container {
+    @extend %message-container;
+  }
+}
+
+.no-milestone-view {
+  @extend %message-container;
+}
+
+.skeleton-panel-header {
+  height: 48px;
+  margin-bottom: 5px;
+
+  ion-col {
+    background: var(--white);
+    width: 100%;
+    -webkit-box-align: center;
+    align-items: center;
+    display: grid;
+    height: 48px;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);
+    grid-template-columns: 1fr 1fr 1fr;
+
+    ion-skeleton-text {
+      width: 90%;
+    }
+  }
+}

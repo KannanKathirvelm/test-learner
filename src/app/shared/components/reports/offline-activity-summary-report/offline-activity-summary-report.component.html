@@ -1,0 +1,26 @@
+<div class="offline-activity-summary-report">
+  <div class="performance-activity" ngClass="grade-range-{{performance.score | gradeRange}}">
+    <div class="performance">
+      <div class="score-container">
+        <div class="score">{{ performance.score | transformPerformanceScore}}</div>
+        <div class="label">{{'SCORE' | translate}}</div>
+      </div>
+    </div>
+    <div class="performance-img" ngClass="grade-range-{{performance.score | gradeRange}}" [ngStyle]="{'height': performance.score + '%'}">
+    </div>
+  </div>
+  <div class="progress-info">
+    <div class="total-task report-info">
+      <span class="score">{{performance.taskCount}}</span>
+      <span class="label">{{'TASKS' | translate}}</span>
+    </div>
+    <div class="timespent-container">
+      <span class="timespent">{{ performance.timespent | transformPerformanceTimeSpent}}</span>
+      <span class="label">{{'TIMESPENT' | translate}}</span>
+    </div>
+    <div class="completed-task report-info">
+      <span class="task">{{ performance.completedTask }}</span>
+      <span class="label">{{'COMPLETED' | translate}}</span>
+    </div>
+  </div>
+</div>

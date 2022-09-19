@@ -1,0 +1,91 @@
+.milestone-container {
+  margin: 8px;
+
+  .milestone-modal-container {
+    padding: 8px;
+    margin-bottom: 10px;
+    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.2), 0 -2px 4px 0 rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    max-height: 100px;
+    background: var(--milestone-modal-container);
+
+    .count-container {
+      padding: 4px 2px 0;
+      font-size: 12px;
+      opacity: 0.5;
+      font-weight: 500;
+      height: 22px;
+    }
+
+    .navigator-button-row {
+      float: left;
+      height: 24px;
+      min-height: 24px;
+      box-shadow: none;
+      margin-right: 10px;
+      --padding-start: 10px;
+      --padding-end: 10px;
+
+      &.navigate-button {
+        --background: var(--navigate-button-color);
+        margin-left: 0;
+      }
+
+      &.disabled {
+        opacity: 0.6;
+      }
+
+      ion-icon {
+        margin: auto;
+      }
+
+      &.lesson-list-button {
+        --border-width: 0.5px;
+        --border-color: var(--navigator-button-border);
+        --background: var(--lesson-list-button-color);
+        color: var(--lesson-list-button-text);
+      }
+
+      .menu-icon {
+        font-size: 12px;
+        color: var(--navigate-button-color);
+        margin: auto;
+      }
+
+      ion-text {
+        font-family: var(--sans);
+        font-size: 11px;
+        text-transform: capitalize;
+        text-align: center;
+        padding: 5px;
+      }
+    }
+
+    .grade-title-row {
+      display: flex;
+      align-items: center;
+
+      .title {
+        font-size: 14px;
+        color: var(--grade-title-row);
+        font-family: var(--sans);
+        text-transform: capitalize;
+        align-items: center;
+      }
+
+      .arrow {
+        opacity: 0.7;
+      }
+
+      .close-icon {
+        height: 16px;
+        display: flex;
+        justify-content: flex-end;
+      }
+    }
+  }
+
+  .milestone {
+    background: var(--milestone-accordion);
+  }
+}

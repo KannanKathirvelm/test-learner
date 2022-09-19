@@ -1,0 +1,102 @@
+<ion-header class="profile-page-header">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button autoHide="false"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>{{'PROFILE' | translate}}</ion-title>
+  </ion-toolbar>
+  <ion-toolbar>
+    <ion-row class="profile-page-container">
+      <ion-row class="item-wrapper">
+        <ion-row class="profile-section">
+          <div class="profile-image">
+            <ng-container *ngIf="showNgxAvatar; else avatarImage">
+              <ngx-avatar [name]="userSession.first_name" [size]="avatarSize"></ngx-avatar>
+            </ng-container>
+            <ng-template #avatarImage>
+              <ion-avatar>
+                <ion-img [src]="userSession.thumbnail" class="profile-icon" (ionError)="imageErrorHandler()"></ion-img>
+              </ion-avatar>
+            </ng-template>
+            <ion-spinner *ngIf="isSaving" color="light" name="bubbles"></ion-spinner>
+            <ion-input type="file" accept="image/*" class="image-picker" (change)="onClickUpdate($event)"></ion-input>
+          </div>
+          <div class="profile-label ellipsis">
+            <span class="fullname">{{userSession.first_name}} {{userSession.last_name}}</span>
+            <span class="username ellipsis">{{userSession.username}}</span>
+            <ion-text class="email">{{userSession.email}}</ion-text>
+          </div>
+        </ion-row>
+        <ion-row class="user-details" *ngIf="userDetails">
+          <ion-row class="user-info">
+            <ion-text class="change-password-txt" (click)="onChangePassword()">{{'CHANGE_PASSWORD' | translate}}</ion-text>
+          </ion-row>
+          <ion-row class="user-info-row">
+            <ion-col size="7" class="ion-no-padding">
+              <ion-row class="user-info">
+                <ion-text class="label">{{'ROLE' | translate}}</ion-text>
+                <ion-text class="info" *ngIf="userDetails.userCategory;else notSpecified">{{userDetails.userCategory}}</ion-text>
+              </ion-row>
+            </ion-col>
+            <ion-col size="5" class="ion-no-padding">
+              <ion-row class="justify-content-center date-time-label">
+                <ion-label class="input-label date-time-label">{{'YEAR_OF_BIRTH' | translate}}
+                </ion-label>
+              </ion-row>
+              <ion-row class="date-row">
+                <ion-col align-self-start class="year">
+                  <div class="input-wrapper date">
+                    <ion-item no-padding>
+                      <ion-label [ngClass]="{'disabled': year}">{{ 'YEAR' | translate }}</ion-label>
+                      <ion-datetime [ngClass]="{'has-value': year}" name="year" displayFormat="YYYY" [max]="maxYear" [(ngModel)]="year" class="date" (ionChange)="onChangeDate($event)"></ion-datetime>
+                    </ion-item>
+                  </div>
+                </ion-col>
+              </ion-row>
+            </ion-col>
+          </ion-row>
+          <ion-row class="user-info">
+            <ion-text class="label">{{'COUNTRY' | translate}}</ion-text>
+            <ion-text class="info" *ngIf="userDetails.country;else notSpecified">{{userDetails.country}}</ion-text>
+          </ion-row>
+          <ion-row class="user-info">
+            <ion-text class="label">{{'STATE' | translate}}</ion-text>
+            <ion-text class="info" *ngIf="userDetails.state;else notSpecified">{{userDetails.state}}</ion-text>
+          </ion-row>
+          <ion-row class="user-info">
+            <ion-text class="label">{{'DISTRICT' | translate}}</ion-text>
+            <ion-text class="info" *ngIf="userDetails.schoolDistrict;else notSpecified">{{userDetails.schoolDistrict}}</ion-text>
+          </ion-row>
+          <ng-template #notSpecified>
+            <ion-text class="info">{{'NOT_SPECIFIED' | translate}}</ion-text>
+          </ng-template>
+          <ion-row>
+            <ion-row class="button-row">
+              <ion-button class="button-text" [disabled]="deletionTriggerDate" (click)="onDeleteAlert()">{{ 'DELETE_PROFILE' | translate }}</ion-button>
+            </ion-row>
+            <ion-row class="deletion-confirmed-msg" *ngIf="deletionTriggerDate">
+              <ion-text>{{ 'DELETION_CONFIRMED_MSG' | translate }} {{ deletionTriggerDate }}</ion-text>
+            </ion-row>
+          </ion-row>
+        </ion-row>
+        <ion-row class="tab-list">
+          <ion-col routerLink="/profile/preferences" routerLinkActive="active">
+            <ion-label>{{'PREFERENCES' | translate}}</ion-label>
+          </ion-col>
+          <ion-col routerLink="/profile/guardian-profile" routerLinkActive="active">
+            <ion-label>{{'GUARDIAN' | translate}}</ion-label>
+          </ion-col>
+          <ion-col routerLink="/profile/about-me" routerLinkActive="active">
+            <ion-label>{{'ABOUT_ME' | translate}}</ion-label>
+          </ion-col>
+          <ion-col routerLink="/profile/universal" routerLinkActive="active">
+            <ion-label>{{'UNIVERSAL' | translate}}</ion-label>
+          </ion-col>
+        </ion-row>
+      </ion-row>
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-router-outlet></ion-router-outlet>
+</ion-content>

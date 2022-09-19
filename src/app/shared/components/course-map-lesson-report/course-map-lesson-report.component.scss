@@ -1,0 +1,208 @@
+@import "src/theme/mixins.scss";
+
+.course-lesson-report {
+  ion-toolbar {
+    --min-height: 56px;
+  }
+
+  .header-section {
+    display: grid;
+    grid-template-columns: auto 6%;
+    padding: 10px;
+  }
+
+  .lesson-title {
+    width: 284px;
+    display: block;
+    padding-left: 10px;
+  }
+
+  .performance-activity {
+    display: grid;
+    position: relative;
+    height: 240px;
+    grid-template-rows: 20px 1fr;
+    width: 100%;
+
+    &:before {
+      content: "";
+      position: absolute;
+      opacity: 0.3;
+      width: 100%;
+      height: 100%;
+      background-color: var(--unit-collection-score);
+    }
+
+    %webkit-container {
+      -webkit-mask-size: cover;
+      -webkit-mask-repeat: no-repeat;
+      background: currentColor;
+      -webkit-mask-image: var(--performance-score-fill-bg);
+    }
+
+    %container {
+      mask-size: cover;
+      mask-repeat: no-repeat;
+      background: currentColor;
+      mask-image: var(--performance-score-fill-bg);
+    }
+
+    .performance {
+      text-align: center;
+      display: grid;
+      font-weight: bold;
+      justify-content: center;
+      z-index: 1;
+      height: 240px;
+
+      .score-container {
+        display: grid;
+        justify-content: center;
+
+        .label {
+          font-size: 16px;
+          color: var(--assessment-summary-report-text-color);
+          display: flex;
+          justify-content: center;
+        }
+
+        .score {
+          font-size: 56px;
+          font-weight: bold;
+          line-height: 1.14;
+          color: var(--assessment-summary-report-text-color);
+          align-self: end;
+        }
+      }
+    }
+
+    .time-container {
+      display: grid;
+      justify-content: center;
+
+      .time {
+        font-size: 56px;
+        font-weight: bold;
+        line-height: 1.14;
+        color: var(--assessment-summary-report-text-color);
+        align-self: center;
+      }
+    }
+
+    @include grade-range();
+
+    .no-grade {
+      background-color: var(--unit-collection-score);
+    }
+
+    .performance-img {
+      grid-row-start: 2;
+      @extend %webkit-container;
+      @extend %container;
+      display: grid;
+      align-self: end;
+    }
+  }
+
+  .format-collection {
+    background-color: var(--collection-summary-report-bg-color);
+    color: var(--unit-text-color);
+  }
+  .format-collection-external {
+    background-color: var(--collection-summary-report-bg-color);
+    color: var(--unit-text-color);
+  }
+
+  .course-lesson-report-contain {
+    display: grid;
+    width: 100%;
+    height: 48px;
+    -webkit-box-align: center;
+    align-items: center;
+    grid-template-columns: auto 50px;
+    background-color: var(--white);
+    border-bottom: 1px solid var(--class-activity-border);
+    font-size: 12px;
+
+    .collection-name {
+      display: inline-block;
+      width: 210px;
+      align-self: center;
+    }
+
+    .collection-icon {
+      width: 30px;
+      height: 30px;
+      padding-left: 10px;
+    }
+
+    .collection-score {
+      height: 100%;
+      width: 100%;
+
+      .score {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+
+        .score-value {
+          font-size: 16px;
+        }
+      }
+
+      .timespent {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+
+        .time-value {
+          font-size: 16px;
+          text-align: center;
+        }
+      }
+
+      &.format-collection {
+        background-color: var(--collection-summary-report-bg-color);
+        color: var(--unit-text-color);
+      }
+      &.format-collection-external {
+        background-color: var(--collection-summary-report-bg-color);
+        color: var(--unit-text-color);
+      }
+    }
+
+    .no-performance {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      background-color: var(--no-performance-bg);
+      padding: 10px;
+
+      .grade-range-not-started {
+        background-color: var(--white);
+        border-radius: 10px;
+      }
+    }
+  }
+
+  /* skeleton view css */
+  .skeleton-grid {
+    background: var(--coursemap-skeleton-bg-color);
+    padding: 0;
+
+    .skeleton-row {
+      height: 56px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      .performance-col {
+        max-width: 56px;
+      }
+    }
+  }
+}

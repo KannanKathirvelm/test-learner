@@ -1,0 +1,282 @@
+.progress-contain {
+  padding: 5px;
+
+  ion-toolbar {
+    --min-height: var(--toolbar-height);
+  .progress-header-panel {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    position: relative;
+    align-items: center;
+  }
+  .close-report {
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+  .date-range-picker-panel {
+    font-size: 13px;
+    font-weight: bold;
+    color: var(--summer-sky);
+  }
+  .select-date {
+    width: fit-content;
+    margin: 0 20%;
+  }
+ }
+}
+
+.student-row-panel {
+  padding: 10px;
+  .report-toggle-view {
+    .report-view-toggle-btn {
+        text-transform: capitalize;
+        font-size: 10px;
+        --background: var(--green);
+        padding: 5px 0;
+      }
+  }
+  &.student-header-panel {
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    border-bottom: 1px solid var(--border-gray);
+    display: grid;
+    margin-bottom: 10px;
+  }
+
+  .profile-details {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+
+    ::ng-deep .avatar-container {
+      .avatar-content {
+        width: 45px;
+        height: 45px;
+        align-items: center;
+        display: flex;
+        justify-content: center;
+      }
+    }
+    .student-detail {
+      margin-left: 10px;
+      .student-name {
+        span {
+          margin: 0 3px;
+        }
+      }
+      .class-title {
+        font-size: 12px;
+      }
+      ion-label {
+        display: block;
+        font-size: 12px;
+        text-transform: capitalize;
+      }
+    }
+  }
+  .selection-time-period {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    grid-column-gap: 5px;
+    .time-period-card {
+      ion-label {
+        display: block;
+        font-size: 14px;
+
+        &.time-period-text {
+          font-weight: bold;
+          color: var(--period-gray);
+        }
+        &.time-period {
+          font-size: 12px;
+          color: var(--label-gray);
+        }
+        .end-date {
+          display: block;
+        }
+      }
+    }
+    .mastery {
+      color: var(--oa-file-color);
+    }
+    .in-progress {
+      color: var(--in-progress);
+    }
+    .time-cal {
+      color: var(--time-spent);
+    }
+    .nav-collection {
+      width: 30px;
+      height: 30px;
+    }
+    .nav-assessment {
+      width: 30px;
+      height: 30px;
+    }
+  }
+}
+
+.analytics-section {
+  margin-top: 10px;
+  background-color: var(--athens-gray);
+  .analytic-col {
+    text-align: center;
+    padding: 15px 10px;
+    ion-text,
+    ion-label {
+      display: block;
+      font-size: 12px;
+      color: var(--label-gray);
+    }
+    i {
+      display: block;
+      font-size: 30px;
+    }
+    span {
+      display: block;
+      height: 25px;
+      width: 25px;
+      background-repeat: no-repeat;
+      background-size: contain;
+      margin: 10px auto;
+      &.mastered-img {
+        background-image: var(--mastered-img);
+        transform: scale(1.5);
+      }
+      &.mastery-streak-img {
+        background-image: var(--lesson-blue-img);
+      }
+      &.score-img {
+        background-image: var(--assessment-dark-blue-img);
+      }
+    }
+    .explore-img {
+      font-size: 30px;
+      color: var(--grade-range-60-69);
+      margin: 6px auto;
+    }
+  }
+}
+.competency-list-panel {
+  .mat-expansion-panel {
+    &.mat-expansion-panel-spacing {
+      margin: 10px 0;
+    }
+  }
+  .header-name {
+    padding: 0px 10px;
+  }
+  .content-panel {
+    display: grid;
+    grid-template-columns: 16% calc(68% - 49px) 16% 49px;
+    align-items: center;
+    border-bottom: 1px solid #ccc;
+
+    .content-title {
+      padding: 0;
+      ion-text {
+        display: block;
+        &.competency-code {
+          font-size: 12px;
+          font-weight: bold;
+          text-shadow: 0 2px 4px var(--light-300);
+        }
+      }
+      
+      .competency-title {
+        display: grid;
+        grid-template-columns: auto max-content;
+        align-items: center;
+
+        .competency-text {
+          height: 24px;
+          overflow: hidden;
+          word-break: break-all;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+      }
+      
+      .competency-text {
+        height: auto;
+        overflow: auto;
+      }
+      
+      .show-more {
+        overflow: visible;
+        height: auto;
+      }
+      
+      .show-text {
+        font-weight: 500;
+        cursor: pointer;
+        font-size: 12px;
+        text-decoration: underline;
+        color: var(--dodger-reblue);
+        width: max-content;
+      }
+    }
+
+    .content-tries {
+      height: 54px;
+      text-align: center;
+      ion-text {
+        display: block;
+      }
+    }
+    
+    .competency-icon {
+      text-align: center;
+      height: 54px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .content-percentage {
+      padding: 10px;
+      height: 54px;
+      display: grid;
+      align-items: center;
+      font-weight: bold;
+      justify-content: center;
+      &.timespent {
+        font-size: 10px;
+        text-align: center;
+        color: var(--white);
+        background-color: var(--time-spent-color);
+      }
+    }
+    .assessment-img, .collection-img, .collection-external-img, .assessment-external-img {
+      height: 35px;
+      width: 35px;
+    }
+
+    &.diagnostics-content-panel {
+      grid-template-columns: 16% 1fr;
+    }
+  }
+  .no-content {
+    ion-text {
+      padding: 10px;
+    }
+    .select-date {
+      padding-left: 3px;
+    }
+  }
+  .no-performance-score {
+    background-color: var(--milestone-no-score);
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 10px;
+  }
+}

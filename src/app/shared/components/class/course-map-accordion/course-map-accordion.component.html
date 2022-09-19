@@ -1,0 +1,122 @@
+<mat-accordion class="coursemap-container">
+  <ion-row class="unit-panel" *ngIf="!isAllContentsAreRescoped; else RescopedContents">
+    <ng-container *ngFor="let unit of unitList;let unitIndex=index" >
+      <mat-expansion-panel *ngIf="!unit.isRescoped" [ngClass]="{'highlighted': unit.performance && ((unit.performance.scoreInPercentage && unit.performance.scoreInPercentage !== null) || unit.performance.timeSpent) }"
+      [expanded]="showDefaultExpanded && (unitIndex === 0) || unit.isCurrentUnit && !this.reportViewMode" [hideToggle]="true" (opened)="onOpenUnitPanel(unitIndex, unit.unitId)" class="unit-{{unitIndex}}" (afterExpand)="onExpandUnit(unitIndex)">
+      <mat-expansion-panel-header class="no-padding unit-list" collapsedHeight="56px" expandedHeight="inherit">
+        <ion-row class="unit-header">
+          <ion-col class="unit-title">
+            <ion-row class="title">
+              <ion-text>{{'UNIT' | translate}} <span *ngIf="!isHideSeqNumber">{{ hasUnit0 ? unitIndex : unitIndex + 1}}</span></ion-text>
+            </ion-row>
+            <ion-row class="ellipsis unit-name">
+              <ion-text class="ellipsis">{{ unit.title }}</ion-text>
+            </ion-row>
+          </ion-col>
+          <ion-col *ngIf="unit.performance; else noPerformance" class="unit-score grade-range-{{unit.performance.scoreInPercentage | gradeRange}}">
+            {{ unit.performance.scoreInPercentage | transformPerformanceScore }}
+          </ion-col>
+          <ng-template #noPerformance>
+            <ion-col class="no-performance-score grade-range-not-started">&ndash;&ndash;&ndash;</ion-col>
+          </ng-template>
+        </ion-row>
+      </mat-expansion-panel-header>
+      <ng-template matExpansionPanelContent>
+        <ng-container *ngIf="isLessonLoaded; else skeletonViewTemplate">
+          <mat-accordion>
+            <ion-row class="lesson-panel" *ngFor="let lesson of unit.lessons;let lessonIndex=index">
+              <mat-expansion-panel [ngClass]="{'highlighted': lesson.performance && ((lesson.performance.scoreInPercentage && lesson.performance.scoreInPercentage !== null) || lesson.performance.timeSpent), 'current-lesson': lesson.isCurrentLesson, 'disable-lesson': !lesson.isVisible}"
+                [expanded]="showDefaultExpanded && (unitIndex === 0 && lessonIndex === 0) || lesson.isCurrentLesson && !this.reportViewMode" class="lesson-expansion-panel lesson-{{lessonIndex}}" [hideToggle]="true"
+                (opened)="onOpenLessonPanel(unitIndex, unit.unitId, lessonIndex, lesson.lessonId)" (afterExpand)="onExpandLesson(unitIndex, lessonIndex)" *ngIf="!lesson.isRescoped">
+                <mat-expansion-panel-header class="no-padding lesson-list" expandedHeight="inherit">
+                  <ion-row class="lesson-header">
+                    <ion-col class="lesson-title ellipsis">
+                      <ng-container *ngIf="lessonLabelValue; else noLessonLabel">
+                        <ion-text class="domain-name ellipsis">{{tenantSettings.uiElementVisibilitySettings.lessonLabelCourseMap}} {{ lessonIndex + 1 }}</ion-text>
+                      </ng-container>
+                      <ion-text class="title-text ellipsis">{{lesson.title}}</ion-text>
+                      <ng-template #noLessonLabel>
+                        <ion-text class="domain-name ellipsis">{{'LESSON' | translate}} <span *ngIf="!isHideSeqNumber">{{ lessonIndex + 1 }}</span></ion-text>
+                      </ng-template>
+                    </ion-col>
+                    <ion-col *ngIf="lesson.isCurrentLesson && lesson.collections && !this.reportViewMode && lesson.isVisible" class="play" (click)="onPlay($event, unit, lesson)">
+                      <ng-container *ngIf="isLearner">
+                        <ion-text class="material-icons play-icon">play_arrow</ion-text>
+                      </ng-container>
+                    </ion-col>
+                    <ion-col *ngIf="lesson.performance; else noPerformance" class="lesson-score grade-range-{{lesson.performance.scoreInPercentage | gradeRange}}" (click)="showLessonReport(unit, lesson)">
+                      {{ lesson.performance.scoreInPercentage | transformPerformanceScore }}
+                    </ion-col>
+                    <ng-template #noPerformance>
+                      <ion-col class="no-performance-score grade-range-not-started">&ndash;&ndash;&ndash;</ion-col>
+                    </ng-template>
+                  </ion-row>
+                </mat-expansion-panel-header>
+                <ng-template matExpansionPanelContent>
+                  <ng-container *ngIf="isCollectionLoaded; else skeletonViewTemplate">
+                    <ion-row class="collection-panel {{collection.pathType}}" *ngFor="let collection of lesson.collections" (click)="onPlay($event, unit, lesson, collection)" [ngClass]="[(collection.isTeacherSuggested || collection.isVisible) || (collection.iSystemSuggested  && !collection.isAssessment) ? 'enabled' : 'disabled', collection.id === lastPlayedCollectionId ? 'last-played-collection' : '',
+                      collection.isSuggestedContent ? 'suggested-item': '']">
+                      <ion-col class="collection-icon-wrapper"
+                        [ngClass]="{'highlighted': collection.performance && ((collection.performance.scoreInPercentage && collection.performance.scoreInPercentage !== null) || collection.performance.timeSpent) }">
+                        <ion-icon class="nav-{{collection.format}} collection-img"></ion-icon>
+                      </ion-col>
+                      <ion-col class="collection-title ellipsis">
+                        <ion-row class="ellipsis">
+                          <ion-text class="ellipsis">{{collection.title}}</ion-text>
+                        </ion-row>
+                      </ion-col>
+                      <ion-col *ngIf="collection.id === lastPlayedCollectionId && !this.reportViewMode && isLearner" class="play">
+                        <ion-text class="material-icons play-icon">play_arrow</ion-text>
+                      </ion-col>
+                      <ion-col *ngIf="collection.performance && (!collection.isOfflineActivity || collection.performance.gradingStatus !== 'in-progress'); else noPerformance" class="collection-score no-padding format-{{collection.format}} grade-range-{{collection.performance.scoreInPercentage | gradeRange}}">
+                        <ion-row *ngIf="collection.isAssessment|| collection.isExternalAssessment || collection.isOfflineActivity || !collection.isRescoped; else showTimeSpent" class="score grade-range-{{collection.performance.scoreInPercentage | gradeRange}}" [ngClass]="{'read-only' : collection.performance.scoreInPercentage === null }"
+                          (click)="showCollectionReport($event, unit, lesson, collection)">
+                          <ion-text>
+                            {{collection.performance.scoreInPercentage | transformPerformanceScore}}
+                          </ion-text>
+                        </ion-row>
+                        <ng-template #showTimeSpent>
+                          <ion-row class="timespent" *ngIf="collection.performance.timeSpent; else noPerformance" [ngClass]="{'read-only' : !collection.performance.timeSpent }" (click)="showCollectionReport($event, unit, lesson, collection)">
+                            <ion-text>{{collection.performance.timeSpent | transformPerformanceTimeSpent }}</ion-text>
+                          </ion-row>
+                        </ng-template>
+                      </ion-col>
+                      <ng-template #noPerformance>
+                        <ion-col class="collection-score">
+                          <ion-thumbnail class="thumbnail-image pull-right" *ngIf="!collection.performance; else oaInProgress">
+                            <ion-img [src]="collection.thumbnailXS"></ion-img>
+                          </ion-thumbnail>
+                          <ng-template #oaInProgress>
+                            <ion-col class="no-performance-score grade-range-not-started">&ndash;&ndash;&ndash;</ion-col>
+                          </ng-template>
+                        </ion-col>
+                      </ng-template>
+                    </ion-row>
+                  </ng-container>
+                </ng-template>
+              </mat-expansion-panel>
+            </ion-row>
+          </mat-accordion>
+        </ng-container>
+        <ng-template #skeletonViewTemplate>
+          <ion-grid class="skeleton-grid">
+            <ion-row class="skeleton-row" *ngFor="let items of [].constructor(3)">
+              <ion-col class="title-col">
+                <ion-skeleton-text animated></ion-skeleton-text>
+              </ion-col>
+              <ion-col class="performance-col">
+                <ion-skeleton-text animated></ion-skeleton-text>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ng-template>
+      </ng-template>
+    </mat-expansion-panel>
+    </ng-container>
+  </ion-row>
+  <ng-template #RescopedContents>
+    <ion-row class="no-course-view">
+      <ion-text>{{'MILESTONE_RESCOPED_CONTENT_MSG' | translate }}</ion-text>
+    </ion-row>
+  </ng-template>
+</mat-accordion>

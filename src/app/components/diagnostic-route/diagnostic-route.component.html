@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-row class="row-header">
+      <ion-col class="col-title">
+        <ion-text>{{title}}</ion-text>
+      </ion-col>
+      <ion-col class="col-close">
+        <ion-text class="material-icons close" (click)="closeModal()">close</ion-text>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ng-container *ngIf="isRouteCheckFailed; else milestoneView">
+    <ion-row class="row-diagnostic-route-not-generated">
+      <ion-icon class="route-failed"></ion-icon>
+      <ion-text class="text-route-not-generated">
+        {{'GENERATED_ROUTE_FAILED_MSG' | translate}}
+      </ion-text>
+    </ion-row>
+  </ng-container>
+  <ng-template #milestoneView>
+    <ng-container *ngIf="isLoaded">
+      <milestone-accordion [isHideInfo]="true" [subjectCode]="subjectCode" [classId]="classId" [currentLocation]="currentLocation" [frameworkCode]="fwCode" [milestones]="milestones" [courseId]="courseId"></milestone-accordion>
+    </ng-container>
+  </ng-template>
+</ion-content>

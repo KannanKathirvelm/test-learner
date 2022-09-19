@@ -1,0 +1,62 @@
+<ion-header>
+  <ion-row class="milestone-info-panel-header">
+    <ion-col class="thumbnail-wrapper ion-no-padding">
+      <i class="flag-icon material-icons">flag</i>
+    </ion-col>
+    <ion-col class="title-wrapper ion-no-padding">
+      <ion-row class="title-container name">
+        <ion-col class="milestone-title ellipsis ion-no-padding">
+          <ion-text class="ellipsis">{{'MILESTONE' | translate}} {{milestoneContent.sequenceId + 1}}</ion-text>
+        </ion-col>
+        <ion-col class="completed-performance ellipsis ion-no-padding">
+          <ion-text class="milestone-completed-performance">({{completedInPrecentage | transformPerformanceScore}} {{'COMPLETED' | translate}})
+          </ion-text>
+        </ion-col>
+      </ion-row>
+      <ion-row class="title-container">
+        <ion-col class="milestone-title ion-no-padding">
+          <ion-text class="lesson-count" *ngIf="lessonsCount > 1;else singleLesson">
+            {{lessonsCount}} {{'LESSONS' | translate}}
+          </ion-text>
+          <ng-template #singleLesson>
+            <ion-text class="lesson-count">
+              {{lessonsCount}} {{'LESSON' | translate}}
+            </ion-text>
+          </ng-template>
+        </ion-col>
+      </ion-row>
+    </ion-col>
+    <ion-col class="close-icon-wrapper ion-no-padding">
+      <ion-text class="material-icons" (click)="dismissModal()">clear</ion-text>
+    </ion-col>
+  </ion-row>
+</ion-header>
+<ion-content class="milestone-info-panel-content">
+  <ion-row class="competency-container">
+    <ion-col class="competency-thumbnail-col ion-no-padding">
+      <ion-icon class="competency-img"></ion-icon>
+    </ion-col>
+    <ion-col class="competency-mastered-col ion-no-padding">
+      <ion-row class="competency-mastered" *ngIf="milestoneContent.performance && milestoneContent.performance.completedCount; else zeroCompetency">
+        <ion-text class="completed-competency">{{milestoneContent.performance.completedCount}}</ion-text>
+        <ion-text class="total-competency">/ {{milestoneContent.performance.totalCount}} {{ 'COMPETENCIES' | translate }} {{ 'MASTERED' | translate }}</ion-text>
+      </ion-row>
+      <ion-row class="competency-progress-bar">
+        <ion-progress-bar [value]="completedCompetencyPercentage"></ion-progress-bar>
+      </ion-row>
+      <ng-template #zeroCompetency>
+        <ion-row class="competency-mastered">
+          <ion-text class="total-competency zero-competency">{{milestoneInitialPerformance}} {{ 'COMPETENCY_MASTERED' | translate }}</ion-text>
+        </ion-row>
+      </ng-template>
+    </ion-col>
+    <ion-col class="milestone-performance grade-range-{{performance | gradeRange}}" *ngIf="performance;else noPerformance">
+      <ion-text>{{performance | transformPerformanceScore}}</ion-text>
+    </ion-col>
+    <ng-template #noPerformance>
+      <ion-col class="milestone-performance no-performance">
+        <ion-text>&mdash;</ion-text>
+      </ion-col>
+    </ng-template>
+  </ion-row>
+</ion-content>

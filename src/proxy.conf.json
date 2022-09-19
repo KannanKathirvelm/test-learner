@@ -1,0 +1,18 @@
+{
+  "/api/*": {
+    "target": "https://staging.gooru.org/api",
+    "changeOrigin": true,
+    "secure": false,
+    "pathRewrite": {
+      "^/api": ""
+    }
+  },
+  "/parse/*": {
+    "target": "https://staging.gooru.org/parse",
+    "changeOrigin": true,
+    "secure": false,
+    "pathRewrite": {
+      "^/parse": ""
+    }
+  }
+}

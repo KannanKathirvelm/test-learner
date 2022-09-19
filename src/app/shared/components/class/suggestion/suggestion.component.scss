@@ -1,0 +1,103 @@
+.suggestion-container-panel {
+  .suggestion-container {
+    .tab-container {
+      height: 50px;
+      display: flex;
+      align-content: center;
+      justify-content: center;
+      background: var(--suggestion-bg-color);
+
+      .tab-button {
+        width: 100%;
+        height: 50px;
+        font-family: var(--sans);
+        font-size: 15px;
+        line-height: 1.33;
+        text-align: center;
+        text-transform: none;
+
+        .tab-title {
+          height: 16px;
+        }
+      }
+
+      .tab {
+        min-width: 50%;
+
+        .tab-button {
+          background: transparent;
+          font-weight: bold;
+          outline: none;
+          border-bottom: 4px solid var(--button-light-gray);
+          color: var(--button-light-gray);
+        }
+      }
+
+      .active {
+        .tab-button {
+          border-bottom: 4px solid var(--tab-selected-orange);
+          color: var(--tab-selected-orange);
+        }
+      }
+    }
+
+    .filter-container {
+      height: 50px;
+      display: flex;
+      align-content: center;
+      justify-content: center;
+      background: var(--line-gray-color);
+
+      .filter-button {
+        width: 105px;
+        height: 25px;
+        font-family: var(--sans);
+        font-size: 13px;
+        line-height: 1.33;
+        text-align: center;
+        text-transform: none;
+        border-radius: 12px;
+      }
+
+      .filter {
+        margin: auto;
+
+        .filter-button {
+          color: var(--suggestion-button-color);
+          background: var(--suggestion-bg-color);
+          border: solid 1px var(--button-light-gray);
+          outline: none;
+        }
+      }
+
+      .active {
+        .filter-button {
+          color: var(--suggestion-color);
+          background: var(--suggestion-button-color);
+          border: unset;
+        }
+      }
+    }
+
+    .no-suggestion-content {
+      min-height: 50px;
+      padding: 15px;
+
+      .no-suggestion-message {
+        text-align: center;
+        font-size: 18px;
+        font-style: italic;
+        letter-spacing: 0.1px;
+        color: var(--suggestion-message-color);
+        font-family: var(--lato);
+      }
+    }
+  }
+
+  .spinner-bar {
+    margin: auto;
+    display: flex;
+    width: 40px;
+    height: 40px;
+  }
+}

@@ -1,0 +1,67 @@
+<ion-header class="header-wrapper" no-border>
+  <ion-toolbar>
+    <ion-grid>
+      <ion-row class="header-title justify-content-center">
+        <ion-col size="2" class="col-close no-padding justify-content-center" (click)="dismissModal()">
+          <ion-row class="close-button">
+            <i class="material-icons">clear</i>
+          </ion-row>
+        </ion-col>
+        <ion-col size="10">
+          <ion-grid>
+            <ion-row>
+              <ion-text class="sign-up-title-text">
+                {{ 'ADD_GUARDIAN' | translate }}
+              </ion-text>
+            </ion-row>
+          </ion-grid>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <form [formGroup]="guardianForm" (ngSubmit)="addGuardian()" class="guardian-form" autofill="off">
+    <ion-row class="header-text-container">
+      <ion-col size="12" class="justify-content-center">
+        <ion-text>{{'REQUEST_ACCESS_HEADER_MSG_FOR_GUARDIAN' | translate}}</ion-text>
+      </ion-col>
+    </ion-row>
+    <ion-row class="name-field">
+      <ion-col align-self-start size="12">
+        <nav-input-text [label]="'FIRST_NAME' | translate" [formName]="'firstName'" [parentForm]="guardianForm" [isRequired]="true"></nav-input-text>
+        <ion-text *ngIf="submitted && validateForm.firstName.errors" class="danger-text error-text">
+          {{'ENTER_YOUR_TEXT' | translate}} {{'FIRST_NAME'| translate}}.
+        </ion-text>
+      </ion-col>
+    </ion-row>
+    <ion-row class="name-field">
+      <ion-col align-self-start size="12">
+        <nav-input-text [label]="'LAST_NAME' | translate" [formName]="'lastName'" [parentForm]="guardianForm" [isRequired]="true"></nav-input-text>
+        <ion-text *ngIf="submitted && validateForm.lastName.errors" class="danger-text error-text">
+          {{'ENTER_YOUR_TEXT' | translate}} {{'LAST_NAME'| translate}}.
+        </ion-text>
+      </ion-col>
+    </ion-row>
+    <ion-row class="email-container">
+      <ion-col align-self-start size="12">
+        <nav-input-email class="email-row" [label]="'ENTER_GUARDIAN_EMAIL' | translate" [parentForm]="guardianForm" [isRequired]="true"></nav-input-email>
+        <ion-text *ngIf="submitted && validateForm.email.errors?.required" class="danger-text text-center error-text">{{ 'ENTER_EMAIL_ERROR' | translate }}</ion-text>
+        <ion-text *ngIf="submitted && validateForm.email.errors?.email" class="danger-text text-center error-text">{{ 'ENTER_VALID_EMAIL'| translate }}</ion-text>
+      </ion-col>
+    </ion-row>
+    <ion-row class="role-list-row">
+      <ion-col align-self-start size="12">
+        <ion-text class="input-label role-label">{{'ROLE' | translate}} *</ion-text>
+        <ion-select formControlName="roles" placeholder="{{'SELECT_ROLE' | translate}}" [interfaceOptions]="customSelectOptions" dropdownScrollIntoView>
+          <ion-select-option [value]="role.id" *ngFor="let role of roleList">{{role.name}}</ion-select-option>
+        </ion-select>
+        <ion-text *ngIf="submitted && validateForm.roles.errors?.required" class="danger-text role-error">{{ 'SELECT_ROLE_ERROR' | translate }}</ion-text>
+      </ion-col>
+    </ion-row>
+    <ion-row class="justify-content-center">
+      <ion-button class="submit-btn submit" type="submit">{{ 'SUBMIT' | translate }}</ion-button>
+    </ion-row>
+  </form>
+  <nav-custom-alert *ngIf="showSuccessAlert" (dismissAlert)="dismissAlert($event)" [successMessage1]="successMessage"></nav-custom-alert>
+</ion-content>

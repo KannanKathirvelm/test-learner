@@ -1,0 +1,26 @@
+<ion-content class="universal-page">
+  <ion-grid class="universal-page-container">
+    <ion-row class="universal-page-panel-head">
+      <ion-col class="universal-page-title">
+        <ion-text class="linked-text">{{'LINKED_ACCOUNTS' | translate}}</ion-text>
+      </ion-col>
+      <ion-row class="univeral-users-list-panel" *ngFor="let user of userIdentities">
+        <ion-col class="profile-icon" [ngStyle]="{'background-image': 'url(' + user.thumbnail + ')'}"></ion-col>
+        <ion-col class="profile-details">
+          <ion-text class="profile-name">{{user.lastName}} {{user.firstName}}</ion-text>
+          <ion-text class="profile-email">{{user.email}}</ion-text>
+        </ion-col>
+        <ion-col class="profile-action-btn">
+          <ion-button class="resend-btn" (click)="onResendMail(user)">{{'RESEND_EMAIL' | translate}}</ion-button>
+          <ion-button class="cancel-btn" (click)="onCancel(user)">{{'CANCEL_REQUEST' | translate}}</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-row>
+    <ion-row class="add-univeral-user">
+      <ion-col class="add-new-user" (click)="openUniversalLink()">
+        <ion-text class="user-title">{{'ADD_ANOTHER_ID' | translate}}</ion-text>
+        <i class="material-icons">add</i>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

@@ -1,0 +1,201 @@
+<ion-row class="encoding-question content-{{componentSequence}}"
+  [ngClass]="{'disabled': isDisabled, 'question-answered': isQuestionAnswered, 'bidirectional-restrict': !isBidirectionalPlay, 'already-played': alreadyPlayed}"
+  (click)="onClickQuestionWithFeedBack()">
+  <ion-row class="hz-line"></ion-row>
+  <!-- start header section -->
+  <ion-row class="resource-content-container" [ngClass]="{'active-content': isActive,'blur-question': !reportViewMode}">
+    <ion-row class="header-section">
+      <ion-row class="type">{{componentSequence}}. {{'ENCODING_ASSESSMENT' | translate}}</ion-row>
+      <ion-row class="toggle-icon" (click)="toggleAnswers()">
+        <ng-template #downArrow>
+          <ion-icon name="md-arrow-dropdown"></ion-icon>
+        </ng-template>
+        <ion-icon *ngIf="!showAnswer;else downArrow" name="md-arrow-dropup"></ion-icon>
+      </ion-row>
+    </ion-row>
+    <!-- end header section -->
+    <!-- start question section -->
+    <ion-row class="title-container" *ngIf="!isHideAnswerDetails" (click)="toggleAnswers()">
+      <mathjax class="title" *ngIf="content.title" [content]="content.title"></mathjax>
+      <ion-row class="info-icon" (click)="toggleInfo()" *ngIf="!reportViewMode; else performanceContent">
+        <i class="material-icons info" *ngIf="(content.taxonomy | keyvalue)?.length">info_outlined</i>
+      </ion-row>
+      <ng-template #performanceContent>
+        <ion-row class="performance-content grade-range-{{averageScore | gradeRange}}">
+          <ion-text *ngIf="performance && !performance.isSkipped; else noPerformance">
+            <ion-text>{{ studentScore }}<ion-text *ngIf="content.maxScore">/{{content.maxScore}}</ion-text>
+            </ion-text>
+          </ion-text>
+          <ng-template #noPerformance>
+            <ion-text>&ndash;&ndash;&ndash;</ion-text>
+          </ng-template>
+        </ion-row>
+      </ng-template>
+    </ion-row>
+    <!-- end question section -->
+    <ion-row class="info" [ngClass]="{'active' : !showAdditionalInfo}" [@collapse]="showAdditionalInfo">
+      <nav-reef class="hidden"></nav-reef>
+      <nav-taxonomy-list *ngIf="content.taxonomy" [taxonomy]="content.taxonomy"></nav-taxonomy-list>
+    </ion-row>
+    <!-- start performance report section -->
+    <ng-container *ngIf="!isPreview">
+      <ion-row class="timespent-container" *ngIf="reportViewMode && performance">
+        <i class="material-icons clock-icon">access_time</i>
+        <ion-text class="timespent-text">{{performance.timespent | transformPerformanceTimeSpent}}</ion-text>
+        <ion-row class="reaction-icon" *ngIf="performance.reaction">
+          <i class="nav-reaction-{{performance.reaction}}"></i>
+        </ion-row>
+        <ion-row *ngIf="performance" class="show-answer-col">
+          <ion-icon class="{{performance.percentScore | showAnswerStatus}}"></ion-icon>
+        </ion-row>
+      </ion-row>
+    </ng-container>
+  </ion-row>
+  <!-- end performance report section -->
+  <!-- start answer section -->
+  <ion-row class="answer-container" *ngIf="!isHideAnswerDetails" [@collapse]="showAnswer">
+    <ion-row class="answer-content" [ngClass]="{'active-content': isActive,'blur-question': !reportViewMode}">
+      <ion-row *ngIf="content.thumbnail && !isThumbnailError" class="thumbnail">
+        <img [src]="content.thumbnail" inAppBrowser [url]="content.thumbnail" (error)="imageErrorHandler()"/>
+      </ion-row>
+      <!-- start answer section -->
+      <ng-container *ngIf="reportViewMode;else answerContainer">
+        <ion-row class="decoding-answers">
+          <ng-container *ngFor="let answer of answerInputs;let answerIndex = index;">
+            <ion-row class="encoding-answer">
+              <ion-row class="answer-container-info">
+                <ion-row class="decoding-answer answer-{{answerIndex}}">
+                  <ion-row class="decoding-text">
+                    <p>{{answer.text}}</p>
+                  </ion-row>
+                </ion-row>
+                <ion-row class="mic-container report-mode" [ngClass]="{'read-only': !answer.audioUrl}"
+                  (click)="playAudio(answer)">
+                  <ng-template #playIconRef>
+                    <ion-text
+                      class="material-icons-round play-icon"
+                      [ngClass]="{'in-active': !answer.audioUrl}">
+                      play_arrow
+                    </ion-text>
+                  </ng-template>
+                  <ion-text *ngIf="answer.isAudioPlaying;else playIconRef"
+                    class="material-icons-round stop-icon" (click)="pauseAudio(answer, $event)">
+                    pause
+                  </ion-text>
+                  <ion-row class="progress-container answer-audio decode-audio-{{answerIndex}}">
+                    <ion-row class="progress-bar-label"><ion-text class="ellipsis">{{'CLICK_ANYWHERE_TO_PLAY' | translate}}</ion-text></ion-row>
+                  <ion-row class="audio-progress">
+                    <audio-player
+                    [isStopAudio]="!answer.isAudioPlaying"
+                    [isPlayAudio]="answer.isAudioPlaying"
+                    [audioIndex]="answerIndex"
+                    [audioUrl]="answer.audioUrl"
+                    (audioEnded)="pauseAudio(answer)">
+                    </audio-player>
+                  </ion-row>
+                  </ion-row>
+                </ion-row>
+              </ion-row>
+              <ion-row class="encoding-answer-input answer-{{answerIndex}}"
+                [ngClass]="{ 'read-only': reportViewMode }">
+                <ion-row class="input-container" [ngClass]="reportViewMode && !isPreview && answer.status">
+                  <ng-container *ngFor='let answerLetter of answer.answerInLetters;let inputIndex = index'>
+                    <ion-input
+                    [maxlength]='1'
+                    [value]="answerLetter"
+                    autocomplete="off" autocorrect="off" name="answer-text"
+                    class="answer-input input-{{inputIndex}}">
+                    </ion-input>
+                </ng-container>
+                </ion-row>
+              </ion-row>
+            </ion-row>
+          </ng-container>
+        </ion-row>
+      </ng-container>
+      <ng-template #answerContainer>
+      <ion-row class="decoding-answers">
+        <ng-container *ngFor="let answer of answerInputs;let answerIndex = index;">
+          <ion-row class="encoding-answer">
+            <ion-row class="answer-container-info">
+            <ion-row class="decoding-answer answer-{{answerIndex}}">
+              <ion-row class="decoding-text">
+                <p>{{answer.text}}</p>
+              </ion-row>
+            </ion-row>
+            <ion-row class="mic-container" (click)="playAudio(answer)">
+              <ng-template #playIconRef>
+                <ion-text [ngClass]="{'in-active': !answer.audioUrl}"
+                  class="material-icons-round play-icon">
+                  play_arrow
+                </ion-text>
+              </ng-template>
+              <ion-text *ngIf="answer.audioUrl && answer.isAudioPlaying;else playIconRef"
+                class="material-icons-round stop-icon" (click)="pauseAudio(answer, $event)">
+                pause
+              </ion-text>
+              <ion-row class="progress-container answer-audio decode-audio-{{answerIndex}}">
+                <ion-row class="progress-bar-label"><ion-text class="ellipsis">{{'CLICK_ANYWHERE_TO_PLAY' | translate}}</ion-text></ion-row>
+                <ion-row class="audio-progress">
+                  <audio-player
+                  [isStopAudio]="!answer.isAudioPlaying"
+                  [isPlayAudio]="answer.isAudioPlaying"
+                  [audioIndex]="answerIndex"
+                  [audioUrl]="answer.audioUrl"
+                  [timerDuration]="answer.timerDuration"
+                  (audioEnded)="pauseAudio(answer)">
+                  </audio-player>
+                </ion-row>
+              </ion-row>
+            </ion-row>
+          </ion-row>
+            <ion-row class="encoding-answer-input answer-{{answerIndex}}">
+              <ng-container *ngIf="alreadyPlayed && answer.answerInLetters?.length;else answersInputConainer">
+                <ng-container *ngFor='let userInput of answer.answerInLetters;let inputIndex = index'>
+                  <ion-input
+                  [maxlength]='1'
+                  [value]="userInput"
+                  autocomplete="off" autocorrect="off" name="answer-text"
+                  class="already-played-input answer-input input-{{inputIndex}}"
+                  (ionChange)="notifyInputAnswers($event, answerIndex, inputIndex)">
+                  </ion-input>
+              </ng-container>
+              </ng-container>
+              <ng-template #answersInputConainer>
+              <ng-container *ngFor='let userInput of [].constructor(answer.text.length);let inputIndex = index'>
+                <ion-input
+                [maxlength]='1'
+                autocomplete="off" autocorrect="off" name="answer-text"
+                class="answer-input input-{{inputIndex}}"
+                (ionChange)="notifyInputAnswers($event, answerIndex, inputIndex)">
+                </ion-input>
+            </ng-container>
+          </ng-template>
+            </ion-row>
+          </ion-row>
+        </ng-container>
+      </ion-row>
+    </ng-template>
+      <!-- end answer section -->
+      <!-- start reaction section -->
+      <ion-row class="horiz-vert-center reaction-row" *ngIf="isShowReaction" [ngClass]="{'disabled': disableConfirmBtn}">
+        <reaction (selectedValue)="onSelectReaction($event)" *ngIf="!reportViewMode"></reaction>
+      </ion-row>
+      <!-- end reaction section -->
+      <ion-row class="confirm" [@fadeAnimation]="hideConfirmButton" *ngIf="!hideConfirmButton">
+        <ion-button type="submit" [disabled]="!enableConfirm && disableConfirmBtn" (click)="onConfirm()"
+          *ngIf="!reportViewMode">{{'CONFIRM'| translate}}</ion-button>
+      </ion-row>
+    </ion-row>
+    <!-- start feedback section -->
+    <feedback [ngClass]="isFeedback || isSubmit ? 'active-feedback' : 'in-active'"
+      *ngIf="!reportViewMode && showFeedback" (feedbackSkiporSubmit)="feedbackSkiporSubmit()"
+      [feedbackCategory]="feedbackCategory" [contentId]="content.id" [showCollapsedView]="false"
+      [contentType]="content.contentFormat">
+    </feedback>
+    <!-- end feedback section -->
+  </ion-row>
+  <!-- end answer section -->
+  <ion-row class="player-overlay" *ngIf="!isActive && !isFeedback && !reportViewMode" (click)="onClickQuestion()">
+  </ion-row>
+</ion-row>

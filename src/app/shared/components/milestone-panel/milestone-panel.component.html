@@ -1,0 +1,167 @@
+<ng-container *ngIf="startCourse; else continueCourse">
+  <ion-row class="milestone-panel">
+    <ion-row class="milestone-modal">
+      <ion-grid class="milestone-modal-container ion-no-padding">
+        <ion-row class="milestone-panel-container">
+          <ion-row class="header-container">
+            <ion-row class="grade-title-row">
+              <ng-container *ngIf="isLoading;else titleRef">
+                <ion-skeleton-text animated class="title"></ion-skeleton-text>
+              </ng-container>
+              <ng-template #titleRef>
+                <ion-text class="title ellipsis">{{enableNavigatorProgram && studentDestinationLevel ? (title + ' - ' + studentDestinationLevel.grade) : title}}</ion-text>
+              </ng-template>
+            </ion-row>
+            <ion-row class="content-destination">
+              <ion-row class="count-container" *ngIf="competencyCount || milestoneCount || totalLessonsCount">
+                <ion-text *ngIf="competencyCount" class="count">
+                  {{competencyCount}} {{'COMPETENCIES' | translate}}
+                </ion-text>
+                <ng-container *ngIf="milestoneCount">
+                  <ion-text *ngIf="milestoneCount > 1; else singleMilestone" class="count">
+                    {{milestoneCount}} {{'MILESTONES' | translate}}
+                  </ion-text>
+                  <ng-template #singleMilestone>
+                    <ion-text class="count">
+                      {{milestoneCount}} {{'MILESTONE' | translate}}
+                    </ion-text>
+                  </ng-template>
+                </ng-container>
+                <ng-container *ngIf="totalLessonsCount">
+                  <ion-text class="lesson-count">
+                    <ng-container *ngIf="totalLessonsCount > 1; else singleLesson">
+                      | {{totalLessonsCount}} {{'LESSONS' | translate}}
+                    </ng-container>
+                  </ion-text>
+                  <ng-template #singleLesson>
+                    {{totalLessonsCount}} {{'LESSON' | translate}}
+                  </ng-template>
+                </ng-container>
+                <ng-container *ngIf="computedEtlTime">
+                  <ion-text *ngIf="computedEtlTime" class="etl-time">
+                    | {{computedEtlTime}}
+                  </ion-text>
+                </ng-container>
+              </ion-row>
+            </ion-row>
+          </ion-row>
+        </ion-row>
+        <ion-row class="button-row" [ngClass]="{'diagnostic-options': showPublicClassDiagnostic}">
+          <ng-container *ngIf="isShowCourseMap">
+            <ion-button class="navigator-button-row navigate-button" id="start-button" [ngClass]="{'disabled' : isDisabled || isAllContentsAreRescoped}" (click)="onClickStart()" shape="round">
+              <ion-row>
+                <ion-icon name="navigate"></ion-icon>
+                <ion-text>
+                  {{ 'START' | translate }}
+                </ion-text>
+              </ion-row>
+            </ion-button>
+            <ion-button class="navigator-button-row lesson-list-button" shape="round" fill="outline" (click)="onClickLessonList()">
+              <ion-row>
+                <i class="material-icons menu-icon">menu</i>
+                <ion-text>{{ 'LESSON_LIST' | translate }}</ion-text>
+              </ion-row>
+            </ion-button>
+          </ng-container>
+          <ng-container *ngIf="isShowDirections && !showPublicClassDiagnostic">
+            <ion-button class="navigator-button-row navigate-button" (click)="onClickDirection()" shape="round">
+              <ion-row>
+                <ion-icon name="navigate"></ion-icon>
+                <ion-text class="title">{{'DIRECTION' | translate}}</ion-text>
+              </ion-row>
+            </ion-button>
+            <ion-button class="navigator-button-row info-button" shape="round" fill="outline" (click)="onToggleInfo()">
+              <ion-row>
+                <i class="material-icons menu-icon">menu</i>
+                <ion-text>{{'INFO' | translate}}</ion-text>
+              </ion-row>
+            </ion-button>
+          </ng-container>
+          <ng-container *ngIf="isShowDiagnosticPlay && !showPublicClassDiagnostic">
+            <ion-button class="navigator-button-row navigate-button" shape="round" (click)="onDiagnosticPlay()">
+              <ion-row>
+                <ion-icon name="navigate"></ion-icon>
+                <ion-text>{{'TAKE_THE_DIAGNOSTIC' | translate}}</ion-text>
+              </ion-row>
+            </ion-button>
+          </ng-container>
+          <ng-container *ngIf="showPublicClassDiagnostic">
+            <ion-button class="navigator-button-row navigate-button" id="get-direction-button" (click)="onClickDirection()" shape="round">
+              <ion-row>
+                <ion-icon name="navigate"></ion-icon>
+                <ion-text class="title">{{'DIRECTION' | translate}}</ion-text>
+              </ion-row>
+            </ion-button>
+            <ion-button class="navigator-button-row info-button" shape="round" fill="outline" (click)="onToggleInfo()">
+              <ion-row>
+                <i class="material-icons menu-icon">menu</i>
+                <ion-text>{{'INFO' | translate}}</ion-text>
+              </ion-row>
+            </ion-button>
+          </ng-container>
+          <ng-container *ngIf="isBaseLineInProgress && !showPublicClassDiagnostic">
+            <ion-text class="baseline-message">{{'BASELINE_TAKING_TIME_MSG' | translate}}</ion-text>
+          </ng-container>
+        </ion-row>
+      </ion-grid>
+    </ion-row>
+  </ion-row>
+</ng-container>
+<ng-template #continueCourse>
+  <ion-row class="continue-course">
+    <ion-col class="continue-course-content">
+      <ion-text class="menu" (click)="onClickProficiency()">
+        <i class="material-icons menu-icon">equalizer</i>
+      </ion-text>
+      <ion-row class="competency-stats ellipsis">
+        <ion-row class="competency-mastered">
+          <ng-container *ngIf="compentencyPerformance; else emptyCompetency">
+            <ng-container *ngIf="isShowCompletedCompetencies; else masteredCompetency">
+              <ion-text class="completed-competency">{{completedCompetencies}}</ion-text>
+              <ion-text class="total-competency">/ {{numberOfCompetencies}}</ion-text>
+            </ng-container>
+          </ng-container>
+          <ion-text class="label ellipsis">
+            {{ 'COMPETENCIES' | translate }} {{ 'MASTERED' | translate }}
+          </ion-text>
+        </ion-row>
+        <ion-row class="mastered ellipsis" *ngIf="isShowCompletedCompetencies">
+          <ion-row class="mastered-competency-stats">
+            <ng-container *ngIf="compentencyPerformance; else emptyCompetency">
+              <ion-text class="count">{{compentencyPerformance.completedCompetencies}}</ion-text>
+              <ion-text class="count">/ {{compentencyPerformance.totalCompetencies}}</ion-text>
+            </ng-container>
+          </ion-row>
+          <ion-text class="label ellipsis">
+            ({{'OVERALL' | translate}})
+          </ion-text>
+        </ion-row>
+        <ng-template #emptyCompetency>
+          <ion-text class="total-competency zero-competency">0</ion-text>
+        </ng-template>
+        <ng-template #masteredCompetency>
+          <ion-text class="completed-competency">{{compentencyPerformance.completedCompetencies}}</ion-text>
+          <ion-text class="total-competency">/ {{compentencyPerformance.totalCompetencies}}</ion-text>
+        </ng-template>
+      </ion-row>
+      <ion-text class="menu" (click)="onClickLessonList()">
+        <i class="material-icons menu-icon">menu</i>
+      </ion-text>
+    </ion-col>
+    <ng-container *ngIf="showPerformance">
+      <ion-col class="performance ion-no-padding">
+        <ion-row class="class-performance grade-range-{{getPerformance(classPerformance) | gradeRange}}" *ngIf="classPerformance && classPerformance.score !== null;else noPerformance" (click)="onOpenJourneyReport()">
+          <ion-text>{{ classPerformance.score }}%</ion-text>
+        </ion-row>
+        <ng-template #noPerformance>
+          <ion-row class="class-performance no-performance">
+            <ion-text>&mdash;</ion-text>
+          </ion-row>
+        </ng-template>
+      </ion-col>
+    </ng-container>
+  </ion-row>
+  <ion-row *ngIf="isAllContentsAreRescoped === false" class="continue-course-paly" [ngClass]="{'disabled' : isDisabled}" (click)="onClickStart()">
+    <i class="material-icons play-icon">play_arrow</i>
+  </ion-row>
+</ng-template>

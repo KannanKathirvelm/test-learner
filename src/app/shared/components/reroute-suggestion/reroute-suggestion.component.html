@@ -1,0 +1,19 @@
+<div class="reroute-suggestion-card">
+  <ion-card class="reroute-suggestion" (click)="toggleSuggestionPanel()" *ngIf="collection" [ngClass]="{'collection':collection.isCollection}">
+    <ion-card-header>
+      <ion-card-title class="assessment-title">{{'SHOW_YOUR_MASTERY' | translate}}</ion-card-title>
+      <ion-card-title class="collection-title">{{'SUGGESTION_COLLECTION' | translate}}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <div class="thumbnail-img"> </div>
+      <div class="collection-message">
+        <span class="collection-text" *ngIf="collection.isCollection">{{'SUGGESTION_COLLECTION_MSG' | translate}}</span>
+        <span class="assessment-text" *ngIf="collection.isAssessment">
+          <span class="assessment-show-txt">{{'ASSESSMENT_SHOW_TEXT' | translate}}&nbsp;</span><span class="assessment-unit-txt">{{'ASSESSMENT_UNIT_TEXT' | translate}}&nbsp;</span>
+          <span class="assessment-score-txt">{{'ASSESSMENT_SCORE_TEXT' | translate}}&nbsp;</span><span class="content-type">{{'SIHGNATURE_ASSESSMENT' | translate}}</span>,
+          <span class="assessment-mastery-txt">{{'ASSESSMENT_MASTERY_TEXT' | translate}}</span>
+        </span>
+      </div>
+    </ion-card-content>
+  </ion-card>
+</div>

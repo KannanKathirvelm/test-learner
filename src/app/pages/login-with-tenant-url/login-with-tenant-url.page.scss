@@ -1,0 +1,134 @@
+.header-wrapper {
+  ion-toolbar {
+    --min-height: 48px;
+
+    .back-button {
+      position: absolute;
+      padding: 0 10px;
+      left: 0;
+
+      ion-back-button {
+        min-width: 24px;
+        --padding-start: 0;
+        --padding-end: 0;
+        margin: auto;
+        --background-hover: none;
+        --color: var(--login-header-back-bth);
+      }
+    }
+
+    .title-container {
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+
+      ion-text {
+        font-size: 20px;
+        color: var(--login-header-color);
+      }
+
+      .header-title {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+  }
+}
+
+.login-content-container {
+  ion-grid {
+    padding: 0;
+    display: table;
+
+    .content-wrapper {
+      display: table-cell;
+      vertical-align: middle;
+      margin: auto 0;
+      height: calc(100vh - 124px);
+
+      .navigator-logo-img {
+        width: 112px;
+        height: 112px;
+        margin: 14px auto auto;
+      }
+
+      .tenant-form-section {
+        display: flex;
+        flex-direction: column;
+        margin-top: 12px;
+
+        .input-label {
+          text-transform: capitalize;
+          font-weight: 600;
+          font-size: 13px;
+          line-height: normal;
+          letter-spacing: normal;
+          text-align: center;
+          color: var(--input-label);
+        }
+
+        .text-field-wrapper {
+          justify-content: center;
+          border-bottom: 1px solid var(--hr-line-grey);
+          width: 250px;
+          color: var(--input-field);
+
+          .prefix-text {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          }
+
+          .input-field {
+            width: 250px;
+            text-align: left;
+            border: 0;
+            --padding-start: 0;
+          }
+        }
+
+        .username-label {
+          justify-content: center;
+        }
+
+        .danger-text {
+          text-align: center;
+        }
+      }
+
+      .submit-btn {
+        --background: var(--signin-btn-bg-color);
+        color: var(--white);
+      }
+
+      .forgot-pwd-text {
+        font-size: 10px;
+        color: var(--forgot-pwd-text);
+        font-weight: 700;
+        margin: 5px 0;
+      }
+    }
+  }
+
+  .footer-wrapper {
+    padding: 10px 0;
+
+    .link-text {
+      color: var(--link-text);
+      text-align: center;
+      font-size: 14px;
+      font-weight: 300;
+    }
+
+    .signin-text {
+      color: var(--signin-text);
+      text-align: center;
+      font-size: 10px;
+      margin-top: 10px;
+      font-weight: 700;
+    }
+  }
+}

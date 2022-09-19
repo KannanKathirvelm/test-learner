@@ -1,0 +1,18 @@
+<ion-row class="account-exists-popup-container">
+  <ion-row class="header">
+    <ion-row class="label">
+      <ion-text class="email-msg">
+        {{'ACCOUNT_EXISTS_MSG' | translate}}
+      </ion-text>
+      <ion-text class="login-msg">
+        {{'LOGIN_MSG' | translate}}
+      </ion-text>
+    </ion-row>
+    <ion-text class="close-icon" (click)="onCloseAccountExistsPullUp()">
+      <i class="close material-icons">close</i>
+    </ion-text>
+  </ion-row>
+  <ion-row class="actions">
+    <ion-button class="login-btn" (click)="navigateToLogin()">{{'LOGIN' | translate}}</ion-button>
+  </ion-row>
+</ion-row>

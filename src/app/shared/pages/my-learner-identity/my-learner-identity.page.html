@@ -1,0 +1,15 @@
+  <ion-header class="my-learner-identity-page-header">
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-button autoHide="false"></ion-menu-button>
+      </ion-buttons>
+      <ion-title>{{'PROFICIENCY' | translate}}</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content class="my-learner-identity-page-container" [scrollY]="hideProficiencyScroll" [scrollX]="true">
+    <ng-container *ngIf="activeSubject && fwCompetencies && !isLoading">
+      <proficiency-chart class="proficiency-chart" [isProfileProficiency]="isProfileProficiency" [subjects]="subjects" [showHeader]="true" [categories]="categories" [frameworkId]="frameworkId" [activeSubject]="activeSubject" [activeCategory]="activeCategory" [fwCompetencies]="fwCompetencies"
+        [domainCoordinates]="domainCoordinates" [showCompetencyInfo]="showCompetencyInfo" [showDomainInfo]="showDomainInfo" (selectCategory)="onSelectCategory($event)" (selectSubject)="onSelectSubject($event)" (selectDomain)="onSelectDomain($event)"
+        (selectTopic)="onSelectTopic($event)" (selectCompetency)="onSelectCompetency($event)" (selectLegend)="onSelectLegend()" [domainTopicCompetencyMatrix]="domainTopicCompetencyMatrix" (chartLoded)="chartLoded()"></proficiency-chart>
+    </ng-container>
+  </ion-content>

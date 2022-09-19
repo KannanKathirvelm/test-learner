@@ -1,0 +1,28 @@
+.student-learning-map {
+  background-color: var(--prequisite-competency-color);
+  color: var(--student-learning-map-color);
+
+  .challenging-questions,
+  .practice-question,
+  .solved-examples {
+    color: var(--student-learning-map-color);
+
+    .title {
+      font-size: 14px;
+      font-weight: 700;
+      padding: 15px 10px 10px;
+      text-transform: uppercase;
+      color: var(--student-learning-map-color);
+      height: 50px;
+      background-color: var(--student-learning-heading-color);
+    }
+
+    .no-data {
+      text-align: center;
+      font-size: 13px;
+      padding: 10px;
+      background: var(--student-learning-map-color);
+      color: var(--student-learning-no-data);
+    }
+  }
+}

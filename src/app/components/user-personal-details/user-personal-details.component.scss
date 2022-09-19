@@ -1,0 +1,84 @@
+.info-header-panel {
+    padding: 10px;
+    .back-arrow-icon {
+      margin-top: 4px;
+      font-size: 26px;
+    }
+    .info-header {
+      font-size: 22px;
+    }
+  }
+  
+  .info-description {
+    font-size: 17px;
+    padding: 20px;
+  }
+  .link-btn {
+    margin: 5px 0px 30px;
+    .link-btn-desc {
+      margin: auto;
+      --background: var(--jewel);
+      padding: -6px;
+      border-radius: 0;
+      text-transform: capitalize;
+      min-width: 100px;
+      min-height: 36px;
+      --border-radius: 0px;
+    }
+  }
+  .info-title {
+    padding: 15px;
+    font-size: 15px;
+    color: var(--program);
+    font-weight: bold;
+  }
+  .info-question {
+    padding: 10px 25px 0px;
+    .info-question-title {
+      color: var(--dark-blue);
+    }
+  }
+  .info-questions {
+    padding: 25px 25px 5px;
+    .info-question-title {
+      color: var(--dark-blue);
+    }
+  }
+  
+  .student-input {
+    padding: 0 10px;
+    .input-panel {
+      width: 100%;
+      ion-select {
+        max-width: 100%;
+        padding-left: 0;
+        font-style: italic;
+        width: 100%;
+      }
+    }
+  }
+  ion-select::part(icon) {
+    position: absolute;
+    right: 0;
+  }
+  
+  .footer {
+    padding: 10px;
+    .sumbit-btn {
+      text-align: right;
+      justify-content: center;
+      display: flex;
+    }
+    .forward-arrow {
+      align-items: center;
+      justify-content: center;
+      display: flex;
+      .forward-arrow-icon {
+        background: var(--dark-blue);
+        padding: 8px;
+        border-radius: 19px;
+        color: var(--white);
+        margin-top: 5px;
+      }
+    }
+  }

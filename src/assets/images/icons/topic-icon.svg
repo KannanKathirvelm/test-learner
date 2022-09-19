@@ -1,0 +1,19 @@
+<svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 112 112" width="112" height="112">
+	<title>diagnostic-icon</title>
+	<defs>
+		<image width="112" height="112" id="img1" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHAAAABwCAMAAADxPgR5AAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAABjUExURUdwTChDa0BAgCE/ZCE/ZB8+YyFBYyJAZR8+Yx8+YyA+YwByvB8+Y////4K631Ztitnq9fT4+hB7wSeIxlij1OTo7cnR2qvR6cnh8erz+qSwwD+WzbC7yJOitH+RprfBzTxXeIFuBycAAAALdFJOUwATBGaP3jsoufXiHrTeFQAAAkNJREFUaN7tmF13gjAMhieCgCyFtnyI6PT//8q1ke1Qoe6CUC+W507l8Jq3SZr244NhGIZhGIZhGIbZgnQfZ0luSLJ4n26uFh8/HY7xlpqH7HOB7LBVdItyKLlFlFGcj68vr5e2kbJpL9dy/CqPI2q93RheeW5gQnMeNbMdsZ3JQ641IpWoB62UHmpRmY/tQzKhtDU6oJ33G0AvdDFBix7gdkdbCXMnRb1SghSqeEIJ8zUGmZPFuEM/vwC6mRxKdgBf6CrROkaYL2cAUXgQAGfMHJpcjR/xybrwUstHjDHZApYAL/SMIkBJtYzW0Lv0+/njqrS5mhH0T2vVDbriDzq42ScPJAGWINVfgkqiqatDTO3fbqeGKm1ZMrW1z6YEKVpCPwmwwiYqq+4pi1SPIa5N1COW4DRjqt/OXQ1PIdpiPBI42oB2BWVVSZR0gtTQrPd0j45WhSt4sq83Dc2x2v5iPd2vXsKrW4OjIDY0t1oEXFcvoi2Ki+vcr6DJEujddnNZXRgJFsWwKFhYU6eeDlgYySrBfJYzE0Hr6TDLmny1oATlF5y6rUBuL6g3EPRaatewILb0VdJoU/xOhVIkzYuysKOMW6EUZeEtfF3bnnoqqAt/ubX9IN1diqK1LTfvkachlaR5+7an/tQJPduBCbanhQ3YO2OQbMDRfMTwz20kI0bwISr8mBh8EA4/6gc/zIQ/rgU/kIY/cpvaCHypYBpO2GuTN1wMhb/6Cn+594bryzdc0L7hCpphGIZhGIZhGOaf8g08Xmr2onCFpAAAAABJRU5ErkJggg=="/>
+		<image  width="52" height="52" id="img2" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADQAAAA0CAMAAADypuvZAAAAAXNSR0IB2cksfwAAAGBQTFRFR3BMIkBlIT9kIT9kHz5jHz5jHz5jID5jHz5jIUFjQECAVm2Kk6K0sLvIydHa5Ojt9Pj6KENrpLDA////2er1grrfWKPUP5bNJ4jGEHvBPFd4t8HN6vP6AHK8f5Gmq9HpQoH04AAAACB0Uk5TAChmj7ne9eL/OwT///////8T//////////////////+Vytq4AAABo0lEQVR4nKWW57aDIBCEVSxRLMQVS5T4/m8ZWMyNSYhl7/7Tw3dmGNp63nf5AQujWFcUssB3DPgmWHJ5q4TtcWl4cVSYbqk4EcR+qWUsXobwvCgrIaqyyPnyK2aZi7kuMryuYFVVvXDh1WEtskipBzay7fph6LtWNvqztFj0aTFL0dptBJhkr1bVywlgvKHFjzx8ZLgAIQf1UYPUv1EsftO6orc7wPyFIDYD3NHhal4ZZlADSBdiSgLUmMYrQ2Z1RPuLUaoVVou9TYgDbDCaAuDraRlzN/Hb29OhMBmGlkmN7AjzNqPUDKMZmf4JcRDO3NY1CDSIUr7Byz1z1mBpxvpLdBymXSEtNaGUCTDBJTogZKTMYiWLuwr6fUTvQ6isvwDdNUcYpRr0F+CU8mPujL8cJ2UCL7Y3w6taKDD0CAPvjkEdhh558fEcnknECAk4sEqmBhD/g07bIwVBipy0uKRtRNqwpKNBOoQZ6biTLhbaFUa6LGnXMukBoD01pEeN9nzq3AkPtd4Y51sCj9Z80Nocj9RQYR7nWzdUO98kWm6vHX0A/zu0i7ZYn4wAAAAASUVORK5CYII="/>
+	</defs>
+	<style>
+		tspan { white-space:pre } 
+		.t0 { font-size: 25px;fill: #ffffff;font-weight: 700;font-family: "DejaVuSansCondensed-Bold", "DejaVu Sans" } 
+	</style>
+	<use id="diagnostic-icon" href="#img1" transform="matrix(1,0,0,1,0,0)"/>
+	<use id="Background" href="#img2" x="30" y="30" />
+	<text id="T" style="transform: matrix(1,0,0,1,48,65)" >
+		<tspan x="0" y="0" class="t0">T
+</tspan>
+	</text>
+	<text id="Text layer 3" style="transform: matrix(1,0,0,1,186,-40)" >
+	</text>
+</svg>

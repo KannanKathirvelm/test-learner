@@ -1,0 +1,109 @@
+<ion-row class="multiple-select-text-question content-{{ componentSequence }}" [ngClass]="{'disabled': isDisabled, 'question-answered': isQuestionAnswered, 'bidirectional-restrict': !isBidirectionalPlay, 'already-played': alreadyPlayed}"
+  (click)="onClickQuestionWithFeedBack()">
+  <ion-row class="hz-line"></ion-row>
+  <!-- start header section -->
+  <ion-row class="resource-content-container" [ngClass]="{'active-content': isActive,'blur-question': !reportViewMode}">
+    <ion-row class="header-section">
+      <ion-row class="type">
+        {{ componentSequence }}. {{ 'MULTIPLE_SELECT_TEXT' | translate }}
+      </ion-row>
+      <ion-row class="toggle-icon" (click)="toggleAnswers()">
+        <ng-template #downArrow>
+          <ion-icon name="md-arrow-dropdown"></ion-icon>
+        </ng-template>
+        <ion-icon *ngIf="!showAnswer; else downArrow" name="md-arrow-dropup"></ion-icon>
+      </ion-row>
+    </ion-row>
+    <!-- end header section -->
+    <!-- start question section -->
+    <ion-row class="question-container">
+      <ion-row class="title-container" (click)="toggleAnswers()">
+        <mathjax class="title" *ngIf="content.title" [content]="content.title"></mathjax>
+        <ng-template [ngTemplateOutlet]="questionContainer" *ngIf="reportViewMode"></ng-template>
+      </ion-row>
+      <ng-container *ngIf="!isPreview">
+        <ion-row class="info-icon" (click)="toggleInfo()" *ngIf="!reportViewMode; else performanceContent">
+          <i class="material-icons info" *ngIf="(content.taxonomy | keyvalue)?.length">info_outlined</i>
+        </ion-row>
+        <ng-template #performanceContent>
+          <ion-row class="performance-content grade-range-{{averageScore | gradeRange}}">
+            <ion-text *ngIf="performance && !performance.isSkipped;else noPerformance">
+              <ion-text>{{ studentScore }}<ion-text *ngIf="content.maxScore">/{{ content.maxScore }}</ion-text>
+              </ion-text>
+            </ion-text>
+            <ng-template #noPerformance>
+              <ion-text>&ndash;&ndash;&ndash;</ion-text>
+            </ng-template>
+          </ion-row>
+        </ng-template>
+      </ng-container>
+    </ion-row>
+    <!-- end question section -->
+    <ion-row class="info" [ngClass]="{ active: !showAdditionalInfo }" [@collapse]="showAdditionalInfo">
+      <nav-reef class="hidden"></nav-reef>
+      <nav-taxonomy-list *ngIf="content.taxonomy" [taxonomy]="content.taxonomy"></nav-taxonomy-list>
+    </ion-row>
+    <!-- start performance report section -->
+    <ng-container *ngIf="!isPreview">
+      <ion-row class="timespent-container" *ngIf="reportViewMode && performance">
+        <i class="material-icons clock-icon">access_time</i>
+        <ion-text class="timespent-text">{{
+            performance.timespent | transformPerformanceTimeSpent
+        }}</ion-text>
+        <ion-row class="reaction-icon" *ngIf="performance.reaction">
+          <i class="nav-reaction-{{ performance.reaction }}"></i>
+        </ion-row>
+        <ion-row *ngIf="performance" class="show-answer-col">
+          <ion-icon class="{{performance.percentScore | showAnswerStatus}}"></ion-icon>
+        </ion-row>
+      </ion-row>
+    </ng-container>
+  </ion-row>
+  <!-- end performance report section -->
+  <!-- start answer section -->
+  <ion-row class="answer-container" *ngIf="!isHideAnswerDetails" [@collapse]="showAnswer" [ngClass]="{ 'read-only': reportViewMode }">
+    <ion-row class="answer-content" [ngClass]="{'active-content': isActive,'blur-question': !reportViewMode}">
+      <ng-template [ngTemplateOutlet]="questionContainer" *ngIf="!reportViewMode"></ng-template>
+      <ion-row *ngIf="content.thumbnail && !isThumbnailError" class="thumbnail">
+        <img [src]="content.thumbnail" inAppBrowser [url]="content.thumbnail" (error)="imageErrorHandler()"/>
+      </ion-row>
+      <ion-row class="answer" [ngClass]="{ selected: answer.selected }" (click)="selectAnswer(answer)" *ngFor="let answer of answers">
+        <ion-row class="answer-info" [ngClass]="reportViewMode && !isPreview && answer.status">
+          <ion-col class="dynamic-icon-wrapper" size="2">
+            <i class="dynamic-icon"></i>
+          </ion-col>
+          <ion-col class="answer-text" size="10">
+            <mathjax *ngIf="answer.answer_text" [content]="answer.answer_text"></mathjax>
+          </ion-col>
+        </ion-row>
+      </ion-row>
+      <!-- start reaction section -->
+      <ion-row class="horiz-vert-center reaction-row" *ngIf="isShowReaction" [ngClass]="{ disabled: disableConfirmBtn }">
+        <reaction (selectedValue)="onSelectReaction($event)" *ngIf="!reportViewMode"></reaction>
+      </ion-row>
+      <!-- end reaction section -->
+        <!-- start file upload section -->
+        <ion-row class="file-upload-container" *ngIf="isShowEvidence && !isPreview && ((reportViewMode && evidenceFile?.length) || !reportViewMode)">
+          <ion-text class="evidence-title">{{'EVIDENCE' | translate}}</ion-text>
+          <ion-row class="evidence-file-upload">
+            <nav-evidence-file (evidenceUploadFile)="evidenceUploadFile($event)" [reportViewMode]="reportViewMode"
+            [evidenceList]="evidenceFile"></nav-evidence-file>
+          </ion-row>
+        </ion-row> 
+        <!-- end file upload section -->
+      <ion-row class="confirm" [@fadeAnimation]="hideConfirmButton" *ngIf="!hideConfirmButton">
+        <ion-button [disabled]="!enableConfirm || disableConfirmBtn" (click)="onConfirm()" *ngIf="!reportViewMode">{{ 'CONFIRM' | translate }}</ion-button>
+      </ion-row>
+    </ion-row>
+    <!-- start feedback section -->
+    <feedback [ngClass]="isFeedback || isSubmit ? 'active-feedback' : 'in-active'" *ngIf="!reportViewMode && showFeedback" (feedbackSkiporSubmit)="feedbackSkiporSubmit()" [feedbackCategory]="feedbackCategory" [contentId]="content.id"
+      [showCollapsedView]="false" [contentType]="content.contentFormat">
+    </feedback>
+    <!-- end feedback section -->
+  </ion-row>
+  <!-- end answer section -->
+  <ng-template #questionContainer>
+    <mathjax class="description" *ngIf="content.description && !isHideAnswerDetails" [content]="content.description"></mathjax>
+  </ng-template>
+  <ion-row class="player-overlay" *ngIf="!isActive && !isFeedback && !reportViewMode" (click)="onClickQuestion()"></ion-row>
+</ion-row>

@@ -1,0 +1,21 @@
+<ion-grid class="navigation-bar ion-no-padding">
+  <ion-row class="start-location-row">
+    <ion-row class="location-icon-col">
+      <ion-icon class="navigator-logo-img"></ion-icon>
+    </ion-row>
+    <ion-row class="your-location-col ellipsis" [ngClass]="{'read-only': readOnly}">
+      <ion-input [placeholder]="subjectName ? ('YOUR_LOCATION_IN' | translate: { subjectName: subjectName }) : ('YOUR_LOCATION' | translate)" class="navigator-input ellipsis" (click)="chooseYourLocation()" readonly searchIcon="false" clearIcon="false"></ion-input>
+      <ion-text *ngIf="showUpdateLocationOption" class="menu-icon" (click)="showOptions($event)">
+        <i class="material-icons">more_vert</i>
+      </ion-text>
+    </ion-row>
+  </ion-row>
+  <ion-row class="destination-row">
+    <ion-row class="destination-icon-col">
+      <ion-icon class="destination-icon"></ion-icon>
+    </ion-row>
+    <ion-row class="destination-col" [ngClass]="{'read-only': readOnly}" (click)="chooseYourDestination()">
+      <ion-input [placeholder]="'YOUR_DESTINATION' | translate" class="navigator-input ellipsis" [value]="selectedDestination" readonly searchIcon="false" clearIcon="false"></ion-input>
+    </ion-row>
+  </ion-row>
+</ion-grid>

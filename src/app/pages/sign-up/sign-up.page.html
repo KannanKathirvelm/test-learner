@@ -1,0 +1,191 @@
+<ion-content class="signup">
+  <ion-header class="header-wrapper" no-border>
+    <ion-toolbar>
+      <ion-grid>
+        <ion-row class="header-title justify-content-center">
+          <ion-col size="2">
+            <ion-back-button text="" defaultHref="login"></ion-back-button>
+          </ion-col>
+          <ion-col size="10">
+            <ion-grid>
+              <ion-row>
+                <ion-text class="sign-up-title-text">
+                  {{ 'SIGN_UP' | translate }}
+                </ion-text>
+              </ion-row>
+            </ion-grid>
+          </ion-col>
+          <hr />
+        </ion-row>
+      </ion-grid>
+    </ion-toolbar>
+  </ion-header>
+  <ion-grid class="content-wrapper sign-up">
+    <ion-row>
+      <div class="sign-up-title">
+        <span>{{ 'SIGN_UP_CONTENT'| translate:translationParams }}</span>
+      </div>
+      <ng-container *ngIf="isIosDevice">
+        <ion-row class="button-container">
+          <ion-button class="submit-btn google-signin-btn" *ngIf="showGoogleSignUp" no-padding (click)="doGoogleSignUp()">
+            <ion-col no-padding size="3" class="google-icon-container">
+              <ion-icon class="icon google-icon"></ion-icon>
+            </ion-col>
+            <ion-col no-padding size="9" class="google-signin-text">{{ 'SIGN_UP_WITH_GOOGLE' | translate }}</ion-col>
+          </ion-button>
+          <ion-button class="submit-btn apple-signin-btn" no-padding *ngIf="isIosDevice" (click)="doAppleLogin()">
+            <ion-col no-padding size="3" class="apple-icon-container">
+              <ion-icon class="icon apple-icon"></ion-icon>
+            </ion-col>
+            <ion-col no-padding size="9" class="apple-signin-text">{{ 'SIGN_IN_WITH_APPLE' | translate }}</ion-col>
+          </ion-button>
+        </ion-row>
+      </ng-container>
+    </ion-row>
+    <hr />
+    <form [formGroup]="signUpForm" (ngSubmit)="signUp()" class="login-form sign-up">
+      <ng-container *ngIf="!isIosDevice">
+        <ion-row class="justify-content-center date">
+          <ion-col align-self-start size="10">
+            <ion-grid>
+              <ion-row class="justify-content-center date-time-label">
+                <ion-label class="input-label date-time-label">{{'YEAR_OF_BIRTH' | translate}}
+                  <ion-text *ngIf="!isIosDevice">*</ion-text>
+                </ion-label>
+              </ion-row>
+              <ion-row class="date-row">
+                <ion-col align-self-start class="year">
+                  <div class="input-wrapper date">
+                    <ion-item no-padding>
+                      <ion-label [ngClass]="{'disabled': year}">{{ 'YEAR' | translate }}</ion-label>
+                      <ion-datetime [ngClass]="{'has-value': year}" name="year" formControlName="year" displayFormat="YYYY" [max]="maxYear" [(ngModel)]="year" class="date" (ionChange)="onChangeDate()"></ion-datetime>
+                    </ion-item>
+                  </div>
+                </ion-col>
+              </ion-row>
+              <ion-text *ngIf="!isIosDevice && submitted && validateForm.year.errors" class="danger-text">
+                {{'ENTER_DOB' | translate}}.
+              </ion-text>
+            </ion-grid>
+          </ion-col>
+        </ion-row>
+        <ion-row class="button-container" *ngIf="showGoogleSignUp">
+          <ion-button class="submit-btn google-signin-btn" no-padding (click)="doGoogleSignUp()">
+            <ion-col no-padding size="3" class="google-icon-container">
+              <ion-icon class="icon google-icon"></ion-icon>
+            </ion-col>
+            <ion-col no-padding size="9" class="google-signin-text">{{ 'SIGN_UP_WITH_GOOGLE' | translate }}</ion-col>
+          </ion-button>
+          <ion-text class="dob-msg-label">
+            {{'SIGN_UP_MSG' | translate}}
+          </ion-text>
+        </ion-row>
+      </ng-container>
+      <ng-container *ngIf="isIosDevice">
+        <ion-row class="justify-content-center date">
+          <ion-col align-self-start size="10">
+            <ion-grid>
+              <ion-row class="justify-content-center date-time-label">
+                <ion-label class="input-label date-time-label">{{'YEAR_OF_BIRTH' | translate}}
+                  <ion-text *ngIf="!isIosDevice">*</ion-text>
+                </ion-label>
+              </ion-row>
+              <ion-row class="date-row">
+                <ion-col align-self-start class="year">
+                  <div class="input-wrapper date">
+                    <ion-item no-padding>
+                      <ion-label [ngClass]="{'disabled': year}">{{ 'YEAR' | translate }}</ion-label>
+                      <ion-datetime [ngClass]="{'has-value': year}" name="year" formControlName="year" displayFormat="YYYY" [max]="maxYear" [(ngModel)]="year" class="date" (ionChange)="onChangeDate()"></ion-datetime>
+                    </ion-item>
+                  </div>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-col>
+        </ion-row>
+      </ng-container>
+      <ion-row class="justify-content-center name-field">
+        <ion-col align-self-start size="5">
+          <nav-input-text [label]="'FIRST_NAME' | translate" [formName]="'firstName'" [parentForm]="signUpForm" [isRequired]="true"></nav-input-text>
+          <ion-text *ngIf="submitted && validateForm.firstName.errors" class="danger-text">
+            {{'ENTER_YOUR_TEXT' | translate}} {{'FIRST_NAME' | translate}}.
+          </ion-text>
+        </ion-col>
+        <ion-col align-self-start size="5">
+          <nav-input-text [label]="'LAST_NAME' | translate" [formName]="'lastName'" [parentForm]="signUpForm" [isRequired]="true"></nav-input-text>
+          <ion-text *ngIf="submitted && validateForm.lastName.errors" class="danger-text">
+            {{'ENTER_YOUR_TEXT' | translate}} {{'LAST_NAME' | translate}}.
+          </ion-text>
+        </ion-col>
+      </ion-row>
+      <ion-row class="justify-content-center email">
+        <ion-col align-self-start size="10">
+          <nav-input-email [autofocus]="isEmailAutoFocus" [label]="'EMAIL' | translate" [emailId]="emailId" [parentForm]="signUpForm" [isRequired]="true"></nav-input-email>
+          <ion-text class="email-msg-label">
+            {{'THIS_WILL_BE_YOUR_LOGIN_ID_MSG'| translate}}
+          </ion-text>
+          <ion-text *ngIf="submitted && validateForm.email.errors?.required" class="danger-text text-center">
+            {{'ENTER_YOUR_TEXT' | translate}} {{'EMAIL' | translate}}.
+          </ion-text>
+          <ion-text *ngIf="submitted && validateForm.email.errors?.email" class="danger-text text-center">
+            {{'ENTER_YOUR_TEXT' | translate}} valid {{'EMAIL' | translate}}.
+          </ion-text>
+        </ion-col>
+      </ion-row>
+      <hr />
+      <ion-row class="justify-content-center password">
+        <ion-col align-self-start size="10">
+          <nav-input-password [parentForm]="signUpForm" [formName]="'password'" [label]="'PASSWORD' | translate" [isRequired]="true"></nav-input-password>
+          <ion-text *ngIf="submitted && validateForm.password.errors" class="danger-text">
+            {{'ENTER_YOUR_TEXT' | translate}} {{'PASSWORD' | translate}}.
+          </ion-text>
+        </ion-col>
+      </ion-row>
+      <ion-row class="justify-content-center confirm-password">
+        <ion-col align-self-start size="10">
+          <nav-input-password [parentForm]="signUpForm" [formName]="'confirmPassword'" [label]="'CONFIRM_PASSWORD' | translate" [isRequired]="true"></nav-input-password>
+          <ion-text *ngIf="submitted && validateForm.confirmPassword.errors" class="danger-text">
+            {{'ENTER_YOUR_TEXT' | translate}} {{'CONFIRM_PASSWORD'| translate}}.
+          </ion-text>
+          <ion-text *ngIf="submitted && checkPassword && !validateForm.confirmPassword.errors" class="danger-text">{{'PASSWORD_NOT_MATCH' | translate}}.</ion-text>
+        </ion-col>
+      </ion-row>
+      <hr />
+      <ion-row class="justify-content-center select">
+        <ion-col align-self-start size="10">
+          <div class="input-wrapper search-list-container" [formGroup]="signUpForm">
+            <ion-row class="justify-content-center label">
+              <ion-label class="input-label">{{'COUNTRY' | translate}} *
+              </ion-label>
+            </ion-row>
+            <ion-row class="justify-content-center" (click)="togglePullUp()">
+              <ion-input class="input-field read-only" [formControlName]="'country'" [value]="selectedCountryDetail?.name"></ion-input>
+            </ion-row>
+          </div>
+          <ion-text *ngIf="submitted && validateForm.country.errors" class="danger-text">
+            {{'PLEASE_SELECT_YOUR' | translate}} {{'COUNTRY' | translate}}.
+          </ion-text>
+        </ion-col>
+      </ion-row>
+      <ion-row class="justify-content-center next">
+        <ion-col align-self-start size="10">
+          <ion-button class="submit-btn" type="submit">{{ 'SIGN_UP'| translate }}
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </form>
+    <hr class="line" />
+    <ion-row class="account-exist">
+      <span>{{ 'ACCOUNT_EXIST'| translate }}</span>
+    </ion-row>
+    <ion-row class="sign-in">
+      <span routerLink="/login">{{ 'SIGN_IN'| translate }}</span>
+    </ion-row>
+  </ion-grid>
+  <ion-row class="account-exists-pullup" [ngClass]="{'active': isShowAccountExistsPullUp}">
+    <ion-row class="backdrop" (click)="closeAccountExistsPullUp()" *ngIf="isShowAccountExistsPullUp">
+    </ion-row>
+    <account-exists-pull-up [email]="emailId" (closeAccountExistsPullUp)="closeAccountExistsPullUp()"></account-exists-pull-up>
+  </ion-row>
+  <nav-custom-alert *ngIf="showSuccessAlert" (dismissAlert)="dismissAlert($event)" [successMessage1]="successMessage"></nav-custom-alert>
+</ion-content>

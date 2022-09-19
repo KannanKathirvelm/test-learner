@@ -1,0 +1,52 @@
+<ion-header class="header-wrapper" no-border>
+  <ion-toolbar>
+    <ion-row class="justify-content-center">
+      <ion-row class="back-button">
+        <ion-back-button text="" defaultHref="login"></ion-back-button>
+      </ion-row>
+      <ion-row class="title-container">
+        <ion-row class="justify-content-center">
+          <ion-text class="sign-in-title-text">{{ 'SIGN_IN_WITH_USERNAME' | translate }}</ion-text>
+        </ion-row>
+        <ion-row class="justify-content-center">
+          <ion-text class="continue-to-text">
+            {{ 'TO_CONTINUE_TO' | translate }} {{ 'TO' | translate }}
+            <ion-label class="domain-text" *ngIf="tenantName">{{ tenantName }}</ion-label>
+          </ion-text>
+        </ion-row>
+      </ion-row>
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="login-content-container">
+  <ion-grid>
+    <ion-row class="content-wrapper">
+      <ion-row *ngIf="tenantImage">
+        <ion-icon class="navigator-logo-img" [ngStyle]="{'background-image': 'url('+tenantImage+')'}"></ion-icon>
+      </ion-row>
+      <ion-row *ngIf="!tenantImage" class="avatar-text">
+        <ngx-avatar name="{{tenantName}}" size="{{avatarSize}}" initialsSize="{{avatarInitialCount}}"></ngx-avatar>
+      </ion-row>
+      <form [formGroup]="signInForm" (ngSubmit)="login()" class="login-form" autofill="off">
+        <ion-row>
+          <ion-grid>
+            <ion-row class="justify-content-center">
+              <nav-input-text [label]="'USERNAME' | translate" [formName]="'username'" [usernameVal]="usernameVal" [parentForm]="signInForm" #username></nav-input-text>
+              <ion-text *ngIf="submitted && validateForm.username.errors" class="danger-text">{{ 'PLEASE_ENTER_USERNAME' | translate }}</ion-text>
+            </ion-row>
+            <ion-row class="justify-content-center">
+              <nav-input-password [label]="'PASSWORD' | translate" [formName]="'password'" [parentForm]="signInForm" #password></nav-input-password>
+              <ion-text *ngIf="submitted && validateForm.password.errors" class="danger-text">{{ 'PLEASE_ENTER_PASSWORD' | translate }}</ion-text>
+            </ion-row>
+          </ion-grid>
+        </ion-row>
+        <ion-row class="justify-content-center">
+          <ion-text class="forgot-pwd-text" (click)="forgotPassword()">{{ 'FORGOT_YOUR_PASSWORD' | translate }}</ion-text>
+        </ion-row>
+        <ion-row>
+          <ion-button class="submit-btn" type="submit">{{ 'SUBMIT' | translate }}</ion-button>
+        </ion-row>
+      </form>
+    </ion-row>
+  </ion-grid>
+</ion-content>

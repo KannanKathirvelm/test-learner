@@ -1,0 +1,30 @@
+<ion-grid class="video-conference-alert">
+  <ion-row class="header">
+    <ion-col size="10">
+      <ion-row>
+        <ion-text class="ellipsis">{{context.title}}</ion-text>
+      </ion-row>
+      <ion-row class="date-time">
+        <ion-col col="col-start">
+          <ion-text>{{context.startDate | formatDate:'ddd, MMM DD, h:mm a'}} - {{context.endDate | formatDate:'h:mm a'}}</ion-text>
+        </ion-col>
+      </ion-row>
+    </ion-col>
+    <ion-col size="2" class="close-icon">
+      <i class="material-icons" (click)="closeAlert()">clear</i>
+    </ion-col>
+  </ion-row>
+  <ion-row class="body-content">
+    <ion-grid>
+      <ion-row class="link-container">
+        <ion-item>
+          <ion-text class="meeting-link">{{context.meetingLink}}</ion-text>
+          <ion-text class="material-icons copy-icon" (click)="onCopy()">content_copy</ion-text>
+        </ion-item>
+      </ion-row>
+      <ion-row class="button-container">
+        <button (click)="joinMetting()">{{'JOIN_MEETING' | translate}}</button>
+      </ion-row>
+    </ion-grid>
+  </ion-row>
+</ion-grid>

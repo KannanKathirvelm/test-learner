@@ -1,0 +1,78 @@
+  <ion-content class="login-page">
+    <ion-grid class="content-wrapper" [ngClass]="{'hide-signin' : !showNavigatorSignIn}">
+      <ion-row class="logo-img" *ngIf="productLogo">
+        <ion-img [src]="productLogo"></ion-img>
+      </ion-row>
+      <ion-row class="navigator-logo-img" *ngIf="appLogo">
+        <ion-img [src]="appLogo"></ion-img>
+      </ion-row>
+      <ng-container *ngIf="showNavigatorSignIn">
+        <form [formGroup]="loginInForm" (ngSubmit)="loginSubmit()" class="login-form">
+          <ion-row class="justify-content-center login-section">
+            <nav-input-email [label]="'ENTER_YOUR_EMAIL_TO_CONTINUE' | translate" [parentForm]="loginInForm"></nav-input-email>
+            <ion-text *ngIf="submitted && validateForm.email.errors?.required" class="danger-text text-center">{{ 'ENTER_EMAIL_ERROR' | translate }}</ion-text>
+            <ion-text *ngIf="submitted && validateForm.email.errors?.email" class="danger-text text-center">{{ 'ENTER_VALID_EMAIL' | translate }}</ion-text>
+          </ion-row>
+          <ion-row class="justify-content-center">
+            <ion-button class="submit-btn" (click)="loginSubmit()">{{'SUBMIT' | translate}}</ion-button>
+          </ion-row>
+        </form>
+      </ng-container>
+      <ng-container *ngIf="showSchoolPassportLogin">
+        <ion-row class="button-container">
+          <ion-button class="school-signin-btn ion-no-padding" (click)="doSchoolPassportLogin()">
+            <ion-img src="assets/images/gg4l-login.png"></ion-img>
+          </ion-button>
+        </ion-row>
+      </ng-container>
+      <ng-container *ngIf="showNavigatorSignIn && isIosDevice">
+        <ion-row class="button-container">
+          <ion-button class="submit-btn apple-signin-btn ion-no-padding" (click)="doAppleLogin()">
+            <ion-col size="3" class="apple-icon-container ion-no-padding">
+              <ion-icon class="icon apple-icon"></ion-icon>
+            </ion-col>
+            <ion-col size="9" class="apple-signin-text ion-no-padding">{{ 'SIGN_IN_WITH_APPLE' | translate }}</ion-col>
+          </ion-button>
+        </ion-row>
+        <ion-row class="justify-content-center apple-signin-msg">
+          <ion-text class="signup-link">{{'APPLE_SIGN_IN_INFO_MSG' | translate}}</ion-text>
+        </ion-row>
+      </ng-container>
+      <ng-container *ngIf="showSignUp">
+        <ion-row class="justify-content-center signup-text" (click)="onClickSignUp()">
+          <ion-text class="signup-link">{{'SIGN_UP' | translate}}</ion-text>
+        </ion-row>
+      </ng-container>
+    </ion-grid>
+  </ion-content>
+  <ng-container *ngIf="showSignUp">
+    <ion-row class="justify-content-center teacher-signup">
+      <ion-text class="teacher-link">
+        {{'TEACHER_SIGNUP_MSG' | translate}}
+        <ion-text (click)="reDirectToStore()">{{'DOWNLOAD' | translate}}</ion-text>{{'FROM_THE_STORE' | translate}}
+      </ion-text>
+    </ion-row>
+  </ng-container>
+  <ion-footer class="footer-wrapper" [ngClass]="{'hide-signin' : !showNavigatorSignIn}">
+    <ng-container *ngIf="showNavigatorSignIn; else learnByText">
+      <ion-grid>
+        <ion-row class="justify-content-center">
+          <ion-text class="link-text">{{ 'DIDNT_REGISTER_AN_EMAIL_ADDRESS' | translate }}</ion-text>
+        </ion-row>
+        <ion-row class="justify-content-center">
+          <ion-text class="signin-text" (click)="goToUsernameLogin()">{{'SIGN_IN_VIA_USERNAME' | translate}}</ion-text>
+        </ion-row>
+      </ion-grid>
+      <ion-grid>
+        <ion-row class="justify-content-center">
+          <ion-text class="link-text">{{ 'ARE_YOU_USING_TENANT_URL' | translate }}</ion-text>
+        </ion-row>
+        <ion-row class="justify-content-center">
+          <ion-text class="signin-text" (click)="goToTenantLogin()">{{'ENTER_URL' | translate}}</ion-text>
+        </ion-row>
+      </ion-grid>
+    </ng-container>
+    <ng-template #learnByText>
+      <ion-text class="learn-with-gooru link-text">Learn with Gooru</ion-text>
+    </ng-template>
+  </ion-footer>

@@ -1,0 +1,43 @@
+.account-exists-popup-container {
+  background-color: var(--account-exists-popup-bg);
+  width: 100%;
+  overflow-y: auto;
+  z-index: 13;
+  max-height: 100%;
+
+  .header {
+    position: relative;
+    margin-top: 10px;
+
+    .label {
+      ion-text {
+        margin: auto;
+        font-size: 12px;
+        padding: 10px 15px 0;
+        font-weight: 600;
+        opacity: 0.8;
+        text-align: center;
+      }
+    }
+
+    .close-icon {
+      position: absolute;
+      right: 10px;
+      top: 5px;
+    }
+  }
+
+  .actions {
+    width: 100%;
+
+    .login-btn {
+      --background: var(--signin-btn-bg-color);
+      --border-radius: 0;
+      color: var(--account-exists-btn);
+      margin: 16px auto;
+      text-transform: uppercase;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+  }
+}

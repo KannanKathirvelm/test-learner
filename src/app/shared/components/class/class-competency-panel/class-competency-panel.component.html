@@ -1,0 +1,52 @@
+<ion-row class="competency-container" (click)="navigateToProficiency()" *ngIf="isCompetencyPerformanceLoaded; else competencySkeletonView">
+  <ion-col class="competency-thumbnail-col ion-no-padding">
+    <ion-icon class="competency-img"></ion-icon>
+  </ion-col>
+  <ion-col class="competency-mastered-col ion-no-padding">
+    <ion-row class="competency-mastered">
+      <ion-row class="mastered-count ion-no-padding">
+        <ng-container *ngIf="compentencyPerformance; else zeroCompetency">
+          <ng-container *ngIf="isShowCompletedCompetencies; else masteredCompetency">
+            <ion-text class="completed-competency">{{completedCompetencies}}</ion-text>
+            <ion-text class="total-competency ellipsis">/ {{numberOfCompetencies}} {{ 'COMPETENCIES' | translate }} {{ 'MASTERED' | translate }}</ion-text>
+          </ng-container>
+        </ng-container>
+      </ion-row>
+    </ion-row>
+    <ion-row class="competency-progress-bar">
+      <ion-progress-bar [value]="completedCompetencyPercentage"></ion-progress-bar>
+    </ion-row>
+    <ion-row *ngIf="compentencyPerformance && isShowCompletedCompetencies" class="mastered overall-competency ion-no-padding">
+      <ion-row class="mastered-competency-stats">
+        <ion-text class="count">{{compentencyPerformance.completedCompetencies}}</ion-text>
+        <ion-text class="count">/ {{compentencyPerformance.totalCompetencies}}</ion-text>
+      </ion-row>
+      <ion-text class="label ellipsis">
+        ({{'OVERALL' | translate}})
+      </ion-text>
+    </ion-row>
+    <ng-template #zeroCompetency>
+      <ion-row class="competency-mastered">
+        <ion-text class="total-competency zero-competency">0 {{ 'COMPETENCY_MASTERED' | translate }}</ion-text>
+      </ion-row>
+    </ng-template>
+    <ng-template #masteredCompetency>
+      <ion-text class="completed-competency">{{compentencyPerformance.completedCompetencies}}</ion-text>
+      <ion-text class="total-competency ellipsis">/ {{compentencyPerformance.totalCompetencies}} {{ 'COMPETENCIES' | translate }} {{ 'MASTERED' | translate }}</ion-text>
+    </ng-template>
+  </ion-col>
+</ion-row>
+<!-- animated skeleton view -->
+<ng-template #competencySkeletonView>
+  <ion-row class="competency-container">
+    <ion-col class="competency-thumbnail-col">
+      <ion-skeleton-text animated></ion-skeleton-text>
+    </ion-col>
+    <ion-col class="skeleton-competency-mastered">
+      <ion-skeleton-text animated></ion-skeleton-text>
+    </ion-col>
+    <ion-col class="skeleton-competency-count">
+      <ion-skeleton-text animated></ion-skeleton-text>
+    </ion-col>
+  </ion-row>
+</ng-template>

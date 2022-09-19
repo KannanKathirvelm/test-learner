@@ -1,0 +1,25 @@
+<ion-row class="category-container" *ngIf="classificationType">
+  <ion-row *ngFor="let classification of classificationType;index as classificationIndex" class="category">
+    <ion-row class="category-header">
+      <ion-row class="title">
+        <ion-text class="label">{{ classification.title }}</ion-text>
+      </ion-row>
+      <ion-row class="delete-icon" (click)="onDeleteCategory(classification.subjects, classificationIndex)">
+        <span class="material-icons">delete_outline</span>
+      </ion-row>
+    </ion-row>
+    <ion-row class="category-card-panel">
+      <ion-row *ngFor="let subject of classification.subjects" class="header-bar">
+        <ion-col class="category-icon" size="2">
+          <ion-icon class="icon"></ion-icon>
+        </ion-col>
+        <ion-col class="category-title" size="6">
+          <ion-text class="title">{{ subject.title }}</ion-text>
+        </ion-col>
+        <ion-col class="category-class" size="4">
+          <preferences-framework-panel (selectFramework)="onSelectFramework($event)" [subject]="subject"></preferences-framework-panel>
+        </ion-col>
+      </ion-row>
+    </ion-row>
+  </ion-row>
+</ion-row>

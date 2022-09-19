@@ -1,0 +1,10 @@
+<ion-content>
+  <ion-grid class="grid-score-point">
+    <ion-row class="row-points" *ngIf="levelScore" ngClass="grade-range-{{scoreInPercentage | gradeRange}}">
+      <ion-text>{{'POINTS' | translate}}: {{levelScore}}</ion-text>
+    </ion-row>
+    <ion-row class="row-text">
+      <ion-text >{{levelName}}</ion-text>
+    </ion-row>
+  </ion-grid>
+</ion-content>

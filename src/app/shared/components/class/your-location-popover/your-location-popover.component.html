@@ -1,0 +1,27 @@
+<ion-grid class="ion-no-padding nav-popover-container">
+  <ng-container *ngIf="currentLesson">
+    <ion-row class="study-player-title-row">
+      <ion-col size="4" class="ion-no-padding study-player-icon">
+        <ion-img [src]="currentLocation.thumbnail"></ion-img>
+      </ion-col>
+      <ion-col size="8" class="ion-no-padding title-row">
+        <ion-row class="nav-popover-title-row">
+          <ion-col size="2" class="ion-no-padding place-icon">
+            <ion-icon class="nav-destination-icon"></ion-icon>
+          </ion-col>
+          <ion-col size="10" class="ion-no-padding lesson-count">
+            <ion-text class="ellipsis">{{'LESSON' | translate}} {{ lessonSequence }}</ion-text>
+          </ion-col>
+        </ion-row>
+        <ion-row class="lesson-name ellipsis">
+          <ion-text class="title ellipsis">
+            {{currentLesson.lessonTitle}}
+          </ion-text>
+        </ion-row>
+        <ion-row class="collection-title">
+          <ion-text class="multi-line-ellipsis ">{{ title }}</ion-text>
+        </ion-row>
+      </ion-col>
+    </ion-row>
+  </ng-container>
+</ion-grid>

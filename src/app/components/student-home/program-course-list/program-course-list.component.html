@@ -1,0 +1,22 @@
+<ion-grid class="program-list-panel">
+  <ion-row class="program-detail-container">
+    <ion-col class="program-back" (click)="onGoBack()">
+      <i class="material-icons">arrow_back</i>
+    </ion-col>
+    <ion-col class="program-title">
+      <ion-text>{{selectedProgram.title}}</ion-text>
+    </ion-col>
+  </ion-row>
+  <ion-row class="program-banner">
+    <ion-row class="banner-image" [ngStyle]="{'background-image': 'url(' + selectedProgram.images?.cover_image + ')'}"></ion-row>
+  </ion-row>
+  <ion-row class="program-course-description">
+    <ion-text class="program-title">{{'PROGRAM_COURSE_DESCRIPTION1' | translate}} <b>{{selectedProgram.title}}</b> {{'PROGRAM_COURSE_DESCRIPTION2' | translate}}</ion-text>
+    <ion-text class="program-description">{{'PROGRAM_LIST_DESCRIPTION' | translate}}</ion-text>
+  </ion-row>
+  <ion-row class="program-course-items" *ngIf="navigatorSubProgramList && navigatorSubProgramList.length">
+    <div *ngFor="let navigatorSubProgram of navigatorSubProgramList">
+      <app-sub-program  [tenantSettings]="tenantSettings" (goBack)="onGoBack()" [navigatorSubProgram]="navigatorSubProgram"></app-sub-program>
+    </div>
+  </ion-row>
+</ion-grid>

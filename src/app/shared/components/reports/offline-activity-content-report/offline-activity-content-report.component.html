@@ -1,0 +1,11 @@
+<div *ngIf="offlineActivity">
+  <div *ngFor="let task of offlineActivity.tasks; let taskIndex=index">
+    <offline-activity-task [task]="task" [isPreview]="!isPreview" [isContentPreview]="isPreview" [references]="offlineActivity.references" [sequenceId]="taskIndex+1"></offline-activity-task>
+  </div>
+  <div class="footer-container">
+    <div class="player-grading">
+      <offline-activity-grading [isTeacherGraded]="isTeacherGraded" [isPreview]="isPreview" [offlineActivity]="offlineActivity" [activityId]="contentId" [classId]="classId" [submissions]="!isPreview ? submissions : []" [isReportViewMode]="true">
+      </offline-activity-grading>
+    </div>
+  </div>
+</div>

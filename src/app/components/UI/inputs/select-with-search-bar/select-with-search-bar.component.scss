@@ -1,0 +1,57 @@
+.searchbar-header {
+  &::after {
+    content: none;
+  }
+
+  ion-toolbar {
+    ion-searchbar {
+      padding-bottom: 3px;
+
+      ::ng-deep .searchbar-input {
+        --padding-start: 0;
+        --padding-top: 0;
+        --padding-bottom: 0;
+        padding-top: 0;
+        padding-bottom: 0;
+        height: 40px;
+        color: var(--input-field);
+      }
+    }
+  }
+}
+
+.searchbar-list-container {
+  ion-list {
+    height: 100%;
+    overflow-x: hidden;
+    padding-bottom: 66px;
+    margin: 0;
+    padding-top: 0;
+
+    ion-item {
+      span {
+        width: 100%;
+      }
+
+      .icon {
+        width: 30px;
+        height: 30px;
+        background-image: var(--tick);
+        background-position: center;
+        background-size: 100%;
+        background-repeat: no-repeat;
+      }
+    }
+  }
+}
+
+.searchbar-list-footer {
+  position: absolute;
+  bottom: 0;
+
+  ion-toolbar {
+    .done {
+      color: var(--haveloc-blue);
+    }
+  }
+}

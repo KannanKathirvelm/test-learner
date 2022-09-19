@@ -1,0 +1,6 @@
+<ion-row class="preference-framework-panel">
+  <ion-label>{{ 'SUBJECTS' | translate }}</ion-label>
+  <ion-select [compareWith]="compareWithCode" (ionChange)="onSelectFramework($event)" [value]="activeFramework">
+    <ion-select-option *ngFor="let framework of subject.frameworks" [value]="framework">{{ framework.standardFrameworkId }}</ion-select-option>
+  </ion-select>
+</ion-row>

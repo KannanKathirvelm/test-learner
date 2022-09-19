@@ -1,0 +1,125 @@
+.legend-pull-up-container {
+  height: 100%;
+
+  ion-toolbar {
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);
+    min-height: var(--toolbar-height);
+    padding-top: var(--ion-safe-area-top, 0);
+
+    .legend-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 6px;
+
+      .title {
+        font-size: 16px;
+        font-weight: bold;
+        margin-left: 20px;
+      }
+
+      .skyline-title {
+        font-size: 16px;
+        font-weight: bold;
+        margin-left: 15px;
+        padding: 10px;
+      }
+
+      .close {
+        margin: 2px 10px 0 auto;
+      }
+    }
+  }
+
+  .legend-container {
+    padding-bottom: 50px;
+
+    .proficiency-tags {
+      .proficiency-legends {
+        .legend {
+          width: 100%;
+          display: grid;
+          padding: 25px 20px;
+          grid-template-columns: 35px 1fr;
+
+          .box {
+            width: 32px;
+            height: 32px;
+            background-color: var(--proficiency-legends-box);
+          }
+
+          .line {
+            margin: auto 0;
+            width: 32px;
+          }
+
+          .legend-info {
+            display: grid;
+            padding-left: 20px;
+
+            .title {
+              font-size: 16px;
+              font-weight: bold;
+            }
+
+            .title-msg {
+              font-size: 14px;
+              color: var(--legend-title-color);
+
+              &:first-letter {
+                text-transform: capitalize;
+              }
+            }
+          }
+
+          &.mastered {
+            .box {
+              background-color: var(--proficiency-legends-mastered);
+            }
+          }
+
+          &.show-gut {
+            .box {
+              background-color: var(--proficiency-legends-show-gut);
+            }
+          }
+
+          &.not-started {
+            .box {
+              background-color: var(--proficiency-legends-not-started);
+            }
+          }
+
+          &.in-progress {
+            .box {
+              background-color: var(--proficiency-legends-in-progress);
+            }
+          }
+
+          &.skyline {
+            .box-skyline {
+              height: 5px;
+              border-radius: 3px;
+              box-shadow: 0 1px 3px 1px rgba(0, 0, 0, 0.5);
+              background-color: var(--proficiency-legends-sky-line);
+            }
+          }
+
+          &.class-grade-line {
+            .box-class-grade-line {
+              height: 4px;
+              border-radius: 3px;
+              box-shadow: 0 1px 4px 2px rgba(0, 0, 0, 0.5);
+              border: solid 2px var(--proficiency-legends-grade-line);
+            }
+          }
+        }
+      }
+    }
+  }
+  .skyline-content {
+    padding: 15px;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-column-gap: 10px;
+  }
+}

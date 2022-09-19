@@ -1,0 +1,217 @@
+.related-content {
+  margin: 11px 0;
+
+  .related-content-tab {
+    width: 100%;
+    margin: 0 0 25px 12px;
+    justify-content: center;
+    display: grid;
+    grid-template-columns: 1fr 40px;
+    line-height: 1;
+
+    .related-content-header {
+      .title {
+        height: 32px;
+        display: flex;
+        align-items: center;
+        font-size: 18px;
+        color: var(--related-content-color);
+        margin: auto 0;
+      }
+
+      .title-desc {
+        font-size: 12px;
+        color: var(--related-content-color);
+        opacity: 0.8;
+      }
+    }
+
+    .arrow {
+      opacity: 0.8;
+      margin: 0 auto auto;
+
+      i {
+        color: var(--related-content-color);
+        font-size: 25px;
+      }
+    }
+  }
+
+  .related-content-container {
+    display: flex;
+    overflow-x: auto;
+    margin-left: 11px;
+    overflow-y: hidden;
+    width: max-content;
+  }
+
+  .resource-content-container {
+    overflow: auto !important;
+
+    ::ng-deep {
+      nav-audio-resource,
+      nav-image-resource,
+      nav-interactive-resource,
+      nav-text-resource,
+      nav-video-resource,
+      nav-webpage-resource {
+        width: 224px;
+        height: 215px;
+        margin-right: 15px;
+
+        .audio-resource-container,
+        .image-resource-container,
+        .interactive-resource-container,
+        .text-resource-container,
+        .video-resource-container,
+        .webpage-resource-container {
+          padding: 0;
+          width: 100%;
+          height: 100%;
+
+          .resource-content {
+            filter: none;
+            -webkit-filter: none;
+            width: 100%;
+            height: 100%;
+          }
+
+          .hz-line {
+            display: none;
+          }
+
+          .resource-content-container {
+            pointer-events: unset;
+            display: block;
+            width: 100%;
+            height: 100%;
+            margin-bottom: 5px;
+
+            ion-button {
+              pointer-events: unset;
+              display: block;
+            }
+          }
+
+          .player-overlay {
+            display: none;
+          }
+
+          &.question-answered {
+            .button-wrapper {
+              .play-button {
+                --background: var(--related-content-bg-color);
+                color: var(--player-play-button-color);
+                font-weight: bold;
+                font-size: 12px;
+              }
+            }
+          }
+
+          .header-section {
+            display: grid;
+            grid-template-columns: unset;
+            width: 224px;
+            background-color: var(--related-content-color);
+            padding-bottom: 0;
+
+            .thumbnail {
+              min-width: 90px;
+              padding: 0;
+              display: block;
+
+              .sequence-text {
+                flex: none;
+                height: 50px;
+                display: none;
+                color: var(--related-content-resourse-title-color);
+              }
+
+              img {
+                height: 138px;
+                width: 100%;
+              }
+            }
+
+            .title {
+              font-size: 15px;
+              padding: 10px;
+              color: var(--related-content-color);
+              background-image: linear-gradient(transparent, var(--related-content-image-bg));
+              position: absolute;
+              width: 100%;
+              top: 44%;
+              height: 50px;
+              font-weight: bold;
+              font-size: 12px;
+
+              ::ng-deep {
+                mathjax {
+                  width: 100%;
+
+                  span {
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    display: block;
+                    width: 100%;
+                  }
+                }
+              }
+            }
+
+            .resource-description {
+              display: block;
+              opacity: 0.8;
+              font-size: 11px;
+              overflow-y: auto;
+              padding: 15px 10px;
+            }
+
+            .icons {
+              position: absolute;
+              padding: 6px;
+
+              .resource-icon {
+                padding: 0;
+                background-color: var(--related-content-icon-color);
+                border-radius: 30%;
+
+                .audio,
+                .image,
+                .interactive,
+                .text,
+                .video,
+                .webpage {
+                  background: var(--related-content-color);
+                }
+              }
+            }
+          }
+
+          .content-panel {
+            background-color: var(--related-content-color);
+            overflow: scroll !important;
+            height: calc(100% - 138px);
+
+            .info {
+              display: none;
+            }
+          }
+
+          .description {
+            color: var(--related-content-resourse-title-color);
+            padding: 23px 10px;
+          }
+
+          .button-wrapper {
+            .play-button {
+              --background: var(--related-content-bg-color);
+              color: var(--player-play-button-color);
+            }
+          }
+        }
+      }
+    }
+  }
+}

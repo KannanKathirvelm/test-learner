@@ -1,0 +1,81 @@
+<ion-grid class="ion-no-padding milestone-report-container">
+  <ion-row class="milestone-row">
+    <ion-col size="2" class="ion-no-padding milestone-flag-icon-col">
+      <ion-icon class="flag-icon"></ion-icon>
+    </ion-col>
+    <ion-col size="10" class="ion-no-padding milestone-col">
+      <ion-row class="ion-no-padding milestone-header-col milestone-header">
+        <ion-col size="6" class="ion-no-padding milestone-title">
+          <ng-container *ngIf="selectedMilestoneIndex;else milestoneTitle">
+            <ion-text class="ellipsis">{{'MILESTONE' | translate}} {{selectedMilestoneIndex + 1}}</ion-text>
+          </ng-container>
+          <ng-template #milestoneTitle>
+            <ion-text class="ellipsis">{{'MILESTONE' | translate}} {{milestoneIndex + 1}}</ion-text>
+          </ng-template>
+        </ion-col>
+        <ion-col size="6" class="ion-no-padding time-spent-col total-time-col">
+          <ion-text *ngIf="computedEtlTime">{{'ETL' | translate}} {{computedEtlTime}}</ion-text>
+        </ion-col>
+      </ion-row>
+      <ng-container *ngIf="milestoneStats;else skeletonHeaderText">
+        <milestone-report-progress-bar [lessonCount]="lessonCount" [scoreInPercentage]="completedLessonsInPercentage"></milestone-report-progress-bar>
+      </ng-container>
+      <ng-template #skeletonHeaderText>
+        <ion-text class="skeleton-header-text">
+          <ion-skeleton-text animated class="skeleton-header-text"></ion-skeleton-text>
+        </ion-text>
+      </ng-template>
+    </ion-col>
+  </ion-row>
+  <ion-row class="milestone-report-content">
+    <ion-row class="report-category-row performance-color" ngClass="milestone-grade-range-{{scoreInPercentage | gradeRange}}">
+      <ion-col size="2" class="ion-no-padding icon-col">
+        <ion-icon class="image-icon nav-tick-icon performance-tick-icon"></ion-icon>
+      </ion-col>
+      <ion-col size="7" class="ion-no-padding report-category-text">
+        <ion-text>{{ 'PERFORMANCE' | translate }}</ion-text>
+      </ion-col>
+      <ion-col size="3" class="ion-no-padding report-category-text score-col">
+        <ng-container *ngIf="performanceLoaded; else skeletonText">
+          <ion-text *ngIf="scoreInPercentage !== null;else NAValue">{{scoreInPercentage | transformPerformanceScore}}</ion-text>
+        </ng-container>
+      </ion-col>
+    </ion-row>
+    <ion-row class="report-category-row timespent-color">
+      <ion-col size="2" class="ion-no-padding report-category-icon icon-col">
+        <ion-icon name="time"></ion-icon>
+      </ion-col>
+      <ion-col size="7" class="ion-no-padding report-category-text">
+        <ion-text>{{ 'TIMESPENT' | translate }}</ion-text>
+      </ion-col>
+      <ion-col size="3" class="ion-no-padding report-category-text score-col">
+        <ng-container *ngIf="milestone; else skeletonText">
+          <ion-text *ngIf="timeSpent;else NAValue">{{timeSpent | transformPerformanceTimeSpent }}</ion-text>
+        </ng-container>
+      </ion-col>
+    </ion-row>
+    <ion-row class="report-category-row lessons-color">
+      <ion-col size="2" class="ion-no-padding report-category-icon icon-col">
+        <ion-icon name="remove-circle-outline"></ion-icon>
+      </ion-col>
+      <ion-col size="7" class="ion-no-padding report-category-text">
+        <ion-text>{{'LESSONS_STUDIED' | translate}}</ion-text>
+      </ion-col>
+      <ion-col size="3" class="ion-no-padding report-category-text score-col">
+        <ng-container *ngIf="milestoneStats; else skeletonText">
+          <ion-text *ngIf="lessonCount;else NAValue">{{completedLessons}} / {{lessonCount}}</ion-text>
+        </ng-container>
+      </ion-col>
+    </ion-row>
+    <ng-template #NAValue>
+      <ion-text>
+        {{'NA' | translate}}
+      </ion-text>
+    </ng-template>
+    <ng-template #skeletonText>
+      <ion-text class="skeleton-text">
+        <ion-skeleton-text animated class="skeleton-header-text"></ion-skeleton-text>
+      </ion-text>
+    </ng-template>
+  </ion-row>
+</ion-grid>

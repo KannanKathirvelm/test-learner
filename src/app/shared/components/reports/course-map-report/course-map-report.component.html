@@ -1,0 +1,50 @@
+<ion-header class="course-map-report-header">
+  <ion-toolbar position="top">
+    <ion-row class="report-header">
+      <ion-col size="10" class="title-container">
+        <ion-text class="title ellipsis">{{'COURSE' | translate}}: {{courseTitle}}</ion-text>
+      </ion-col>
+      <ion-col size="2" class="close-icon-container">
+        <ion-text class="material-icons" (click)="closeReport()">clear</ion-text>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
+<ion-grid class="course-map-report">
+  <ion-row class="report-body">
+    <ion-row *ngIf="isLoaded && courseMapPerformance; else skeletonPerformance">
+      <!-- start performance box -->
+      <ion-grid class="performance-activity" ngClass="grade-range-{{courseMapPerformance.scoreInPercentage | gradeRange}}">
+        <ion-row class="performance">
+          <ion-row class="score-container">
+            <ion-text class="score">{{courseMapPerformance.scoreInPercentage | transformPerformanceScore}}</ion-text>
+          </ion-row>
+        </ion-row>
+        <ion-row class="performance-img" ngClass="grade-range-{{courseMapPerformance.scoreInPercentage | gradeRange}}" [ngStyle]="{'height': courseMapPerformance.scoreInPercentage + '%'}">
+        </ion-row>
+      </ion-grid>
+      <!-- end performance box -->
+    </ion-row>
+    <ion-row class="unit-list-container" *ngIf="isLoaded; else skeletonViewTemplate">
+      <nav-course-map-accordion [unitList]="unitList" [classId]="classId" [courseId]="courseId" [reportViewMode]="true"></nav-course-map-accordion>
+    </ion-row>
+  </ion-row>
+</ion-grid>
+<!-- skeleton view -->
+<ng-template #skeletonPerformance>
+  <ion-row class="skeleton-performance">
+    <ion-skeleton-text animated></ion-skeleton-text>
+  </ion-row>
+</ng-template>
+<ng-template #skeletonViewTemplate>
+  <ion-grid class="skeleton-grid">
+    <ion-row class="skeleton-row" *ngFor="let items of [].constructor(3)">
+      <ion-col class="title-col">
+        <ion-skeleton-text animated></ion-skeleton-text>
+      </ion-col>
+      <ion-col class="performance-col">
+        <ion-skeleton-text animated></ion-skeleton-text>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ng-template>

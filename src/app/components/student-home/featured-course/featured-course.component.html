@@ -1,0 +1,54 @@
+<ion-grid class="featured-course-list-container ion-no-padding">
+  <ion-row class="featured-course-list-row">
+    <ng-container *ngIf="featuredCourseList.length; else noMoreFeaturedCourseMsg">
+      <ng-container *ngFor="let featuredCourseGroup of featuredCourseList;index as courseSeq">
+        <ion-row class="featured-course-header-row featured-course-{{courseSeq}}" (click)="onToggleCourses(courseSeq, featuredCourseGroup.isActive)">
+          <ion-col size="2" class="ion-no-padding icon-col">
+            <ion-icon class="competency-img"></ion-icon>
+          </ion-col>
+          <ion-col size="8" class="ion-no-padding header-col">
+            <ng-container *ngIf="featuredCourseGroup.isJoinedClass; else recommendedCourseTemplate">
+              <ion-text class="classroom-currently-studying">{{ 'CURRENTLY_STUDYING' | translate}}</ion-text>
+            </ng-container>
+            <ng-template #recommendedCourseTemplate>
+              <ion-text class="classroom-label class-count">
+                {{featuredCourseGroup.courses.length}} {{(featuredCourseGroup.courses.length > 1 ? 'RECOMMENDED_COURSES' : 'RECOMMENDED_COURSE') | translate}}
+              </ion-text>
+              <ion-text *ngIf="featuredCourseGroup.categoryTitle" class="classroom-label title ellipsis">{{featuredCourseGroup.categoryTitle}} / {{featuredCourseGroup.subjectTitle}}</ion-text>
+            </ng-template>
+          </ion-col>
+          <ion-col size="2" class="arrow-col ion-no-padding">
+            <ion-icon *ngIf="featuredCourseGroup.isActive;else downArrow" name="md-arrow-dropup"></ion-icon>
+            <ng-template #downArrow>
+              <ion-icon name="md-arrow-dropdown"></ion-icon>
+            </ng-template>
+          </ion-col>
+        </ion-row>
+        <ion-row [@collapse]="!featuredCourseGroup.isActive" class="featured-course-list">
+          <ion-row class="featured-course-card-content" *ngFor="let featuredCourse of featuredCourseGroup.filterCourses">
+            <nav-featured-course-card [courseContent]="featuredCourse" (scrollToTop)="scrollToTop()"></nav-featured-course-card>
+          </ion-row>
+          <ng-container *ngIf="featuredCourseGroup.isMoreClasses">
+            <ion-row class="show-more" (click)="onToggleClassCards(courseSeq)">
+              <ion-text>
+                <ng-container *ngIf="!featuredCourseGroup.isToggleCourse;else showLess">
+                  {{'SHOW_MORE'| translate}}
+                </ng-container>
+              </ion-text>
+            </ion-row>
+            <ng-template #showLess>
+              <ng-container *ngIf="featuredCourseGroup.isToggleCourse">
+                {{'SHOW_LESS'| translate}}
+              </ng-container>
+            </ng-template>
+          </ng-container>
+        </ion-row>
+      </ng-container>
+    </ng-container>
+    <ng-template #noMoreFeaturedCourseMsg>
+      <ion-row class="no-featured-course-view">
+        <ion-text>{{ 'NO_FEATURED_COURSE_MSG' | translate }}</ion-text>
+      </ion-row>
+    </ng-template>
+  </ion-row>
+</ion-grid>

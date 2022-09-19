@@ -1,0 +1,211 @@
+<ion-header class="progress-contain">
+    <ion-toolbar>
+        <ion-row class="progress-header-panel">
+            <ion-col><i class="material-icons close-report" (click)="closeReport()">keyboard_backspace</i></ion-col>
+            <ion-col class="date-range-picker-panel">
+                <ion-row class="dropdown select-date">
+                    <ion-select [value]="selectedPeriod" (ionChange)="changeReportPeriod($event)">
+                        <ion-select-option [value]="period.type" *ngFor="let period of reportPeriod">{{period.text}}
+                        </ion-select-option>
+                    </ion-select>
+                </ion-row>
+            </ion-col>
+        </ion-row>
+    </ion-toolbar>
+</ion-header>
+<ion-content>
+    <ion-grid class="no-padding">
+        <ion-row class="student-row-panel student-header-panel">
+            <ion-col class="profile-details">
+                <ng-container *ngIf="showNgxAvatar; else avatarImage">
+                    <ngx-avatar [name]="userSession.first_name" [size]="avatarSize"></ngx-avatar>
+                  </ng-container>
+                  <ng-template #avatarImage>
+                    <ion-avatar>
+                      <ion-img [src]="userSession.thumbnail" (ionError)="imageErrorHandler()"></ion-img>
+                    </ion-avatar>
+                  </ng-template>
+                <span class="student-detail">
+                    <ion-label class="student-name">
+                        {{userSession.last_name}} <span class="ion-text-capitalize">{{userSession.first_name}}</span>
+                    </ion-label>
+                    <ion-label class="class-title" *ngIf="teacherInfo"><span>{{class.title}}</span>
+                        / <span>{{teacherInfo.lastName}} {{teacherInfo.firstName}}</span>
+                    </ion-label>
+                </span>
+            </ion-col>
+            <ion-col class="report-toggle-view">
+                <ion-button class="report-view-toggle-btn" (click)="toggleReport()">{{(isShowDayWiseReport ? 'OVERVIEW_REPORT' : 'REPORT_BY_DATE') | translate }}</ion-button>
+            </ion-col>
+        </ion-row>
+        <ion-row class="student-row-panel">
+            <ion-col class="selection-time-period">
+                <i class="material-icons mastery">remove_circle</i>
+                <span class="time-period-card">
+                    <ion-label class="time-period-text">{{'MASTERY' | translate}}</ion-label>
+                    <ion-label class="time-period" *ngIf="summaryData; else loadSkeleton">{{summaryData.masteredCompetenciesCount}} {{'COMPETENCIES' | translate}} <br> ({{summaryData.diagnosticGainedStatus}} {{'DIAGNOSTICS' | translate}})</ion-label>
+                </span>
+            </ion-col>
+            <ion-col class="selection-time-period">
+                <i class="material-icons in-progress">remove_circle</i>
+                <span class="time-period-card">
+                    <ion-label class="time-period-text">{{'IN_PROGRESS' | translate}}</ion-label>
+                    <ion-label class="time-period" *ngIf="summaryData; else loadSkeleton">{{summaryData.inprogressCompetenciesCount}} {{'COMPETENCIES' | translate}}</ion-label>
+                </span>
+            </ion-col>
+        </ion-row>
+        <ion-row class="student-row-panel">
+            <ion-col class="selection-time-period">
+                <i class="material-icons time-cal">update</i>
+                <span class="time-period-card">
+                    <ion-label class="time-period-text">{{'TIMESPENT' | translate}}</ion-label>
+                    <ion-label class="time-period" *ngIf="summaryData; else loadSkeleton">{{summaryData.totalTimespent | transformPerformanceTimeSpent}}
+                    </ion-label>
+                </span>
+            </ion-col>
+            <ion-col class="selection-time-period">
+                <ion-icon class="nav-assessment"></ion-icon>
+                <span class="time-period-card">
+                    <ion-label class="time-period-text">{{'ASSESSMENT' | translate}}</ion-label>
+                    <ion-label class="time-period" *ngIf="summaryData; else loadSkeleton">{{summaryData.assessmentTimespent | transformPerformanceTimeSpent}}
+                    </ion-label>
+                </span>
+            </ion-col>
+        </ion-row>
+        <ion-row class="student-row-panel">
+            <ion-col class="selection-time-period">
+                <ion-icon class="nav-collection"></ion-icon>
+                <span class="time-period-card">
+                    <ion-label class="time-period-text">{{'COLLECTION' | translate}}</ion-label>
+                    <ion-label class="time-period" *ngIf="summaryData; else loadSkeleton">{{summaryData.collectionTimespent | transformPerformanceTimeSpent}}
+                    </ion-label>
+                </span>
+            </ion-col>
+            <ion-col class="selection-time-period">
+                <i class="material-icons time-cal">calendar_today</i>
+                <span class="time-period-card">
+                    <ion-label class="time-period-text">{{'TIME_PERIOD' | translate}}</ion-label>
+                    <ion-label class="time-period">{{startDate | formatDate:'DD MMM YYYY'}} to <span
+                            class="end-date">{{endDate | formatDate:'DD MMM YYYY'}}</span></ion-label>
+                </span>
+            </ion-col>
+        </ion-row>
+        <ion-row class="analytics-section">
+            <ion-col size="6" class="analytic-col">
+                <span class="mastered-img"></span>
+                <ion-label>{{'MASTERED' | translate}}</ion-label>
+                <ion-text *ngIf="summaryData; else loadSkeleton">{{summaryData.masteryChallengeCount || 0}} {{'CHALLENGES' | translate}}</ion-text>
+            </ion-col>
+            <ion-col size="6" class="analytic-col" *ngIf="streakStats.streakCompetencies">
+                <span class="mastery-streak-img"></span>
+                <ion-label>{{'LONGEST_MASTERY_STREAK' | translate}}</ion-label>
+                <ion-text>{{streakStats.streakCompetencies || 0}} {{'LESSONS_ROW' | translate}}</ion-text>
+            </ion-col>
+            <ion-col size="6" class="analytic-col" *ngIf="masteredStats.totalMastered">
+                <span class="score-img"></span>
+                <ion-label>{{'SCORED_AT_LEAST_90' | translate}}</ion-label>
+                <ion-text>{{masteredStats.totalMastered || 0}} {{'ASSESSMENT' | translate}}</ion-text>
+            </ion-col>
+            <ion-col size="6" class="analytic-col">
+                <i class="material-icons explore-img">explore</i>
+                <ion-label>{{'SUGGESTIONS' | translate}}</ion-label>
+                <ion-text>{{suggestionStats.acceptedSuggestions || 0}} {{'TAKEN' | translate}}</ion-text>
+            </ion-col>
+        </ion-row>
+        <mat-accordion class="competency-list-panel" *ngIf="!isShowDayWiseReport">
+            <mat-expansion-panel *ngFor="let competency of competencyBucket">
+                <mat-expansion-panel-header class="header-name">
+                    {{competency.name}}
+                </mat-expansion-panel-header>
+                <ng-container *ngIf="competency.content && competency.content.length;else notContent">
+                    <ion-row class="content-panel" *ngFor="let content of competency.content; index as contentIndex" [ngClass]="{'diagnostics-content-panel' : competency.contentKey === 'diagnostics'}">
+                        <ion-col class="content-icon competency-icon">
+                            {{content.reportDate | formatDate:'DD MMM'}}
+                        </ion-col>
+                        <ion-col class="content-title">
+                            <ion-text class="competency-code">{{content.code}}</ion-text>
+                            <ion-row [ngClass]="{'competency-title' : !content.isShowMore}">
+                                <ion-text class="competency-text">{{content.title}}</ion-text>
+                                <ion-text class="show-text" *ngIf="content.title.length >30" (click)="showMoreContent(content)">{{(content.isShowMore ? 'SHOW_LESS' : 'SHOW_MORE') | translate}}</ion-text>
+                            </ion-row>
+                        </ion-col>
+                        <ng-container *ngIf="competency.contentKey != 'diagnostics'">
+                        <ion-col class="content-tries">
+                            <ion-text>{{content.tries}}</ion-text>
+                            <ion-text>{{'TRIES' | translate}}</ion-text>
+                        </ion-col>
+                        <ion-col (click)="showReport(content)" *ngIf="(content.score !== null); else noPerformance"
+                            class="content-percentage grade-range-{{content.score | gradeRange}}">
+                            <ion-text>{{content.score | transformPerformanceScore}}</ion-text>
+                         </ion-col>
+                        </ng-container>
+                        <ng-template #noPerformance>
+                            <div class="no-performance-score grade-range-not-started">
+                              &mdash;&mdash;&mdash;
+                            </div>
+                        </ng-template>
+                    </ion-row>
+                </ng-container>
+                <ng-template #notContent>
+                    <ion-row class="no-content">
+                        <ion-text>{{competency.description}}<span
+                                class="select-date">{{startDate | formatDate:'DD MMM YYYY'}}</span> to <span
+                                class="no-content-date">{{endDate | formatDate:'DD MMM YYYY'}}</span></ion-text>
+                    </ion-row>
+                </ng-template>
+            </mat-expansion-panel>
+        </mat-accordion>
+        <ng-container *ngIf="isShowDayWiseReport">
+            <mat-accordion class="competency-list-panel" *ngIf="studentDatewiseTimespent && studentDatewiseTimespent.length;else noDateReport">
+                <mat-expansion-panel *ngFor="let studentData of studentDatewiseTimespent">
+                    <mat-expansion-panel-header class="header-name">
+                        {{studentData.reportDate | formatDate:'DD MMM YYYY'}}
+                    </mat-expansion-panel-header>
+                    <ng-container *ngIf="studentData.data">
+                        <ion-row class="content-panel" *ngFor="let content of studentData.data; index as contentIndex">
+                            <ion-col class="content-icon competency-icon">
+                                <ion-icon class="nav-{{content.format}} {{content.format}}-img"></ion-icon>
+                            </ion-col>
+                            <ion-col class="content-title">
+                                <ion-row [ngClass]="{'competency-title' : !content.isShowMore}">
+                                    <ion-text class="competency-text">{{content.title}}</ion-text>
+                                    <ion-text class="show-text" *ngIf="content.title.length >30" (click)="showMoreContent(content)">{{(content.isShowMore ? 'SHOW_LESS' : 'SHOW_MORE') | translate}}</ion-text>
+                                </ion-row>
+                            </ion-col>
+                            <ion-col class="content-tries">
+                                <ion-text>{{content.tries}}</ion-text>
+                                <ion-text>{{'TRIES' | translate}}</ion-text>
+                            </ion-col>
+                            <ng-container *ngIf="(content.score !== null || content.totalTimespent !== null); else noPerformance">
+                                <ion-col (click)="showReport(content)" *ngIf="content.format !== 'collection' && content.format !== 'collection-external' ; else collectionReport"
+                                class="content-percentage grade-range-{{content.score | gradeRange}}">
+                                <ion-text>{{content.score | transformPerformanceScore}}</ion-text>
+                                </ion-col>
+                            <ng-template #collectionReport>
+                                <ion-col (click)="showReport(content)" class="content-percentage timespent">
+                                    <ion-text>{{content.totalTimespent | transformPerformanceTimeSpent}}</ion-text>
+                                </ion-col>
+                            </ng-template>
+                            </ng-container>
+                            <ng-template #noPerformance>
+                                <div class="no-performance-score grade-range-not-started">
+                                  &mdash;&mdash;&mdash;
+                                </div>
+                            </ng-template>
+                        </ion-row>
+                    </ng-container>
+                </mat-expansion-panel>
+            </mat-accordion>
+            <ng-template #noDateReport>
+                <ion-row>
+                    <ion-col class="ion-text-center ion-padding">
+                        <ion-text>{{'NO_DATA_FOUND' | translate}}</ion-text>
+                    </ion-col>
+                </ion-row>
+            </ng-template>
+        </ng-container>
+        <ng-template #loadSkeleton>
+            <ion-skeleton-text animated></ion-skeleton-text>
+        </ng-template>
+    </ion-grid>
+</ion-content>

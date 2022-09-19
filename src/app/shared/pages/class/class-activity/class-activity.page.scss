@@ -1,0 +1,24 @@
+ion-tabs {
+  ion-tab-bar {
+    height: 40px;
+
+    ion-tab-button {
+      height: 100%;
+    }
+  }
+
+  ion-tab-button {
+    min-width: calc(100% / 2);
+    border-bottom: 4px solid var(--tab-not-selected);
+
+    &.tab-selected {
+      border-bottom: 4px solid var(--tab-selected-blue);
+      color: var(--tab-selected-blue);
+      font-weight: bold;
+    }
+
+    ion-label {
+      font-size: 10px;
+    }
+  }
+}

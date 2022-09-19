@@ -1,0 +1,86 @@
+<ion-header class="header-wrapper" no-border>
+  <ion-toolbar>
+    <ion-row class="justify-content-center">
+      <ion-row class="back-button">
+        <ion-back-button text="" defaultHref="login"></ion-back-button>
+      </ion-row>
+      <ion-row class="title-container">
+        <ion-text class="sign-in-title-text">{{ 'SIGN_IN_WITH_USERNAME' | translate }}</ion-text>
+        <ion-row>
+          <ion-text class="continue-to-text">
+            {{ 'TO_CONTINUE_TO' | translate }} {{ 'TO' | translate }}
+            <span class="domain-text">{{productName}}</span>
+          </ion-text>
+        </ion-row>
+      </ion-row>
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="login-content-container">
+  <ion-grid>
+    <ion-row class="content-wrapper">
+      <ion-row class="navigator-logo-img" *ngIf="appLogo">
+        <ion-img [src]="appLogo"></ion-img>
+      </ion-row>
+      <form [formGroup]="signInForm" (ngSubmit)="login()" class="login-form" autofill="off">
+        <ion-row>
+          <ion-grid>
+            <ion-row class="justify-content-center">
+              <nav-input-text [label]="'USERNAME' | translate" [usernameVal]="usernameVal" [formName]="'username'" [parentForm]="signInForm"></nav-input-text>
+              <ion-text *ngIf="submitted && validateForm.username.errors" class="danger-text">
+                {{'ENTER_YOUR_TEXT' | translate}} {{'USERNAME'| translate}}.
+              </ion-text>
+            </ion-row>
+            <ion-row class="justify-content-center">
+              <nav-input-password [label]="'PASSWORD' | translate" [formName]="'password'" [parentForm]="signInForm"></nav-input-password>
+              <ion-text *ngIf="submitted && validateForm.password.errors" class="danger-text">
+                {{'ENTER_YOUR_TEXT' | translate}} {{'PASSWORD'| translate}}.
+              </ion-text>
+            </ion-row>
+          </ion-grid>
+        </ion-row>
+        <ion-row class="justify-content-center">
+          <ion-text class="forgot-pwd-text" (click)="forgotPassword()">{{ 'FORGOT_YOUR_PASSWORD' | translate }}</ion-text>
+        </ion-row>
+        <ion-row *ngIf="fromSignUp" class="verify-alert-msg">
+          <ion-text>{{ 'LOGIN_VERIFY_ALERT_MSG' | translate }}</ion-text>
+        </ion-row>
+        <ion-row>
+          <ion-button class="submit-btn" type="submit">{{ 'SUBMIT' | translate }}</ion-button>
+        </ion-row>
+      </form>
+      <ion-row class="button-container">
+        <ng-container *ngIf="showSchoolPassportLogin">
+          <ion-button class="school-signin-btn ion-no-padding" (click)="doSchoolPassportLogin()">
+            <ion-img src="assets/images/gg4l-login.png"></ion-img>
+          </ion-button>
+        </ng-container>
+        <ion-button class="submit-btn google-signin-btn ion-no-padding" (click)="doGoogleLogin()">
+          <ion-col size="3" class="google-icon-container ion-no-padding">
+            <ion-icon class="icon google-icon"></ion-icon>
+          </ion-col>
+          <ion-col size="9" class="google-signin-text ion-no-padding">{{ 'SIGN_IN_WITH_GOOGLE' | translate }}</ion-col>
+        </ion-button>
+        <ion-button class="submit-btn apple-signin-btn ion-no-padding" *ngIf="isIosDevice" (click)="doAppleLogin()">
+          <ion-col size="3" class="apple-icon-container ion-no-padding">
+            <ion-icon class="icon apple-icon"></ion-icon>
+          </ion-col>
+          <ion-col size="9" class="apple-signin-text ion-no-padding">{{ 'SIGN_IN_WITH_APPLE' | translate }}</ion-col>
+        </ion-button>
+      </ion-row>
+      <ion-row class="justify-content-center" (click)="onClickSignUp()">
+        <ion-text class="signup-link">{{'SIGN_UP' | translate}}</ion-text>
+      </ion-row>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+<ion-footer class="footer-wrapper" translucent="true">
+  <ion-toolbar>
+    <ion-row class="justify-content-center">
+      <ion-text class="link-text">{{ 'ARE_YOU_USING_TENANT_URL' | translate }}</ion-text>
+    </ion-row>
+    <ion-row class="justify-content-center">
+      <ion-text class="signin-text" (click)="gotoLoginTenant()">{{ 'ENTER_URL' | translate }}</ion-text>
+    </ion-row>
+  </ion-toolbar>
+</ion-footer>

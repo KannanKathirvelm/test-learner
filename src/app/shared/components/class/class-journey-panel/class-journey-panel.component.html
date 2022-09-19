@@ -1,0 +1,38 @@
+<ion-row class="journey-container" (click)="onClickClassJourney()" *ngIf="isMilestonePerformanceLoaded && classPerformance; else performanceSkeletonView">
+  <ion-col class="journey-thumbnail-col ion-no-padding">
+    <ion-row>
+      <ion-icon class="journey-img"></ion-icon>
+    </ion-row>
+  </ion-col>
+  <ion-col class="journey-col ion-no-padding">
+    <ion-row class="journey-row">
+      <ion-text class="journey-title">{{ 'YOUR_JOURNEY'| translate }}</ion-text>
+      <ion-text class="journey-title total-timespent" *ngIf="classPerformance.timeSpent">{{ classPerformance.timeSpent | transformPerformanceTimeSpent }}</ion-text>
+    </ion-row>
+  </ion-col>
+  <ion-col class="info-container ion-no-padding">
+    <ion-text class="material-icons info" *ngIf="isPremiumClass && milestoneViewApplicable" (click)="onToggleRescopedInfo($event)">info_outlined</ion-text>
+  </ion-col>
+  <ion-col class="class-performance grade-range-{{getPerformance(classPerformance) | gradeRange}}" *ngIf="classPerformance.score !== null;else noPerformance" (click)="openCourseMapReportPullup($event)">
+    <ion-text>{{ classPerformance.score }}%</ion-text>
+  </ion-col>
+  <ng-template #noPerformance>
+    <ion-col class="class-performance no-performance">
+      <ion-text>&mdash;</ion-text>
+    </ion-col>
+  </ng-template>
+</ion-row>
+<!-- animated skeleton view -->
+<ng-template #performanceSkeletonView>
+  <ion-row class="journey-container">
+    <ion-col class="journey-thumbnail-col">
+      <ion-skeleton-text animated></ion-skeleton-text>
+    </ion-col>
+    <ion-col class="journey-col">
+      <ion-skeleton-text animated></ion-skeleton-text>
+    </ion-col>
+    <ion-col class="class-performance">
+      <ion-skeleton-text animated></ion-skeleton-text>
+    </ion-col>
+  </ion-row>
+</ng-template>

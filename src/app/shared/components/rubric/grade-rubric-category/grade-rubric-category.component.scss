@@ -1,0 +1,147 @@
+.grade-rubric-container {
+  padding: 5px 0;
+
+  .grade-rubric-level-container {
+    &.no-progress-category {
+      .grade-rubric-levels {
+        background-color: unset;
+      }
+    }
+    width: 100%;
+    display: flex;
+
+    .grade-rubric-levels {
+      width: 250px;
+      background-color: var(--grade-level-rubric);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 3px;
+      color: var(--grade-level-rubric-font);
+      position: relative;
+      margin-left: 10px;
+
+      .grade-level-icon {
+        height: 20px;
+        width: 20px;
+        border-radius: 50%;
+        background-color: var(--white);
+        cursor: pointer;
+        position: relative;
+        z-index: 1;
+      }
+
+      .progress-bar {
+        position: absolute;
+        height: 26px;
+        display: block;
+        border-radius: 16px;
+        margin-left: -3px;
+        float: left;
+        width: 0;
+        font-size: 12px;
+        line-height: 23px;
+        color: var(--white);
+        text-align: center;
+        transition: width 0.6s ease;
+      }
+
+      input[type=radio] {
+        mask-repeat: no-repeat;
+        mask-position: center;
+        mask-size: cover;
+        border: none;
+        height: 25px;
+        width: 25px;
+
+        &:after {
+          border-color: var(--white);
+        }
+
+        &:checked {
+          &:after {
+            border-color: var(--dark-blue);
+          }
+        }
+      }
+    }
+
+    .grade-comment {
+      margin-left: auto;
+      margin-right: 10px;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+
+  .grade-rubric-panel {
+    .grade-rubric-info {
+      display: flex;
+      height: 40px;
+
+      i {
+        width: 26px;
+        margin: auto 5px auto 10px;
+        color: var(--white);
+      }
+
+      span {
+        font-size: 12px;
+        font-weight: bold;
+        margin: auto 0;
+        color: var(--white);
+        line-height: 1.2;
+      }
+    }
+  }
+
+  .grade-comment-panel {
+    font-size: 16px;
+    height: 50px;
+    width: 100%;
+
+    input {
+      text-indent: 4px;
+      background-color: transparent;
+      font-size: 16px;
+      font-style: italic;
+      color: var(--white);
+      border-bottom: solid 1px;
+      margin: auto;
+      height: 100%;
+      width: 100%;
+      border-top: none;
+      margin-left: 10px;
+      border-left: none;
+
+      &:focus {
+        outline: none;
+      }
+    }
+
+    ::-webkit-input-placeholder {
+      color: var(--white);
+    }
+  }
+
+  .grade-level-categories {
+    display: flex;
+    overflow-x: auto;
+
+    .category {
+      height: 256px;
+
+      .layer {
+        margin-top: 12px;
+        position: absolute;
+        z-index: 1;
+        width: 50px;
+        height: 225px;
+        background-image: linear-gradient(to left, rgba(52, 93, 102, 0) 0%, var(--grade-category-layer) 76%);
+      }
+    }
+  }
+}

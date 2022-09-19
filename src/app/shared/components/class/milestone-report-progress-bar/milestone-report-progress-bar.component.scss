@@ -1,0 +1,38 @@
+.milestone-progress-bar {
+  position: relative;
+  display: flex;
+  align-items: center;
+
+  .progress-bar {
+    display: flex;
+    height: 10px;
+    width: 100%;
+    background-color: var(--milestone-progress-bar);
+    align-items: center;
+    border-radius: 5px;
+  }
+
+  .completed-percentage {
+    height: 10px;
+    background: var(--milestone-progress-bar-bg);
+    position: absolute;
+    z-index: 1;
+    border-radius: 5px;
+    width: 0;
+    transition: width 0.6s ease;
+  }
+
+  .lesson-point {
+    background-color: var(--lesson-point-color);
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    z-index: 2;
+
+    &:first-child {
+      margin-left: 6px;
+    }
+  }
+}

@@ -1,0 +1,15 @@
+<div class="grade-level" (click)="onSelectLevel()" [ngClass]="isSelected ? 'selected': 'not-selected'">
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>{{level.name}}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <div *ngIf="level.description" class="grade-level-desc">
+        {{level.description}}
+      </div>
+      <div class="grade-level-footer">
+        <span>{{"SELECTED"| translate}}</span>
+      </div>
+    </ion-card-content>
+  </ion-card>
+</div>

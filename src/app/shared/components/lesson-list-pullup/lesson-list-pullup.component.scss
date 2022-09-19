@@ -1,0 +1,117 @@
+.lesson-list-container-panel {
+  .lesson-list-header {
+    .lesson-list-panel {
+      display: grid;
+      grid-template-columns: 1fr 40px;
+      .lesson-list-panel-body {
+        display: grid;
+        .class-title {
+          font-family: var(--sans);
+          font-size: 16px;
+          text-transform: capitalize;
+          padding: 5px;
+          margin-left: 15px;
+        }
+        .content-destination {
+          padding: 4px 2px 0;
+
+          .count-container {
+            font-size: 12px;
+            opacity: 0.5;
+            font-weight: 500;
+            height: 22px;
+            margin-left: 15px;
+
+            .etl-time,
+            .lesson-count {
+              margin-left: 5px;
+            }
+
+            .etl-time {
+              font-weight: bold;
+            }
+          }
+
+          .description {
+            width: 100%;
+            font-size: 12px;
+            font-weight: 500;
+            text-align: center;
+            padding: 0 0 4px;
+
+            ion-text {
+              margin: auto;
+            }
+          }
+        }
+
+        .actions-btns {
+          .navigator-button-row {
+            float: left;
+            box-shadow: none;
+            margin-right: 6px;
+            --padding-start: 10px;
+            --padding-end: 10px;
+            font-size: 12px;
+            height: 30px;
+
+            ion-row {
+              display: flex;
+              align-items: center;
+            }
+
+            .skip-icon {
+              font-size: 12px;
+              margin: auto;
+            }
+
+            &.navigate-button {
+              --background: var(--navigate-button-color);
+              margin-left: 15px;
+            }
+
+            &.disabled {
+              opacity: 0.6;
+            }
+
+            ion-icon {
+              margin: auto;
+            }
+
+            &.info-button,
+            &.lesson-list-button {
+              --border-width: 0.5px;
+              --border-color: var(--navigator-button-border);
+              --background: var(--lesson-list-button-color);
+              color: var(--lesson-list-button-text);
+            }
+
+            .menu-icon {
+              font-size: 12px;
+              color: var(--navigate-button-color);
+              margin: auto;
+            }
+
+            ion-text {
+              font-family: var(--sans);
+              font-size: 11px;
+              text-transform: capitalize;
+              text-align: center;
+              padding: 5px;
+
+              &.current-grade {
+                padding: 5px 0;
+              }
+            }
+          }
+        }
+      }
+      .close-icon {
+        margin-top: 10px;
+      }
+    }
+  }
+  ::ng-deep .milestone-page {
+    max-height: calc(100% - 40%);
+  }
+}

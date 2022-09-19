@@ -1,0 +1,12 @@
+<ion-grid class="route-path-container">
+  <ion-col class="route-path-body">
+    <i class="route-path-icon material-icons" (click)="onPlay()">play_circle</i>
+    <ion-text class="content-text" >{{suggestion.title}} </ion-text>
+    <ion-text class="show-more-text" *ngIf="suggestion.title.length > 30" routeViewTooltip [description]="suggestion.title">{{'SHOW_MORE'| translate}}</ion-text>
+  </ion-col>
+  <ion-col class="route-path-footer" ngClass="grade-range-{{(hasScore ? performanceScore :  null) | gradeRange}}">
+    <ion-text class="performance-icon" *ngIf="!hasScore;else showScore;" (click)="onShowReport()">{{timespent ? (timespent | transformPerformanceTimeSpent) : '--'}}</ion-text>
+    <ng-template #showScore>
+      <ion-text class="performance-icon {{!suggestion.contextContext.performance ? 'disabled' : ''}}"  (click)="onShowReport()">{{performanceScore ? (performanceScore | transformPerformanceScore) : '--'}}</ion-text>
+    </ng-template>
+  </ion-col>

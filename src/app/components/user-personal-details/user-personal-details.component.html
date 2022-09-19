@@ -1,0 +1,58 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-row class="info-header-panel">
+      <ion-col size="2" *ngIf="!isInitialFlow">
+        <i class="arrow_back material-icons back-arrow-icon" (click)="closeReport()">arrow_back</i>
+      </ion-col>
+      <ion-col size="10">
+        <ion-text class="info-header">{{'LINK_HEADER' | translate}}</ion-text>
+      </ion-col>
+    </ion-row>
+    <ion-row class="info-description">
+      <ion-text>{{'LINK_DESCRIPTION' | translate}}</ion-text>
+    </ion-row>
+    <ion-row class="link-btn">
+      <ion-button class="link-btn-desc" (click)="openUniversalLink()">{{'LINK_ID' | translate}}</ion-button>
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ng-container>
+    <ion-row class="info-title">
+      <ion-text>{{'PERSONAL_DETAILS' | translate}}</ion-text>
+    </ion-row>
+    <form [formGroup]="userDetailForm" novalidate *ngIf="userDetails">
+      <div *ngFor="let userDetail of userDetails; let i=index">
+        <ion-row class="info-question" size="12">
+          <ion-text class="info-question-title">{{userDetail.question}}</ion-text>
+        </ion-row>
+        <ion-row class="student-input">
+          <ion-item class="input-panel">
+            <ion-select disabled="{{!userDetail.isEditable}}" [value]="userDetail.defaultValue"
+              formControlName="{{userDetail.storeKey}}" placeholder="Select your answer" cancelText="Dismiss"
+              [interfaceOptions]="customSelectOptions">
+              <ion-select-option *ngFor="let option of userDetail.options" [value]="option.grade">{{option.grade}}
+              </ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-text
+            *ngIf="submitted && userDetailForm.controls[userDetail.storeKey].errors && userDetailForm.controls[userDetail.storeKey].errors.required"
+            class="danger-text role-error">{{'PLEASE_SELECT_OPTION' | translate}}</ion-text>
+        </ion-row>
+      </div>
+    </form>
+  </ng-container>
+</ion-content>
+<ion-footer class="footer" no-border>
+  <ion-row>
+    <ion-col></ion-col>
+    <ion-col>
+      <ion-row (click)="navigateToHome()">
+        <ion-col size="9">
+          <ion-text class="sumbit-btn">{{'SUBMIT_CONTINUE' | translate}}</ion-text>
+        </ion-col>
+        <ion-col size="3" class="forward-arrow"><i class="material-icons forward-arrow-icon">arrow_forward</i></ion-col>
+      </ion-row>
+    </ion-col>
+  </ion-row>
+</ion-footer>

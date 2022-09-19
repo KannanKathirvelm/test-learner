@@ -1,0 +1,54 @@
+<div class="collection-external-container">
+  <ng-container *ngIf="!showTimespentEntry">
+    <div class="message-panel">
+      <span class="message">{{'EXTERNAL_COLLECTION_MESSAGE_1' | translate}}</span>
+      <span class="message">{{'EXTERNAL_MESSAGE_2' | translate}}</span>
+      <span class="message">{{'EXTERNAL_MESSAGE_3' | translate}}</span>
+    </div>
+    <div class="panel-container">
+      <div class="icon">
+        <i class="pi pi-external-link"></i>
+      </div>
+      <div class="label">{{'LAUNCH_EXTERNAL_COLLECTION' | translate}}</div>
+      <div *ngIf="collection.url" class="play" (click)="onPlay()">
+        <i class="material-icons">play_arrow</i>
+      </div>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="showTimespentEntry">
+    <div class="timespent-entry-container">
+      <div class="message-panel">
+        <span class="message">{{'WELCOME_BACK' | translate}}</span>
+        <span class="message">{{'ENTER_YOUR_TIMESPENT' | translate}}</span>
+      </div>
+      <form [formGroup]="performanceEntryForm" (ngSubmit)="onConfirm()">
+        <ion-row class="timespent-container">
+          <ion-grid class="timespent-input-container">
+            <ion-row>
+              <ion-label>{{'TIMESPENT' | translate}}</ion-label>
+            </ion-row>
+            <ion-list class="no-padding">
+              <ion-row class="row">
+                <div class="item">
+                  <nav-input-number class="timespent-input" [formName]="'minutes'" [parentForm]="performanceEntryForm" #inputNumber></nav-input-number>
+                  <ion-text class="text">M</ion-text>
+                </div>
+                <ion-text *ngIf="isConfirmed && performanceEntryForm.controls.minutes.errors" class="danger-text">{{ 'INVALID_MINUTES' | translate }}</ion-text>
+              </ion-row>
+              <ion-row class="row">
+                <div class="item">
+                  <nav-input-number class="timespent-input" [formName]="'seconds'" [parentForm]="performanceEntryForm" #inputNumber></nav-input-number>
+                  <ion-text class="text">S</ion-text>
+                </div>
+                <ion-text *ngIf="isConfirmed && performanceEntryForm.controls.seconds.errors" class="danger-text">{{ 'INVALID_SECONDS' | translate }}</ion-text>
+              </ion-row>
+            </ion-list>
+          </ion-grid>
+        </ion-row>
+        <div class="confirm">
+          <ion-button type="submit" [disabled]="disableConfirmBtn">{{'CONFIRM'| translate}}</ion-button>
+        </div>
+      </form>
+    </div>
+  </ng-container>
+</div>

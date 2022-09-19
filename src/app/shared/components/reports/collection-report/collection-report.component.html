@@ -1,0 +1,110 @@
+<div class="collection-report-container">
+  <ion-header>
+    <ion-toolbar position="top">
+      <div class="header-section">
+        <div class="collection-icon horiz-vert-center">
+          <ion-icon class="nav-collection"></ion-icon>
+        </div>
+        <div class="collection-content">
+          <div class="collection-title-wrapper">
+            <ion-text class="collection-title" *ngIf="collection; else skeletonText">{{collection.title}}</ion-text>
+          </div>
+          <ng-container *ngIf="!context.isPreview">
+            <ion-text class="collection-performance-text">{{ 'PERFORMANCE_REPORT' | translate}}</ion-text>
+          </ng-container>
+        </div>
+        <div class="close-wrapper horiz-vert-center">
+          <i class="material-icons" (click)="closeReport()">clear</i>
+        </div>
+      </div>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content class="report-container" *ngIf="collection && (performance || context.isPreview); else reportSkeletonView">
+    <ng-container *ngIf="!context.isPreview">
+      <div class="attempts-list-container" *ngIf="!hideAttempts && currentAttemptDate">
+        <ion-row (click)="toggleAttemptList()" class="attempt-date-container">
+          <ion-label>{{ 'ATTEMPTED_ON' | translate }}</ion-label>
+          <ion-text *ngIf="currentAttemptDate">{{currentAttemptDate}}</ion-text>
+        </ion-row>
+        <div [@collapse]="hideAttemptList" class="attempt-list-wrapper">
+          <ion-list class="attempts-list" *ngIf="attemptList && attemptList.length">
+            <ion-row *ngFor="let attempt of attemptList">
+              <ion-grid class="individual-attempt" [ngClass]="{'active-attempt': attempt.createdDate === currentAttemptDate }" (click)="reportRenderBasedOnDate(attempt.sessionId)">
+                <ion-text class="attempt-date">{{attempt.createdDate}}</ion-text>
+                <ion-text class="time-spent">{{attempt.timespent | transformPerformanceTimeSpent}}</ion-text>
+              </ion-grid>
+            </ion-row>
+          </ion-list>
+        </div>
+      </div>
+      <collection-summary-report [performance]="performance" [isCollection]="isCollection"></collection-summary-report>
+      <nav-taxonomy-list *ngIf="collection.taxonomy" [taxonomy]="collection.taxonomy" [showCount]="3"></nav-taxonomy-list>
+    </ng-container>
+    <ng-container *ngIf="collection.isExternalCollection && context.isPreview; else showContentReport">
+      <ion-row class="external-collection-url">
+        <ion-text class="resource-url">{{ 'PREVIEW_MSG' | translate }}</ion-text>
+        <ion-row class="preview-button">
+          <ion-button (click)="onClickExternalURL()">{{ 'PREVIEW' | translate }}</ion-button>
+        </ion-row>
+      </ion-row>
+    </ng-container>
+    <ng-template #showContentReport>
+      <content-report [tenantSettings]="tenantSettings" [collection]="collection" [isPreview]="context.isPreview" [performance]="performance" [isAnswerKeyHidden]="false" [collectionType]="collectionType"></content-report>
+    </ng-template>
+  </ion-content>
+</div>
+<!-- animated skeleton view -->
+<ng-template #reportSkeletonView>
+  <div class="skeleton-report">
+    <ng-container *ngIf="!context.isPreview">
+      <div class="skeleton-summary-report">
+        <div class="skeleton-performance-activity">
+          <ion-skeleton-text animated></ion-skeleton-text>
+        </div>
+        <div class="skeleton-answers">
+          <div class="skeleton-correct-answer">
+            <ion-skeleton-text animated class="small-skeleton-text"></ion-skeleton-text>
+            <ion-skeleton-text animated class="big-skeleton-text"></ion-skeleton-text>
+          </div>
+          <div class="skeleton-timespent-container">
+            <ion-skeleton-text animated class="small-skeleton-text"></ion-skeleton-text>
+            <ion-skeleton-text animated class="big-skeleton-text"></ion-skeleton-text>
+          </div>
+          <div class="skeleton-in-correct-answer">
+            <ion-skeleton-text animated class="small-skeleton-text"></ion-skeleton-text>
+            <ion-skeleton-text animated class="big-skeleton-text"></ion-skeleton-text>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+    <div class="skeleton-question-container" *ngFor="let item of [].constructor(2)">
+      <div class="skeleton-setting-container">
+        <div class="toggle-container">
+          <ion-skeleton-text animated></ion-skeleton-text>
+        </div>
+      </div>
+      <div class="skeleton-question">
+        <div class="skeleton-header-section">
+          <ion-skeleton-text animated></ion-skeleton-text>
+        </div>
+        <div class="skeleton-questions-container">
+          <div class="skeleton-title-container">
+            <div class="skeleton-title">
+              <ion-skeleton-text animated></ion-skeleton-text>
+            </div>
+            <div class="skeleton-description">
+              <ion-skeleton-text animated></ion-skeleton-text>
+            </div>
+          </div>
+          <div class="skeleton-performance-container">
+            <ion-skeleton-text animated></ion-skeleton-text>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+<ng-template #skeletonText>
+  <ion-skeleton-text animated></ion-skeleton-text>
+</ng-template>
+<!-- animated skeleton view -->

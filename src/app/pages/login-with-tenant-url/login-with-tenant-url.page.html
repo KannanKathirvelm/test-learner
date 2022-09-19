@@ -1,0 +1,38 @@
+<ion-header class="header-wrapper" no-border>
+  <ion-toolbar>
+    <ion-row class="title-container justify-content-center">
+      <ion-col size="2" class="back-button">
+        <ion-back-button text="" defaultHref="login"></ion-back-button>
+      </ion-col>
+      <ion-col size="10" class="header-title">
+        {{ 'SIGN_VIA_TENANT_URL' | translate }}
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="login-content-container">
+  <ion-grid>
+    <ion-row class="content-wrapper">
+      <ion-row class="navigator-logo-img" *ngIf="appLogo">
+        <ion-img [src]="appLogo"></ion-img>
+      </ion-row>
+      <form [formGroup]="tenantSignInForm" (ngSubmit)="doTenantLogin()" class="login-form">
+        <ion-row class="justify-content-center" class="tenant-form-section">
+          <ion-grid>
+            <ion-row class="username-label">
+              <ion-label class="input-label">{{ 'TENANT_LOGIN_URL' | translate }}</ion-label>
+            </ion-row>
+            <ion-row class="text-field-wrapper">
+              <ion-text class="prefix-text">{{tenantAPI}}/</ion-text>
+              <ion-input [autofocus]="true" class="input-field" name="tenant-url" formControlName="tenantUrl"></ion-input>
+            </ion-row>
+          </ion-grid>
+          <ion-text *ngIf="submitted && validateForm.tenantUrl.errors" class="danger-text">{{ 'PLEASE_ENTER_URL' | translate }}</ion-text>
+        </ion-row>
+        <ion-row>
+          <ion-button class="submit-btn" type="submit">{{ 'SUBMIT' | translate }}</ion-button>
+        </ion-row>
+      </form>
+    </ion-row>
+  </ion-grid>
+</ion-content>

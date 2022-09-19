@@ -1,0 +1,102 @@
+<ng-container *ngIf="userSession">
+  <ion-header class="menu-drawer-header">
+    <ion-toolbar>
+      <ion-row class="item-header">
+        <ion-col size="3" class="profile" *ngIf="!showNgxAvatar; else avatarIcon">
+          <img [src]="userSession.thumbnail" class="profile-icon" (error)="imageErrorHandler()">
+        </ion-col>
+        <ng-template #avatarIcon>
+          <ion-col size="3" class="avatar-icon">
+            <ngx-avatar [name]="userSession.first_name"></ngx-avatar>
+          </ion-col>
+        </ng-template>
+        <ion-col size="9" class="user-info">
+          <span class="fullname ellipsis">{{userSession.first_name}} {{userSession.last_name}}</span>
+          <span class="username ellipsis" *ngIf="userSession.username">{{userSession.username}}</span>
+          <span class="email ellipsis">{{userSession.email}}</span>
+        </ion-col>
+      </ion-row>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content class="menu-drawer-content">
+    <ion-grid class="no-padding">
+      <ion-row class="row-item" (click)="closeMenu()" routerLink="/student-home">
+        <ion-col size="3">
+          <ion-icon class="journey-icon"></ion-icon>
+        </ion-col>
+        <ion-col size="9" routerLink="/student-home">
+          <span class="label">{{'JOURNEY' | translate}}</span>
+        </ion-col>
+      </ion-row>
+      <ion-row class="row-item" (click)="closeMenu()" routerLink="/my-learner-identity">
+        <ion-col size="3">
+          <ion-icon class="proficiency-icon"></ion-icon>
+        </ion-col>
+        <ion-col size="9" routerLink="/my-learner-identity">
+          <span class="label">{{'PROFICIENCY' | translate}}</span>
+        </ion-col>
+      </ion-row>
+      <ion-row class="row-item " (click)="closeMenu()" routerLink="/portfolio">
+        <ion-col size="3" class="text-center">
+          <span class="material-icons">
+            work
+          </span>
+        </ion-col>
+        <ion-col size="9" routerLink="/portfolio">
+          <span class="label">{{'PORTFOLIO' | translate}}</span>
+        </ion-col>
+      </ion-row>
+      <ion-row class="row-item" (click)="closeMenu()" routerLink="/profile/preferences">
+        <ion-col size="3">
+          <ion-icon class="profile-icon"></ion-icon>
+        </ion-col>
+        <ion-col size="9" routerLink="/profile/preferences">
+          <span class="label">{{'PROFILE' | translate}}</span>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-content>
+  <ion-footer class="menu-drawer-footer" no-border>
+    <ion-row class="row-item app-version text-center">
+      <ion-col size="12">
+        <ion-text>V {{appVersion}}</ion-text>
+      </ion-col>
+    </ion-row>
+    <ion-grid class="no-padding">
+      <ion-row class="row-item language-container">
+        <ion-col size="3">
+          <ion-icon class="nav-language"></ion-icon>
+        </ion-col>
+        <ion-col size="9">
+          <ion-select [value]="defaultLanguage" (ionChange)="changeLanguage($event)" dropdownScrollIntoView>
+            <ion-select-option [value]="language.value" *ngFor="let language of languageList">{{language.label}}</ion-select-option>
+          </ion-select>
+        </ion-col>
+      </ion-row>
+      <ion-row class="row-item hidden">
+        <ion-col size="3">
+          <ion-icon name="help-circle-outline"></ion-icon>
+        </ion-col>
+        <ion-col size="9" class="support-icon">
+          <span class="label">{{'SUPPORT' | translate}}</span>
+        </ion-col>
+      </ion-row>
+      <ion-row *ngIf="enableTour" class="row-item" (click)="takeTour()">
+        <ion-col size="3">
+          <ion-text class="icon material-icons">directions</ion-text>
+        </ion-col>
+        <ion-col size="9" class="support-icon">
+          <ion-text class="label">{{'TAKE_TOUR' | translate}}</ion-text>
+        </ion-col>
+      </ion-row>
+      <ion-row class="row-item" (click)="onLogout()">
+        <ion-col size="3">
+          <ion-icon name="md-open" class="logout-icon"></ion-icon>
+        </ion-col>
+        <ion-col size="9">
+          <span class="label">{{'LOGOUT' | translate}}</span>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-footer>
+</ng-container>

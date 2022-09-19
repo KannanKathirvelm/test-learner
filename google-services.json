@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "223541271048",
+    "project_id": "navigator-apps",
+    "storage_bucket": "navigator-apps.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:223541271048:android:2426ed77b09decca244fbd",
+        "android_client_info": {
+          "package_name": "org.gooru.student.navigator"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "223541271048-f594i239chblrd64bfejndioqv8irtg9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAiRnoEhSbmej5R3nugYQZRFuFlDyPA_LE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "223541271048-f594i239chblrd64bfejndioqv8irtg9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

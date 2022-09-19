@@ -1,0 +1,71 @@
+.universal-page {
+    background-color: var(--preferences-bg-color);
+    .universal-page-container {
+      background-color: var(--white);
+  
+      .universal-page-panel-head {
+        .universal-page-title {
+          padding: 10px;
+          .linked-text {
+            font-weight: bold;
+            font-size: 15px;
+            color: var(--dark-gray);
+          }
+        }
+        .univeral-users-list-panel {
+          display: grid;
+          grid-template-columns: 40px 1fr 1fr;
+          align-items: center;
+          border: 1px solid var(--gray-light);
+          padding: 5px;
+          width: 100%;
+          .profile-icon {
+            width: 40px;
+            height: 40px;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: 100%;
+          }
+          .profile-details {
+            ion-text {
+              &.profile-name {
+                font-weight: bold;
+                font-size: 15px;
+                color: var(--dark-gray);
+                display: block;
+              }
+            }
+          }
+        }
+        .profile-action-btn {
+          grid-row-start: 2;
+          display: flex;
+          justify-content: space-between;
+          width: 100%;
+          grid-row-end: 3;
+          grid-column-start: 1;
+          grid-column-end: 4;
+          ion-button {
+            height: 30px;
+            text-transform: capitalize;
+            &.cancel-btn {
+              --background: var(--dark-400);
+            }
+          }
+        }
+      }
+      .add-univeral-user {
+        .add-new-user {
+          padding: 10px;
+          box-shadow: 0 0 10px var(--gray-light);
+          display: grid;
+          grid-template-columns: 1fr 40px;
+          align-items: center;
+          .user-title {
+            font-weight: bold;
+            font-size: 15px;
+          }
+        }
+      }
+    }
+  }

@@ -1,0 +1,91 @@
+.join-class {
+  width: calc(100% - 48px);
+  min-height: 76vw;
+  border-radius: 4px;
+  margin: 20px;
+  box-shadow: 0 0 6px 1px rgba(0, 0, 0, 0.07);
+  background-color: var(--join-class-card-bgcolor);
+  display: grid;
+
+  .card-img {
+    background-color: var(--join-card-bgcolor);
+  }
+
+  &.class-card-skeleton {
+    margin-top: 20px;
+  }
+
+  ion-card-content {
+    .join-class-grid {
+      height: 100%;
+      display: grid;
+      grid-template-rows: auto 0 140px;
+
+      .join-class-card-row {
+        background-color: var(--join-card-bgcolor);
+        display: grid;
+        grid-template-rows: auto 25px;
+        padding: 10px;
+
+        .join-class-text {
+          color: var(--join-class-card-text);
+          font-size: 44px;
+          text-transform: uppercase;
+          font-weight: bolder;
+          text-align: center;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+      }
+
+      .header-line {
+        width: 100%;
+        border-top: solid 1px var(--border-gray);
+        margin: 0;
+        height: 0;
+      }
+
+      .class-code-row {
+        padding: 5px 20px;
+
+        .enter-classroom-code {
+          display: grid;
+          width: 100%;
+          grid-template-rows: 49px auto;
+
+          .input-field {
+            border-bottom: 2px solid var(--hr-line-grey);
+            color: var(--code-input-text);
+            --padding-start: 0;
+
+            ::ng-deep input {
+              min-height: 44px;
+            }
+          }
+
+          .click-join-class {
+            text-transform: uppercase;
+            color: var(--join-class-text);
+            font-weight: bold;
+            display: flex;
+            align-items: flex-end;
+            padding-bottom: 5px;
+          }
+        }
+
+        .click-join-class {
+          width: 100%;
+          display: flex;
+          align-items: center;
+
+          ion-text {
+            text-transform: uppercase;
+            color: var(--join-class-text);
+            font-weight: bold;
+          }
+        }
+      }
+    }
+  }
+}

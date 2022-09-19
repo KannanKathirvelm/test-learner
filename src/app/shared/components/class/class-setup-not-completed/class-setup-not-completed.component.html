@@ -1,0 +1,10 @@
+<ion-content class="incomplete-setup">
+  <ion-grid class="incomplete-msg-grid">
+    <ion-row>
+      <ion-grid class="incomplete-msg-container">
+        <ion-text class="msg-heading">{{ setupInCompleteHeading }}</ion-text>
+        <ion-text class="msg-body" *ngIf="setupInCompleteDescription">{{ setupInCompleteDescription }}</ion-text>
+      </ion-grid>
+    </ion-row>
+  </ion-grid>
+</ion-content>

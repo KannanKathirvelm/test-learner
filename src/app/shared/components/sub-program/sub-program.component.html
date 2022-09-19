@@ -1,0 +1,17 @@
+<ion-card class="program-course-card">
+  <ion-row *ngIf="course" class="program-course-card-container">
+    <ion-col class="program-card-header">
+      <ion-text>{{course.navigatorProgramInfo.title}}</ion-text>
+    </ion-col>
+    <ion-col class="progam-card-thumbnail" [ngStyle]="{'background-image': 'url(' + course.navigatorProgramInfo.thumbnail + ')'}">
+    </ion-col>
+    <ion-col [ngClass]="{'show-more-col' : !showMore}" class="progam-description">
+      <ion-text [ngClass]="{'ellipsis' : !showMore, 'show-more': showMore}">{{course.description}}</ion-text>
+      <ion-text class="show-text" *ngIf="navigatorSubProgram.description.length > 30" (click)="showMore = !showMore">{{ showMore ?
+        ('SHOW_LESS' | translate): ('SHOW_MORE' | translate) }}</ion-text>
+    </ion-col>
+    <ion-col class="program-study-btn">
+      <ion-text (click)="getStartCourse()">{{'GET_STARTED' | translate}}</ion-text>
+    </ion-col>
+  </ion-row>
+</ion-card>

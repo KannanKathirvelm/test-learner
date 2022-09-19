@@ -1,0 +1,64 @@
+<ion-header class="header-wrapper" no-border>
+  <ion-toolbar>
+    <ion-row class="justify-content-center">
+      <ion-row class="back-button">
+        <ion-back-button text="" defaultHref="login"></ion-back-button>
+      </ion-row>
+      <ion-row class="title-container">
+        <ion-row class="justify-content-center">
+          <ion-text *ngIf="isLoaded;else titleMsg" class="loading-msg sign-in-title-text">{{'LOOKING_FOR_ACCOUNTS' | translate}}</ion-text>
+          <ng-template #titleMsg>
+            <ion-text class="sign-in-title-text">{{ 'CHOOSE_AN_ACCOUNT' | translate }}</ion-text>
+          </ng-template>
+        </ion-row>
+        <ion-row *ngIf="!isLoaded" class="justify-content-center">
+          <ion-text class="continue-to-text">{{ 'TO_CONTINUE_TO' | translate }}
+          </ion-text>
+        </ion-row>
+      </ion-row>
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="content-wrapper">
+  <ng-container *ngIf="!isLoaded;else showSkeleton">
+    <ion-row class="tenant-container" *ngFor="let tenant of tenantList" (click)="doTenantLogin(tenant)">
+      <ion-row>
+        <ion-avatar class="tenant-img">
+          <ng-container *ngIf="tenant.image_url;else showAvatar">
+            <img [src]="tenant.image_url"/>
+          </ng-container>
+          <ng-template #showAvatar>
+            <ngx-avatar name="{{tenant.tenant_name}}" size="{{avatarSize}}" initialsSize="{{avatarInitialCount}}"></ngx-avatar>
+          </ng-template>
+        </ion-avatar>
+      </ion-row>
+      <ion-row>
+        <ion-label class="tenant-name">{{tenant.tenant_name}}</ion-label>
+      </ion-row>
+    </ion-row>
+  </ng-container>
+  <ng-template #showSkeleton>
+      <ion-list>
+        <ion-item *ngFor="let items of [].constructor(skeletonViewCount)">
+          <ion-avatar class="tenant-img">
+            <ion-skeleton-text animated class="avatar-skeleton"></ion-skeleton-text>
+          </ion-avatar>
+          <ion-skeleton-text animated></ion-skeleton-text>
+        </ion-item>
+      </ion-list>
+    </ng-template>
+</ion-content>
+<ion-footer class="footer-wrapper">
+  <ion-toolbar>
+    <ion-grid>
+      <ion-row class="justify-content-center">
+        <ion-text class="link-text">
+          {{'DIDNT_REGISTER_AN_EMAIL_ADDRESS' | translate}}
+        </ion-text>
+      </ion-row>
+      <ion-row class="justify-content-center">
+        <ion-text class="signin-text" (click)="goToUsernameLogin()">{{'SIGN_IN_VIA_USERNAME' | translate }}</ion-text>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+</ion-footer>

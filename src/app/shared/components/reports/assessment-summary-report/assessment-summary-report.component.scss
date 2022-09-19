@@ -1,0 +1,118 @@
+@import "src/theme/mixins.scss";
+
+.assessment-summary-report {
+  padding: 10px;
+
+  .performance-activity {
+    display: grid;
+    position: relative;
+    height: 240px;
+    grid-template-rows: 20px 1fr;
+
+    &:before {
+      content: "";
+      position: absolute;
+      opacity: 0.3;
+      width: 100%;
+      height: 100%;
+      background-color: rgb(242, 235, 235);
+    }
+
+    %webkit-container {
+      -webkit-mask-size: cover;
+      -webkit-mask-repeat: no-repeat;
+      background: currentColor;
+      -webkit-mask-image: var(--performance-score-fill-bg);
+    }
+
+    %container {
+      mask-size: cover;
+      mask-repeat: no-repeat;
+      background: currentColor;
+      mask-image: var(--performance-score-fill-bg);
+    }
+
+    .performance {
+      text-align: center;
+      display: grid;
+      font-weight: bold;
+      justify-content: center;
+      z-index: 1;
+      height: 240px;
+
+      .score-container {
+        display: grid;
+        justify-content: center;
+
+        .label {
+          font-size: 16px;
+          color: var(--assessment-summary-report-text-color);
+        }
+
+        .score {
+          font-size: 56px;
+          font-weight: bold;
+          line-height: 1.14;
+          color: var(--assessment-summary-report-text-color);
+          align-self: end;
+        }
+      }
+    }
+    @include grade-range();
+
+    .performance-img {
+      grid-row-start: 2;
+      @extend %webkit-container;
+      @extend %container;
+      display: grid;
+      align-self: end;
+    }
+
+    .tap-msg {
+      display: block;
+      height: 40px;
+      font-size: 13px;
+      font-weight: normal;
+      font-stretch: normal;
+      font-style: italic;
+      line-height: 1.33;
+      letter-spacing: normal;
+      text-align: center;
+      color: var(--white);
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+    }
+  }
+
+  .answers {
+    display: flex;
+    width: 100%;
+
+    .correct-answer,
+    .in-correct-answer,
+    .timespent-container {
+      display: flex;
+      height: 104px;
+      background-color: var(--summary-report-bg-color);
+      width: calc(100% / 3);
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+
+      .score,
+      .timespent {
+        font-size: 25px;
+        line-height: 1.09;
+        text-align: center;
+        color: var(--assessment-summary-report-label-color);
+      }
+
+      .label {
+        font-size: 16px;
+        text-align: center;
+        color: var(--collection-summary-report-text-color);
+      }
+    }
+  }
+}

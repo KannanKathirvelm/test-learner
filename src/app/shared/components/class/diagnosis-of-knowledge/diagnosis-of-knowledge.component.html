@@ -1,0 +1,25 @@
+<ion-header class="diagnosis-header">
+  <ion-toolbar>
+    <ion-buttons slot="start" (click)="onBack()">
+      <i class="arrow_back material-icons">arrow_back</i>
+    </ion-buttons>
+    <ion-title>{{'TAKE_THE_DIAGNOSTIC' | translate}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="diagnosis-container">
+  <ion-grid class="diagnostic-body">
+    <ion-row class="header">
+      <ion-text class="subtitle">{{'WELCOME' | translate}} {{'TO' | translate}}</ion-text>
+      <ion-text class="title">{{classInfo.title}}</ion-text>
+    </ion-row>
+    <ion-row class="body">
+      <ion-text class="title">{{'ESTABLISH_SKYLINE_MSG' | translate}}</ion-text>
+      <ion-text class="message">{{'DIAGNOSTIC_ASSESSMENT_MSG' | translate:taxonomySubject}}</ion-text>
+    </ion-row>
+  </ion-grid>
+  <ion-footer class="diagnosis-footer">
+    <ion-grid class="button-list">
+      <ion-button class="take-test-btn" (click)="onTakeTest()" shape="round" expand="block">{{'TAKE_THE_DIAGNOSTIC' | translate}}</ion-button>
+    </ion-grid>
+  </ion-footer>
+</ion-content>

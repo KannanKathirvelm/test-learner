@@ -1,0 +1,64 @@
+<div class="domain-info-pull-up-container">
+  <ion-toolbar position="top" (click)="openDomainReport()" *ngIf="domain">
+    <div class="domain-info">
+      <div class="domain-header">
+        <div class="domain-panel">
+          <div class="domain-name ellipsis" tooltip [text]="domain.domainName">
+            {{domain.domainName}}
+          </div>
+          <span class="close" (click)="onClose($event)">
+            <i class="close material-icons">close</i>
+          </span>
+        </div>
+        <div class="domain-seq">{{'DOMAIN' | translate}} {{domain.domainSeq}}</div>
+      </div>
+    </div>
+  </ion-toolbar>
+  <ion-content>
+    <ion-row class="domain-chart-container">
+      <ion-row id="competency-progressbar-container"></ion-row>
+      <ion-row  class="competency-progressbar-count">
+        <ion-row class="count-container mastered">
+          <ion-text>{{masteredCompetenciesCount}}</ion-text>
+          <ion-text>{{'MASTERED' | translate}}</ion-text>
+        </ion-row>
+        <ion-row class="count-container in-progress">
+          <ion-text>{{inProgressCompetenciesCount}}</ion-text>
+          <ion-text>{{'IN_PROGRESS' | translate}}</ion-text>
+        </ion-row>
+        <ion-row class="count-container not-started">
+          <ion-text>{{notStartedCompetenciesCount}}</ion-text>
+          <ion-text>{{'NOT_STARTED' | translate}}</ion-text>
+        </ion-row>
+      </ion-row>
+    </ion-row>
+    <ion-grid class="competency-container" *ngIf="domain">
+      <ion-text class="title">{{domain.topics.length}} {{'TOPICS' | translate}}</ion-text>
+      <ion-row class="topic-list" *ngFor="let topic of domain.topics">
+        <ion-row class="topic-title">
+          <ion-text>{{domain.domainSeq}}.{{topic.topicSeq}}</ion-text>
+          <ion-text class="topic-name">{{topic.topicName}}</ion-text>
+        </ion-row>
+        <ion-row class="competency-sec">
+          <ion-col class="topic-competency-status ion-no-padding">
+            <ion-row class="mastered">
+              <ion-text class="count">{{topic.masteredCompetencies}}</ion-text>
+              <ion-text class="status-label competency-status-2"></ion-text>
+            </ion-row>
+            <ion-row class="in-progress">
+              <ion-text class="count">{{topic.inprogressCompetencies}}</ion-text>
+              <ion-text class="status-label competency-status-1"></ion-text>
+            </ion-row>
+            <ion-row class="not-started">
+              <ion-text class="count">{{topic.notstartedCompetencies}}</ion-text>
+              <ion-text class="status-label competency-status-0"></ion-text>
+            </ion-row>
+          </ion-col>
+          <ion-col class="ion-no-padding ellipsis">
+            <ion-text class="competency-count ellipsis">| {{topic.competencies.length}} {{'COMPETENCIES' | translate}}</ion-text>
+          </ion-col>
+        </ion-row>
+      </ion-row>
+    </ion-grid>
+  </ion-content>
+</div>

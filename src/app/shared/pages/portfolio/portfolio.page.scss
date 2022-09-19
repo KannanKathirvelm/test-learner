@@ -1,0 +1,185 @@
+.portfolio-page-header {
+  &::after {
+    background-image: none;
+  }
+
+  ion-toolbar {
+    --min-height: var(--toolbar-height);
+    border-bottom: 1px solid var(--raven-gray);
+
+    ion-buttons {
+      ion-button {
+        .filter-icon {
+          width: 20px;
+          height: 20px;
+          background-repeat: no-repeat;
+          background-position: center;
+          background-image: var(--portfolio-filter-icon);
+        }
+      }
+    }
+
+    ion-title {
+      padding: 0;
+      font-family: var(--sans);
+      font-size: 15px;
+      font-weight: bold;
+      padding-left: inherit;
+      color: var(--learner-identity-header-color);
+    }
+  }
+
+  .tab-list {
+    height: 40px;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+    background-color: var(--portfolio-tabs-color);
+    display: flex;
+
+    .tab-item {
+      &.active {
+        border-bottom: solid 3px var(--portfolio-tabs-content);
+
+        ion-text {
+          color: var(--portfolio-tabs-active-color);
+        }
+      }
+
+      ion-text {
+        color: var(--portfolio-font-color);
+        opacity: 0.5;
+        font-family: var(--lato);
+        font-size: 14px;
+      }
+    }
+  }
+
+  .filter-container {
+    display: grid;
+    position: absolute;
+    background-color: var(--portfolio-filter-content-color);
+    width: 100%;
+    box-shadow: 0 10px 10px 0 rgba(0, 0, 0, 0.5);
+    max-height: 0;
+    transition: max-height 0.25s ease-out;
+    overflow: hidden;
+
+    &.active {
+      z-index: 2;
+      max-height: 110px;
+      transition: max-height 0.25s ease-in;
+    }
+
+    .filter-wrapper {
+      margin: auto 0;
+      display: flex;
+      padding: 15px 0;
+      background-color: var(--portfolio-tabs-color);
+
+      .icons {
+        display: flex;
+
+        .calendar-icon {
+          color: var(--portfolio-font-color);
+          margin: auto 15px;
+        }
+
+        .date-label {
+          font-size: 16px;
+          color: var(--portfolio-font-color);
+          margin: auto 0;
+        }
+      }
+
+      .date-input {
+        width: 170px;
+        height: 32px;
+        border-radius: 5px;
+        display: flex;
+        background-color: var(--portfolio-tabs-color);
+        align-items: center;
+        justify-content: center;
+        border: solid 1px var(--portfolio-apply-filter-bg-color);
+        margin: auto 0;
+
+        span {
+          font-size: 12px;
+          font-weight: bold;
+          text-align: center;
+          color: var(--portfolio-apply-filter-bg-color);
+          text-transform: uppercase;
+          margin: auto;
+        }
+
+        .close {
+          margin-left: auto;
+          font-size: 20px;
+        }
+      }
+    }
+
+    .submit-btn-container {
+      display: flex;
+
+      .apply-filters {
+        display: flex;
+        width: 100%;
+        background-image: linear-gradient(to right, var(--portfolio-calendar-done) 21%, var(--portfolio-calendar-done-text) 75%);
+        color: var(--portfolio-tabs-color);
+        font-size: 15px;
+        font-weight: 700;
+        text-align: center;
+        height: 48px;
+        align-items: center;
+        justify-content: center;
+
+        &.disabled {
+          opacity: 0.7;
+        }
+      }
+    }
+  }
+}
+
+.portfolio-page-container {
+  --background: var(--dark-400);
+
+  .portfolio-activity-list {
+    .title-item {
+      --min-height: 32px;
+      --background: var(--portfolio-background-color);
+
+      .title-label {
+        font-family: var(--sans);
+        font-size: 13px;
+        text-transform: capitalize;
+        color: var(--portfolio-tabs-color);
+      }
+    }
+
+    collection-portfolio-panel:not(.offline-acivity-panel) {
+      &:first-child {
+        ::ng-deep {
+          ion-card {
+            margin-top: 10px;
+          }
+        }
+      }
+    }
+  }
+
+  .no-activity {
+    color: var(--portfolio-no-data-color);
+    font-size: 16px;
+    display: flex;
+    justify-content: center;
+    padding-top: 10px;
+  }
+
+  .spinner-bar {
+    margin: auto;
+    display: flex;
+    color: var(--portfolio-tabs-color);
+    width: 40px;
+    height: 40px;
+  }
+}

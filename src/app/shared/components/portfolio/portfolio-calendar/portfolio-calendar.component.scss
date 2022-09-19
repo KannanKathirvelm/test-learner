@@ -1,0 +1,121 @@
+.portfolio-calendar-content {
+  .portfolio-calendar-header {
+    height: 48px;
+    display: flex;
+
+    i {
+      margin: auto 10px;
+    }
+  }
+
+  .selected-date-info {
+    margin-left: 10px;
+    display: grid;
+    grid-template-columns: 160px 30px 160px;
+
+    .end-date {
+      margin: 0 0 0 auto;
+
+      &.no-date {
+        margin: auto;
+      }
+    }
+
+    .line {
+      position: relative;
+      margin: 18px auto auto 25px;
+
+      &.line:after {
+        content: "";
+        position: absolute;
+        border-top: 1px solid var(--portfolio-calendar-line);
+        width: 70px;
+        transform: rotate(110deg);
+        transform-origin: 0 0;
+        opacity: 0.4;
+      }
+    }
+
+    .end-date,
+    .start-date {
+      &.active {
+        .label {
+          color: var(--portfolio-calendar-text);
+        }
+
+        .date {
+          .day {
+            color: var(--portfolio-calendar-text);
+          }
+        }
+      }
+
+      .label {
+        font-size: 22px;
+      }
+
+      .no-date {
+        font-size: 40px;
+        opacity: 0.7;
+      }
+
+      .date {
+        display: flex;
+
+        .day {
+          font-size: 45px;
+        }
+
+        .date-month-year {
+          display: grid;
+          padding: 6px;
+
+          .month-year {
+            height: 20px;
+            margin: auto 0;
+          }
+
+          .day-name {
+            height: 20px;
+            opacity: 0.5;
+          }
+        }
+      }
+    }
+  }
+
+  .calendar-content {
+    .done {
+      position: fixed;
+      top: 90%;
+      left: 43%;
+      right: 43%;
+      margin: auto;
+      display: flex;
+      background-image: linear-gradient(to right, var(--portfolio-calendar-done) 21%, var(--portfolio-calendar-done-text) 75%);
+      box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.5);
+      display: flex;
+      width: 65px;
+      height: 65px;
+      border-radius: 50%;
+      z-index: 2;
+      overflow: hidden;
+      -webkit-overflow-scrolling: touch;
+      transform: translate3d(0,0,0);
+
+      span {
+        color: var(--portfolio-calendar-done-font);
+        text-align: center;
+        margin: auto;
+        font-weight: 600;
+        font-size: 15px;
+      }
+
+      &.disabled {
+        opacity: 0.8;
+      }
+    }
+  }
+  height: 100%;
+  padding-bottom: 8rem;
+}

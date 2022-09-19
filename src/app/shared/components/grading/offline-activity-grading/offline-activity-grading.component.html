@@ -1,0 +1,68 @@
+<div class="offline-activity-grading">
+  <div class="grading-container">
+    <div class="header-bar" (click)="toggleStudentRubric()" *ngIf="studentRubric">
+      <div class="panel-icon" [ngClass]="{'performance-grade': isReportViewMode && studentRubric.score !== null}">
+        <ion-icon class="nav-grade"></ion-icon>
+      </div>
+      <div class="panel-title">
+        {{'STUDENT_RUBRIC' | translate}}
+        <i class="material-icons rubric-attachment" *ngIf="studentRubric.url" inAppBrowser url={{studentRubric.url}}>attachment</i>
+      </div>
+      <div class="toggle-icon" *ngIf="!isReportViewMode || isPreview; else showStudentPerformance">
+        <ng-template #downArrow>
+          <ion-icon name="arrow-dropdown"></ion-icon>
+        </ng-template>
+        <ion-icon *ngIf="!showStudentRubric;else downArrow" name="arrow-dropup"></ion-icon>
+      </div>
+      <ng-template #showStudentPerformance>
+        <div class="score grade-range-{{ studentRubric.score | gradeRange}}">
+          <span>{{ studentRubric.score | transformPerformanceScore }}</span>
+        </div>
+      </ng-template>
+    </div>
+    <ion-card-content [@collapse]="showStudentRubric">
+      <rubric-report *ngIf="studentRubric; else commentOnly" [isPreview]="isPreview" (generalComments)="onEnterGeneralComments($event)" [disabled]="isTeacherGraded" [rubric]="studentRubric" [studentScore]="studentScore"
+        (selectCategory)="selectCategoryEvent($event)" [isReportViewMode]="isReportViewMode">
+      </rubric-report>
+      <ng-template #commentOnly>
+        <div class="general-comments">
+          <ion-textarea [disabled]="isTeacherGraded" [(ngModel)]="overallComments" placeholder="{{'RUBRIC_GRADING_COMMENT' | translate}}"></ion-textarea>
+        </div>
+      </ng-template>
+    </ion-card-content>
+
+    <div class="header-bar" (click)="toggleTeacherRubric()" *ngIf="teacherRubric">
+      <div class="panel-icon" [ngClass]="{'performance-grade': isReportViewMode && teacherRubric.score !== null}">
+        <ion-icon class="nav-grade"></ion-icon>
+      </div>
+      <div class="panel-title">
+        {{'TEACHER_RUBRIC' | translate}}
+        <i class="material-icons rubric-attachment" *ngIf="teacherRubric.url" inAppBrowser url={{teacherRubric.url}}>attachment</i>
+      </div>
+      <div class="toggle-icon" *ngIf="!isReportViewMode || isPreview; else showTeacherPerformance">
+        <ng-template #downArrow>
+          <ion-icon name="arrow-dropdown"></ion-icon>
+        </ng-template>
+        <ion-icon *ngIf="!showTeacherRubric;else downArrow" name="arrow-dropup"></ion-icon>
+      </div>
+      <ng-template #showTeacherPerformance>
+        <div class="score grade-range-{{ teacherRubric.score | gradeRange}}">
+          <span>{{ teacherRubric.score | transformPerformanceScore }}</span>
+        </div>
+      </ng-template>
+    </div>
+    <ion-card-content [@collapse]="showTeacherRubric">
+      <rubric-report *ngIf="teacherRubric; else noTeacherRubric" [isPreview]="isPreview" [rubric]="teacherRubric" [disabled]="true" [isReportViewMode]="isReportViewMode"></rubric-report>
+      <ng-template #noTeacherRubric>
+        <div class="no-rubric">
+          {{'NO_RUBRIC' | translate}}
+        </div>
+      </ng-template>
+    </ion-card-content>
+  </div>
+  <ion-footer *ngIf="studentRubric && !isTeacherGraded">
+    <div class="actions">
+      <ion-button class="confirm" (click)="submitGrade()">{{ 'CONFIRM' | translate }}</ion-button>
+    </div>
+  </ion-footer>
+</div>

@@ -1,0 +1,103 @@
+<div class="calendar-content">
+  <ion-header class="calender-header">
+     <ion-toolbar position="top">
+        <ion-grid class="calender-date-view-grid">
+           <ion-row class="calender-back-icon">
+              <i class="material-icons" (click)="onCloseModel()">keyboard_backspace</i>
+           </ion-row>
+           <ion-row class="calender-date-view-row">
+              <ion-col
+                 class="start-date-container"
+                 size="5"
+                 (click)="selectStartDate()"
+                 [ngClass]="{'active' : isFirstCalenderSelected}">
+                 <ion-grid>
+                    <ion-row class="header">
+                       <ion-text class="label">{{'START_DATE' | translate}}</ion-text>
+                    </ion-row>
+                    <ion-row class="body">
+                       <ion-col size="5" class="date">
+                          <ion-text>{{startDay}}</ion-text>
+                       </ion-col>
+                       <ion-col size="7" class="month-year-day">
+                          <ion-text class="month-year">{{startMonth}} {{startYear}}</ion-text>
+                          <ion-text class="day">{{startDayInText}}</ion-text>
+                       </ion-col>
+                    </ion-row>
+                 </ion-grid>
+              </ion-col>
+              <ion-col class="line" col="2">
+                 <i class="slash-line"> </i>
+              </ion-col>
+              <ion-col
+                 class="end-date-container"
+                 size="5"
+                 (click)="selectEndDate()"
+                 [ngClass]="{'active' : !isFirstCalenderSelected}">
+                 <ion-grid>
+                    <ion-row class="header">
+                       <ion-text class="label">{{'END_DATE' | translate}}</ion-text>
+                    </ion-row>
+                    <ion-row class="body" *ngIf="selectedEndDate; else noDateSelectedTemplate">
+                       <ion-col size="5" class="date">
+                          <ion-text>{{endDay}}</ion-text>
+                       </ion-col>
+                       <ion-col size="7" class="month-year-day">
+                          <ion-text class="month-year">{{endMonth}} {{endYear}}</ion-text>
+                          <ion-text class="day">{{endDayInText}}</ion-text>
+                       </ion-col>
+                    </ion-row>
+                    <ng-template #noDateSelectedTemplate>
+                       <ion-text>&ndash;</ion-text>
+                    </ng-template>
+                 </ion-grid>
+              </ion-col>
+           </ion-row>
+        </ion-grid>
+     </ion-toolbar>
+  </ion-header>
+  <ion-content class="calendar-body">
+     <ion-row>
+        <!-- first calender -->
+        <p-calendar
+           *ngIf="isFirstCalenderSelected; else withOutRange"
+           [(ngModel)]="selectedStartDate"
+           styleClass="date-picker"
+           [inline]="true"
+           [minDate]="firstCaMinDate"
+           [maxDate]="firstCaMaxDate"
+           class="class-progress-calendar"
+           (onSelect)="onSelectDate()"
+           [defaultDate]="firstCaMinDate"
+           [monthNavigator]="true"
+           [yearNavigator]="true"
+           yearRange="{{yearRange}}"
+           showButtonBar="true"
+           (onTodayClick)="onTodayClick()"
+           (onClearClick)="onClearClick()">
+        </p-calendar>
+        <!-- second calender -->
+        <ng-template #withOutRange>
+           <p-calendar
+              [(ngModel)]="selectedEndDate"
+              styleClass="date-picker"
+              [inline]="true"
+              [minDate]="secondCaMinDate"
+              [maxDate]="secondCaMaxDate"
+              class="class-progress-calendar"
+              (onSelect)="onSelectDate()"
+              [monthNavigator]="true"
+              [yearNavigator]="true"
+              yearRange="{{yearRange}}"
+              [defaultDate]="secondCaMaxDate"
+              showButtonBar="true"
+              (onTodayClick)="onTodayClick()"
+              (onClearClick)="onClearClick()">
+           </p-calendar>
+        </ng-template>
+     </ion-row>
+     <ion-row class="done-button">
+        <ion-fab-button (click)="onClickDone()">{{'DONE' | translate}}</ion-fab-button>
+     </ion-row>
+  </ion-content>
+</div>

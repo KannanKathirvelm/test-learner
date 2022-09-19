@@ -1,0 +1,110 @@
+<div class="backdrop" (click)="onToggle()" *ngIf="isExpanded"></div>
+<div class="proficiency-direction direction-{{activeIndex}}" [ngClass]="{'no-directions': !showDirections}">
+  <ion-header class="proficiency-direction-header" *ngIf="!showDirections">
+    <ion-toolbar class="toolbar">
+      <ion-buttons slot="start" (click)="onBack()">
+        <i class="close material-icons">close</i>
+      </ion-buttons>
+      <div class="competency-title">
+        {{'COMPETENCY_MASTERED' | translate}}
+      </div>
+    </ion-toolbar>
+  </ion-header>
+  <ion-header class="proficiency-direction-header" *ngIf="showDirections">
+    <ion-toolbar class="diagnostic-toolbar">
+      <ng-container *ngIf="!showYourDestination">
+        <ion-text class="subtitle">{{'MEET_YOUR' | translate}}</ion-text>
+        <ion-text class="title">{{'PROFICIENCY_MAP' | translate}}</ion-text>
+      </ng-container>
+      <ng-container *ngIf="showYourDestination">
+        <ion-text class="title">{{'YOUR_JOURNEY' | translate}}</ion-text>
+        <ion-text class="subtitle">{{'BEGINS_NOW' | translate}}</ion-text>
+        <ion-text class="subtext">{{ 'YOUR_DESTINATION_IS' | translate }} <span class="text-bold">{{currentGrade.grade}}</span></ion-text>
+      </ng-container>
+    </ion-toolbar>
+  </ion-header>
+  <ng-container *ngIf="showYourDestination">
+    <div class="highline-info-panel">
+      <ion-text class="class-grade text-bold">{{ currentGrade.grade }}</ion-text>
+      <ion-text class="highline-label" *ngIf="!isPublicClass; else destinationTitle">{{ 'HIGHLINE' | translate }}</ion-text>
+      <ng-template #destinationTitle>
+        <ion-text class="highline-label">{{ 'DESTINATION'| translate }}</ion-text>
+      </ng-template>
+    </div>
+  </ng-container>
+  <ion-content class="proficiency-direction-container" [ngClass]="{'show-destination': showYourDestination}">
+    <div class="proficiency-direction-label" *ngIf="activeDirection && !showYourDestination">
+      <ion-row>
+        <ion-col size="{{activeIndex === 1 ? 11 : 12}}">
+          <ion-text>
+            <ng-container *ngIf="activeDirection.label === 'SKYLINE'">
+              {{'SKYLINE_PREFIX_TEXT' | translate}}
+            </ng-container>
+            <strong class="ion-text-uppercase">{{ activeDirection.label | translate}}. </strong>
+            <span>{{ activeDirection.message | translate:translateParam}}</span>
+          </ion-text>
+        </ion-col>
+        <ion-col *ngIf="activeIndex === 1" size="1" (click)="toggleLegend()">
+          <span class="material-icons"> arrow_drop_down </span>
+        </ion-col>
+      </ion-row>
+      <ion-row *ngIf="activeIndex === 1" class="legends" [@collapse]="isToggleLegend">
+        <ion-item class="legend-item">
+          <ion-text>
+            <strong class="ion-text-uppercase">{{'GREY_CELLS' | translate}} </strong>
+            <span>{{'GREY_CELL_MESSAGE' | translate:translateParam}}</span>
+          </ion-text>
+        </ion-item>
+        <ion-item class="legend-item">
+          <ion-text>
+            <strong class="ion-text-uppercase">{{'LIGHT_BLUE_CELLS' | translate}} </strong>
+            <span>{{'LIGHT_BLUE_CELL_MESSAGE' | translate:translateParam}}</span>
+          </ion-text>
+        </ion-item>
+      </ion-row>
+    </div>
+    <ng-container *ngIf="activeSubject && domainTopicCompetencyMatrix">
+      <proficiency-chart [masteredCompetencies]="masteredCompetencies" [activeCategory]="activeCategory" [subjects]="subjects" [categories]="categories" [class]="class" [taxonomyGrades]="taxonomyGrades" [frameworkId]="frameworkId"
+        [activeSubject]="activeSubject" (selectTopic)="onSelectTopic($event)" (selectLegend)="onSelectLegend()" (selectCompetency)="onSelectCompetency($event)" [showHeader]="!showDirections" [fwCompetencies]="fwCompetencies"
+        [domainCoordinates]="domainCoordinates" [domainTopicCompetencyMatrix]="domainTopicCompetencyMatrix" (chartLoded)="chartLoded()" [currentGrade]="currentGrade"></proficiency-chart>
+    </ng-container>
+  </ion-content>
+  <ion-footer class="proficiency-direction-footer" *ngIf="!showYourDestination">
+    <ion-button class="next-btn" *ngIf="!isFinishDirection" (click)="onNext()" shape="round">{{'NEXT' | translate}}</ion-button>
+    <ion-button class="destination-btn" *ngIf="isFinishDirection" (click)="onReviewDestination()" shape="round">{{ 'REVIEW_DESTINATION' | translate }}</ion-button>
+  </ion-footer>
+  <ng-container *ngIf="showYourDestination">
+    <div class="destination-view" [ngClass]="{'expanded': isExpanded}">
+      <ion-header class="destination-header" (click)="onToggle()">
+        <ion-text class="grade">{{currentGrade.grade}}</ion-text>
+        <div class="navigate-btn" (click)="onContinueCourse($event)" [ngClass]="{'disabled': milestones && !milestones.length }">
+          <span *ngIf="showGradeInfo; else navigate" class="material-icons"> directions </span>
+          <ng-template #navigate>
+            <span class="material-icons"> near_me </span>
+          </ng-template>
+        </div>
+      </ion-header>
+      <ion-content class="destination-content" #milestoneContainer>
+        <div class="grade-info" *ngIf="showGradeInfo" [innerHtml]="currentGrade.description"></div>
+        <ng-container *ngIf="!showGradeInfo">
+          <milestone-accordion *ngIf="milestones && milestones.length; else showNothingForStudyMsg" (scrollToCollection)="scrollToCollection($event)" [frameworkCode]="frameworkId" (playCollection)="onPlay()" [classId]="class.id" [courseId]="courseId"
+            [milestones]="milestones">
+          </milestone-accordion>
+          <ng-template #showNothingForStudyMsg>
+            <ion-row class="show-nothing-to-study-container">
+              <ion-text>{{ 'NOTHING_TO_STUDY_MSG'| translate }}</ion-text>
+              <ion-button (click)="navigateToClassroom()">{{ 'OTHER_JOURNEY' | translate }}</ion-button>
+            </ion-row>
+          </ng-template>
+        </ng-container>
+      </ion-content>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="!showDirections">
+    <competency-info-pull-up [fwDomains]="fwDomains" [fwCompetencies]="fwCompetencies" [frameworkId]="frameworkId" (closePullUp)="closePullUp()" [selectedCompetency]="selectedCompetency" class="competency-info-content"
+      [ngClass]="{'active': showCompetencyInfo}"></competency-info-pull-up>
+    <topic-info class="domain-info-content" [ngClass]="{'expanded-report': isExpandedDomainReport}" (click)="showFullDomainReport()" [isEmitCloseEvent]="true" [content]="selectedTopic" (closePullUp)="closeDomainInfoPullUp()"
+      [fwCompetencies]="fwCompetencies" (selectCompetency)="onSelectCompetency($event)" [listView]="true"></topic-info>
+    <legend-pull-up class="legend-content" [ngClass]="[showLegendInfo ? 'active': 'in-active']" [isEmitCloseEvent]="true" [activeSubject]="activeSubject" (closePullUp)="closeLegendPullUp()"></legend-pull-up>
+  </ng-container>
+</div>

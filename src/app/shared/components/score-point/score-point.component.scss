@@ -1,0 +1,18 @@
+.grid-score-point {
+  padding: 3px;
+
+  .row-points {
+    ion-text {
+      font-size: 12px;
+      padding: 10px;
+    }
+  }
+
+  .row-text {
+    ion-text {
+      padding: 10px;
+      font-size: 12px;
+      width: 100%;
+    }
+  }
+}

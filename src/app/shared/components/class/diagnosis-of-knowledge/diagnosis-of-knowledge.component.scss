@@ -1,0 +1,110 @@
+.diagnosis-header {
+  ion-toolbar {
+    --color: var(--diagnostic-header-color);
+    --min-height: 48px;
+
+    ion-title {
+      font-size: 15px;
+      font-weight: bold;
+      color: var(--diagnostic-header-title-color);
+    }
+  }
+}
+
+.diagnosis-container {
+  .diagnostic-body {
+    height: calc(100% - 94px);
+    display: grid;
+    grid-template-rows: 102px auto;
+    justify-content: center;
+    align-items: center;
+
+    .header {
+      color: var(--diagnostic-text-color);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+
+      .sub-title {
+        font-size: 15px;
+        font-weight: normal;
+      }
+
+      .title {
+        font-size: 25px;
+        font-weight: 300;
+        text-align: center;
+      }
+    }
+
+    .body {
+      display: grid;
+      height: inherit;
+      grid-gap: 15px;
+      font-size: 15px;
+      text-align: center;
+      color: var(--diagnostic-text-color);
+
+      .title {
+        align-self: end;
+        font-weight: bold;
+        font-size: 15px;
+      }
+    }
+  }
+
+  ion-card {
+    height: calc(100% - 80px);
+    box-shadow: none;
+
+    ion-card-header {
+      text-align: center;
+
+      ion-card-subtitle {
+        font-size: 15px;
+        font-weight: normal;
+      }
+
+      ion-card-title {
+        font-size: 25px;
+        font-weight: 300;
+        text-align: center;
+        color: var(--diagnostic-text-color);
+      }
+    }
+
+    ion-card-content {
+      padding-top: 16px;
+      display: grid;
+      height: inherit;
+      grid-gap: 15px;
+      font-size: 15px;
+      text-align: center;
+      color: var(--diagnostic-text-color);
+
+      ion-title {
+        align-self: end;
+        font-weight: bold;
+        font-size: 15px;
+      }
+    }
+  }
+
+  .diagnosis-footer {
+    &:before {
+      display: none;
+    }
+
+    .button-list {
+      .take-test-btn {
+        font-size: 13px;
+        font-weight: bold;
+        line-height: 1.15;
+        text-align: center;
+        color: var(--diagnostic-btn-color);
+        --background: var(--diagnostic-btn-bg-color);
+      }
+    }
+  }
+}

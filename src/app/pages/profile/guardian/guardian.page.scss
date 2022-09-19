@@ -1,0 +1,81 @@
+.guardian-profile-container {
+  --background: var(--guardian-bg-color);
+  --padding-top: 5px;
+  --padding-bottom: 5px;
+
+  .guardian-list-container {
+    display: grid;
+    grid-column-gap: 5px;
+    justify-content: center;
+
+    .guardian {
+      width: 250px;
+      min-height: 210px;
+      background: var(--guardian-card-bg-color);
+      margin: 3px 1px;
+      display: flex;
+      align-content: center;
+      justify-content: center;
+      align-items: center;
+
+      &.skeleton {
+        ion-thumbnail {
+          ion-skeleton-text {
+            border-radius: 50%;
+            height: 100%;
+          }
+        }
+
+        ion-skeleton-text {
+          height: 10px;
+          width: 100%;
+        }
+      }
+
+      .guardian-card-content {
+        padding: 0;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+
+        .thumbnail-image {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+          .add-ward-icon {
+            font-size: 50px;
+          }
+        }
+
+        .guardian-card-grid {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-direction: column;
+          height: 100%;
+          width: 100%;
+
+          ion-row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            &.guardian-name-row {
+              overflow: hidden;
+              width: 100%;
+
+              .guardian-name-text {
+                text-transform: capitalize;
+                font-weight: bold;
+                margin-top: 5px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

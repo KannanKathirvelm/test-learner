@@ -1,0 +1,27 @@
+<div class="assessment-summary-report">
+  <div class="performance-activity" ngClass="grade-range-{{performance.assessment.score | gradeRange}}">
+    <div class="performance">
+      <div class="score-container">
+        <div class="score">{{performance.assessment.score | transformPerformanceScore}}</div>
+        <div class="label">{{'SCORE' | translate}}</div>
+      </div>
+    </div>
+    <div class="performance-img" ngClass="grade-range-{{performance.assessment.score | gradeRange}}" [ngStyle]="{'height': performance.assessment.score + '%'}">
+    </div>
+    <ion-text class="tap-msg" *ngIf="showTapMsg">{{'TAP_TO_SEE_REPORT' | translate}}</ion-text>
+  </div>
+  <div class="answers">
+    <div class="correct-answer">
+      <span class="score" *ngIf="isAssessment">{{correctAnswersCount}}</span>
+      <span class="label" *ngIf="isAssessment">{{'CORRECT' | translate}}</span>
+    </div>
+    <div class="timespent-container">
+      <span class="timespent">{{performance.assessment.timespent | transformPerformanceTimeSpent }}</span>
+      <span class="label">{{'TIME_SPENT' | translate}}</span>
+    </div>
+    <div class="in-correct-answer">
+      <span class="score" *ngIf="isAssessment">{{incorrectAnswerCount}}</span>
+      <span class="label" *ngIf="isAssessment">{{'INCORRECT' | translate}}</span>
+    </div>
+  </div>
+</div>

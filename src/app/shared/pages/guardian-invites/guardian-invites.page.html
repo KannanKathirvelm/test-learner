@@ -1,0 +1,20 @@
+<ion-header class="guardian-approve-header" no-border>
+  <ion-toolbar>
+    <ion-row class="justify-content-center">
+      <ion-row class="back-button">
+        <ion-back-button defaultHref="login"></ion-back-button>
+      </ion-row>
+      <ion-row class="title-container">
+        <ion-row class="justify-content-center">
+          <ion-text>{{'GUARDIAN_APPROVE' | translate}}</ion-text>
+        </ion-row>
+      </ion-row>
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-row class="navigator-logo-img" *ngIf="appLogo">
+    <ion-img [src]="appLogo"></ion-img>
+  </ion-row>
+  <nav-custom-alert *ngIf="showSuccessAlert" (dismissAlert)="dismissAlert($event)" [successMessage1]="successMessage"></nav-custom-alert>
+</ion-content>

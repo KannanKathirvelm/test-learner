@@ -1,0 +1,49 @@
+.route-path-container {
+    display: grid;
+    width: 100px;
+    height: 95px;
+    border: 1px solid var(--reroute);
+    border-radius: 5px;
+    padding: 0;
+    .route-path-body {
+       display: grid;
+       justify-content: center;
+       text-align: center;
+       line-height: 1.2;
+       height: 72px;
+       overflow: hidden;
+       .route-path-icon {
+           color: var(--dark-400);
+           font-size: 15px;
+       }
+
+       .show-more-text {
+           font-size: 10px;
+           color: var(--blue-500);
+       }
+
+       .content-text {
+           font-size: 10px;
+           height: 25px;
+           overflow: hidden;
+       } 
+    }
+    .route-path-footer {
+        text-align: center;
+        font-weight: bold;
+        font-size: 12px;
+        height: 20px;
+        display: flex;
+        align-items: center;
+        padding: 0;
+        justify-content: center;
+
+        ion-text {
+            visibility: visible;
+        }
+
+        &.grade-range-not-started{
+            background-color: var(--gray-500);
+        }
+    }
+}

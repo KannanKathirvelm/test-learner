@@ -1,0 +1,21 @@
+<ion-content class="about-me-container">
+  <div class="about-me">
+    <div *ngIf="isContentAvailable" class="about-container">
+      <span (click)="onClickUpdate()">{{'ABOUT_NO_DATA' | translate}}</span>
+    </div>
+    <div *ngIf="isEdit" class="edit-container">
+      <span class="about">{{about}}</span>
+      <span class="material-icons" (click)="onClickUpdate()">edit</span>
+    </div>
+    <div *ngIf="isUpdate" class="update-container">
+      <div class="header">
+        <span class="title">{{'ABOUT_ME' | translate}}</span>
+        <ion-icon class="icon nav-verified-icon" [ngClass]="{'in-active' : !about}" (click)="onSubmit()"></ion-icon>
+      </div>
+      <div class="input-container">
+        <textarea rows="12" [(ngModel)]="about" [maxlength]="maxChars"></textarea>
+        <label class="char-remaining"> {{about | charLength}}/{{maxChars}} {{'CHARACTERS' | translate}}.</label>
+      </div>
+    </div>
+  </div>
+</ion-content>

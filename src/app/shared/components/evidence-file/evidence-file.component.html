@@ -1,0 +1,56 @@
+<ion-row class="evidence-container">
+  <ion-grid class="card-content">
+    <ng-container *ngIf="evidenceFileUploads?.length > 0">
+      <ion-row class="evidence-content-row" *ngFor="let file of evidenceFileUploads;let fileIndex=index">
+        <ion-col class="evidence-content-col"  (click)="openEvidenceImage(file.url)">
+          <ion-col class="evidence-content-img">
+            <ion-row  class="evidence-preview-icon">
+            </ion-row>      
+          </ion-col>
+          <ion-row class="evidence-content">
+            <ion-text class="evidence-text">{{'EVIDENCE' | translate}}</ion-text>
+            <ion-text class="evidence-file ellipsis">{{file.originalFilename  ? file.originalFilename  : file.url}}</ion-text>
+          </ion-row>
+        </ion-col>
+        <ion-col class="delete-content" *ngIf="!reportViewMode">
+          <ion-thumbnail class="evidence-delete-icon" (click)="deleteUploadFile(fileIndex)">
+          </ion-thumbnail>
+        </ion-col>
+      </ion-row>
+    </ng-container>
+    <ion-row class="evidence-content-row" *ngIf="!reportViewMode">
+      <ion-col class="evidence-content-col">
+        <ion-row>
+          <ion-thumbnail class="evidence-forward-icon">
+          </ion-thumbnail>
+        </ion-row>
+        <ion-row class="evidence-content">
+          <ion-text class="evidence-text">{{'EVIDENCE' | translate}}</ion-text>
+          <ion-row class="evidence-content-file">
+            <ion-text class="evidence-file">{{evidenceFileUploads?.length > 0 ? ('UPLOAD_ANOTHER_FILE' | translate) : ('UPLOAD_FILE' | translate) }}
+            </ion-text>
+            <ion-input type="file" class="p-0 file-upload" (change)="onClickUpload($event)"></ion-input>
+          </ion-row>
+        </ion-row>
+      </ion-col>
+    </ion-row>
+    <ion-row class="evidence-content-row" *ngIf="!reportViewMode">
+      <ion-col class="evidence-content-col">
+        <ion-row>
+          <ion-thumbnail class="evidence-forward-icon">
+          </ion-thumbnail>
+        </ion-row>
+        <ion-row class="evidence-content">
+          <ion-text class="evidence-text">{{'EVIDENCE' | translate}}</ion-text>
+          <ion-row class="evidence-content-file">
+            <ion-input (input)="evidenceUrl=$event.target.value" value="{{evidenceUrl}}" type="url"  placeholder="{{'ENTER_YOUR_URL' | translate}}" ></ion-input>
+            <span class="error-message" *ngIf="!isValidUrl && isEnableUploadUrl">{{'ERROR_INVALID_URL' | translate}}</span>
+          </ion-row>
+        </ion-row>
+      </ion-col>
+      <ion-col class="add-link-btn">
+        <ion-button (click)="onClickUploadUrl()">{{'ADD' | translate}}</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-row>

@@ -1,0 +1,69 @@
+<ion-header class="search-destination-header">
+  <ion-toolbar position="top">
+    <ion-grid class="destination-header ion-no-padding">
+      <ion-row class="destination-header-container">
+        <ion-col class="thumbnail ion-no-padding" size="2">
+          <ion-text class="material-icons" (click)="onClose()">keyboard_backspace</ion-text>
+        </ion-col>
+        <ion-col class="thumbnail ion-no-padding" size="10">
+          <ion-input placeholder="{{'YOUR_DESTINATION' | translate}}" class="destination-input" [value]="searchText" (ionInput)="filterClassList($event)" searchIcon="false" clearIcon="false"></ion-input>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="destination-content" [scrollY]="true">
+  <ion-row class="destination-content-gradient" *ngIf="showClassGradient">
+  </ion-row>
+  <ng-container *ngIf="filteredFeaturedCourses.length">
+    <ion-row class="suggestion">
+      <ion-row class="suggestion-title">
+        <ion-text>{{'SUGGESTIONS' | translate}}</ion-text>
+      </ion-row>
+      <ion-row class="suggestion-list">
+        <ion-row class="suggestion-content" *ngFor="let featuredCourse of filteredFeaturedCourses" (click)="onShowGradeLevel(featuredCourse)">
+          <ion-col class="thumbnail" size="2">
+            <ion-row>
+              <ion-icon class="milestone-icon"></ion-icon>
+            </ion-row>
+          </ion-col>
+          <ion-col class="title" size="10">
+            <ion-text>{{featuredCourse.title}}</ion-text>
+          </ion-col>
+        </ion-row>
+      </ion-row>
+    </ion-row>
+  </ng-container>
+  <ng-container *ngIf="filteredClasses && filteredClasses.length">
+    <ion-row class="journey">
+      <ion-row class="journey-title">
+        <ion-text>{{'OTHER_JOURNEY' | translate}}</ion-text>
+      </ion-row>
+      <ion-row class="journey-content" *ngFor="let class of filteredClasses" (click)="onSelectClass(class)">
+        <ion-col class="thumbnail" size="2">
+          <ion-row>
+            <ion-icon class="nav-course-icon"></ion-icon>
+          </ion-row>
+        </ion-col>
+        <ion-col class="title ellipsis" size="10">
+          <ion-col class="title-content">
+            <ion-text class="ellipsis">{{class.title}}</ion-text>
+            <ion-text *ngIf="class.competencyStats" class="performance ellipsis">{{class.competencyStats.completionPercentage | transformPerformanceScore}} {{'COMPLETED' | translate}}</ion-text>
+          </ion-col>
+          <ion-row class="class-stats completion-stats" *ngIf="class.competencyStats">
+            <ion-text class="stats">{{class.competencyStats.completedCompetencies}}</ion-text>
+            <ion-text class="stats">/{{class.competencyStats.totalCompetencies}}</ion-text>
+          </ion-row>
+        </ion-col>
+      </ion-row>
+    </ion-row>
+  </ng-container>
+  <ng-container *ngIf="isShowJoinClass && showJoinClass">
+    <ion-row class="join-class-label">
+      <ion-text>{{'JOIN_CLASS_MSG' | translate}}</ion-text>
+    </ion-row>
+    <ion-row>
+      <ion-button class="join-class-btn" [disabled]="!this.searchText" (click)="joinClass()">{{'JOIN_CLASS' | translate}}</ion-button>
+    </ion-row>
+  </ng-container>
+</ion-content>

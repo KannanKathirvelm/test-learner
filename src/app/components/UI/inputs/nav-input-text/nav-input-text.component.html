@@ -1,0 +1,10 @@
+<div class="input-wrapper">
+  <ion-grid [formGroup]="parentForm">
+    <ion-row class="username-label">
+      <ion-label class="input-label">{{label}} {{isRequired ? '*' : ''}}</ion-label>
+    </ion-row>
+    <ion-row class="justify-content-center">
+      <ion-input id="username" class="input-field" [formControlName]="formName" [(ngModel)]="usernameVal" #username></ion-input>
+    </ion-row>
+  </ion-grid>
+</div>

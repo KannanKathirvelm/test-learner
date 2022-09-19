@@ -1,0 +1,20 @@
+.items-to-grade-container {
+  .no-activity {
+    width: 100%;
+    padding: 30px;
+    font-style: italic;
+    color: var(--dark-400);
+    text-align: center;
+
+    span {
+      font-size: 18px;
+    }
+  }
+
+  .items-to-grade-panel:last-child {
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);
+    height: 50px;
+    width: 100%;
+    display: block;
+  }
+}

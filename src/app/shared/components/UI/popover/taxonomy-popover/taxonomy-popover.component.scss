@@ -1,0 +1,14 @@
+.taxonomy-list-container {
+  ion-row {
+    font-size: 12px;
+    font-weight: bold;
+    text-align: center;
+    color: var(--taxonomy-text-color);
+    padding: 10px;
+    border-bottom: 1px solid var(--taxonomy-border-color);
+
+    &:last-child {
+      border-bottom: unset;
+    }
+  }
+}

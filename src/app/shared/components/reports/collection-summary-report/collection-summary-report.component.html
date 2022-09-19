@@ -1,0 +1,17 @@
+<div class="collection-summary-report report-{{performance.collection.type}}">
+  <div class="time-spent-container">
+    <div class="time-spent">{{performance.collection.timespent | transformPerformanceTimeSpent }}</div>
+    <div class="label">{{'TIME_SPENT' | translate}}</div>
+    <ion-text class="tap-msg" *ngIf="showTapMsg">{{'TAP_TO_SEE_REPORT' | translate}}</ion-text>
+  </div>
+  <div class="answers"  *ngIf="isCollection">
+    <div class="correct-answer">
+      <span class="score">{{correctAnswersCount}}</span>
+      <span class="label" >{{'CORRECT' | translate}}</span>
+    </div>
+    <div class="in-correct-answer">
+      <span class="score">{{incorrectAnswerCount}}</span>
+      <span class="label">{{'INCORRECT' | translate}}</span>
+    </div>
+  </div>
+</div>

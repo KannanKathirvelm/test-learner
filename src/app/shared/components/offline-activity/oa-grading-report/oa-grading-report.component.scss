@@ -1,0 +1,139 @@
+.oa-grading {
+  height: 100%;
+
+  .rubric-container {
+    background-color: var(--rubric-background-color);
+    width: 100%;
+    height: 100%;
+  }
+
+  &.oa-answer {
+    .oa-grade-content {
+      ion-content {
+        --ion-background-color: var(--white);
+      }
+    }
+  }
+
+  .rubric-header {
+    display: flex;
+
+    .rubric-icon {
+      background: var(--offline);
+      display: block;
+      margin: auto 0;
+      width: 25px;
+      height: 25px;
+      background-position: center;
+      background-size: auto;
+      background-repeat: no-repeat;
+      margin-left: 10px;
+    }
+
+    .rubric-title {
+      margin-left: 10px;
+      height: 16px;
+      font-size: 14px;
+      font-weight: bold;
+      color: var(--dark-400);
+    }
+
+    .close {
+      margin-left: auto;
+      width: 20px;
+      height: 20px;
+      opacity: 0.3;
+      margin-right: 10px;
+    }
+  }
+
+  .oa-grade-content {
+    height: 100%;
+
+    ion-content {
+      .rubric-content {
+        height: 100%;
+
+        .content {
+          display: none;
+
+          &.active {
+            display: block;
+            height: 100%;
+            background: var(--rubric-background-color);
+          }
+        }
+      }
+    }
+
+    ion-footer {
+      height: 56px;
+      margin: auto;
+      display: flex;
+      background-color: var(--rubric-background-color);
+      bottom: 0;
+      position: absolute;
+
+      .actions {
+        &.disabled {
+          .cancel,
+          .confirm {
+            pointer-events: none;
+          }
+        }
+        align-items: center;
+        width: 100%;
+        display: flex;
+
+        .cancel {
+          margin-left: auto;
+          width: 100px;
+          height: 40px;
+          border-radius: 4px;
+          --background: var(--rubric-background-color);
+          border: solid 1px var(--white);
+        }
+
+        .cancel,
+        .confirm {
+          width: 100px;
+          height: 40px;
+          border-radius: 4px;
+          color: var(--white);
+          font-size: 15px;
+          font-weight: bold;
+          margin-right: 10px;
+        }
+      }
+    }
+
+    .tabs {
+      height: 40px;
+      box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+      background-color: var(--white);
+      display: flex;
+
+      .tab-content {
+        width: calc(100% - 200px);
+        display: flex;
+
+        &.active {
+          border-bottom: solid 3px var(--rubric-active-tab);
+
+          span {
+            color: var(--rubric-active-tab);
+          }
+        }
+
+        span {
+          color: var(--black);
+          height: 15px;
+          opacity: 0.5;
+          font-family: var(--lato);
+          font-size: 14px;
+          margin: auto;
+        }
+      }
+    }
+  }
+}

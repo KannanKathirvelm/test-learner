@@ -1,0 +1,31 @@
+<ng-container *ngIf="currentGrade">
+  <ion-row class="milestone-panel-popup">
+    <ion-row class="header">
+      <ion-col size="11" class="description ion-no-padding">
+        <ion-text>{{'DIAGNOSTIC_BUTTON_DESC' | translate}}</ion-text>
+      </ion-col>
+      <ion-col size="1" class="close" (click)="onClose()">
+        <i class="close material-icons">close</i>
+      </ion-col>
+    </ion-row>
+    <ion-row class="milestone-modal-container">
+      <ion-row class="button-row">
+        <ion-button class="navigator-button-row navigate-button" id="take-diagnostic-button" shape="round" (click)="onDiagnosticPlay()">
+          <ion-row>
+            <ion-icon name="navigate"></ion-icon>
+            <ion-text>{{'TAKE_THE_DIAGNOSTIC' | translate}}</ion-text>
+          </ion-row>
+        </ion-button>
+        <ng-container *ngIf="showGradeListPopUp">
+          <ion-text class="or-text">{{'OR' | translate}}</ion-text>
+          <ion-button  class="navigator-button-row navigate-button skip-botton" id="set-level-button" shape="round" (click)="onChangeDestination()">
+            <ion-row>
+              <i class="material-icons skip-icon">near_me</i>
+              <ion-text>{{'CHOOSE_LEVEL' | translate}}</ion-text>
+            </ion-row>
+          </ion-button>
+      </ng-container>
+      </ion-row>
+    </ion-row>
+  </ion-row>
+</ng-container>

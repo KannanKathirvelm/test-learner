@@ -1,0 +1,29 @@
+.youtube-fullscreen-player-container {
+  --background: var(--youtube-video-bg);
+
+  .fullscreen-header {
+    position: absolute;
+    z-index: 2;
+    top: 24px;
+    right: 24px;
+
+    .close-icon {
+      height: 30px;
+      width: 30px;
+      display: flex;
+      border-radius: 4px;
+      color: var(--fullscreen-close-txt);
+      background-color: var(--fullscreen-close-bg);
+      align-items: center;
+
+      i {
+        margin: auto;
+      }
+    }
+  }
+
+  .youtube-fullscreen-player {
+    width: 100%;
+    height: 100%;
+  }
+}

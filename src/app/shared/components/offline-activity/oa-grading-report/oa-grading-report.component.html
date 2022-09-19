@@ -1,0 +1,39 @@
+<div class="oa-grading" [ngClass]="{'oa-answer' : showOaAnswerTab}">
+  <ion-header>
+    <ion-toolbar>
+      <div class="rubric-header">
+        <i class="rubric-icon"></i>
+        <div *ngIf="gradeDetails" class="rubric-title">{{gradeDetails.content.title}}</div>
+        <i (click)="closeRubric()" class="material-icons close">close</i>
+      </div>
+    </ion-toolbar>
+  </ion-header>
+  <div class="oa-grade-content" *ngIf="gradeDetails">
+    <ion-content fullscreen>
+      <div class="rubric-content">
+        <div class="tabs">
+          <ng-container *ngFor="let tab of tabs;index as tabIndex">
+            <div class="tab-content {{tab.title}}" [ngClass]="{'active' : tab.isActive}" (click)="showTab(tab,tabIndex)">
+              <span>{{tab.title | translate}}</span>
+            </div>
+          </ng-container>
+        </div>
+        <div [ngClass]="{'active' : showTeacherTab}" class="content">
+          <rubric-report [rubric]="teacherRubric" [disabled]="true"></rubric-report>
+        </div>
+        <div [ngClass]="{'active' : showStudentTab}" class="content">
+          <rubric-report (generalComments)="onEnterGeneralComments($event)" [isCanceled]="isCanceled" [rubric]="studentRubric" [studentScore]="studentScore" (selectCategory)="selectCategoryEvent($event)"></rubric-report>
+        </div>
+        <div [ngClass]="{'active' : showOaAnswerTab}" class="content">
+          <oa-task-submissions [tasks]="gradeDetails.content.tasks"></oa-task-submissions>
+        </div>
+      </div>
+    </ion-content>
+    <ion-footer *ngIf="!showOaAnswerTab && !showTeacherTab">
+      <div class="actions">
+        <ion-button class="cancel" (click)="onCancel()">{{ 'CANCEL' | translate }}</ion-button>
+        <ion-button class="confirm" color="secondary" (click)="submitOAGrade()">{{ 'CONFIRM' | translate }}</ion-button>
+      </div>
+    </ion-footer>
+  </div>
+</div>

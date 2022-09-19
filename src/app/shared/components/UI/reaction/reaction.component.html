@@ -1,0 +1,9 @@
+<div class="reaction-container">
+  <ion-list class="reaction">
+    <ion-item class="reaction-icon">
+      <span *ngFor="let reaction of reactions" [ngClass]="reaction.className">
+        <ion-icon [ngClass]="reaction.status ? 'active' : 'inactive'" (click)="isReactionSelected(reaction.value)"></ion-icon>
+      </span>
+    </ion-item>
+  </ion-list>
+</div>

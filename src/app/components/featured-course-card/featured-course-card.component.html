@@ -1,0 +1,99 @@
+<ion-card *ngIf="courseContent; else showSkeletonAnimate" class="featured-course" (click)="courseContent.hasJoined && studyNow()" [ngClass]="{'joined-course': courseContent.hasJoined }">
+  <ion-card-header class="no-padding">
+    <ion-label class="course-name ellipsis" *ngIf="courseContent.hasJoined">{{'INDEPENTENT_COURSE' | translate}}</ion-label>
+    <ion-label class="fcourse-title ellipsis">{{courseContent.title}}</ion-label>
+  </ion-card-header>
+  <ng-container *ngIf="courseContent.hasJoined">
+    <ion-row class="master-pose-col ion-no-padding">
+      <ion-thumbnail>
+        <div class="master-pose-img"></div>
+        <ion-text class="score">{{courseContent.competencyStats ? courseContent.competencyStats.totalCompletion : 0}}</ion-text>
+      </ion-thumbnail>
+    </ion-row>
+  </ng-container>
+  <ion-card-content class="no-padding">
+    <ion-grid class="card-content no-padding">
+      <ion-row>
+        <ion-item class="card-img">
+          <ion-thumbnail slot="start" [ngStyle]="{'background-image': courseContent.thumbnail ? 'url(' + courseContent.thumbnail + ')' : ''}">
+            <ion-grid *ngIf="!courseContent.hasJoined">
+              <ion-row class="preview-button-row" *ngIf="!showPreview; else studyNowButton">
+                <ion-button shape="round" fill="solid" class="preview-button" (click)="onClickPreview()">{{ 'PREVIEW' | translate }}</ion-button>
+              </ion-row>
+              <ng-template #studyNowButton>
+                <ion-row class="preview-button-row">
+                  <ion-button shape="round" fill="solid" class="study-now-button">
+                    <ion-text class="study-now-text" (click)="studyNow()">{{ 'STUDY_NOW' | translate }}</ion-text>
+                    <i class="material-icons" (click)="onClose($event)">close</i>
+                  </ion-button>
+                </ion-row>
+              </ng-template>
+            </ion-grid>
+          </ion-thumbnail>
+        </ion-item>
+      </ion-row>
+      <ng-container *ngIf="courseContent.hasJoined">
+        <ion-row class="milestone-row">
+          <ion-col size="2" class="ion-no-padding milestone-flag-icon-col">
+            <ion-icon class="flag-icon"></ion-icon>
+          </ion-col>
+          <ion-col size="10" class="ion-no-padding milestone-col">
+            <ion-col class="ion-no-padding completed-value-col">
+              <ion-row class="ion-no-padding milestone-header-col" *ngIf="courseContent.competencyStats;else notCompleted">
+                <ion-text class="completed-value-text">{{courseContent.competencyStats.completionPercentage | transformPerformanceScore}} {{'COMPLETED' | translate}}</ion-text>
+              </ion-row>
+            </ion-col>
+            <ng-template #notCompleted>
+              <ion-text class="completed-value-text">0% {{'COMPLETED' | translate}}</ion-text>
+            </ng-template>
+            <ion-col class="ion-no-padding progress-bar-col" *ngIf="courseContent.competencyStats; else skeletonHeaderText">
+              <milestone-report-progress-bar [lessonCount]="courseContent.competencyStats.totalCompetencies || 20" [scoreInPercentage]="courseContent.competencyStats.completionPercentage"></milestone-report-progress-bar>
+            </ion-col>
+            <ng-template #skeletonHeaderText>
+              <ion-text class="skeleton-header-text">
+                <ion-skeleton-text animated class="skeleton-header-text"></ion-skeleton-text>
+              </ion-text>
+            </ng-template>
+          </ion-col>
+        </ion-row>
+      </ng-container>
+      <ion-row class="fcourse-description-container" *ngIf="courseContent.summary;else noSummary">
+        <ng-container *ngIf="showPreview">
+          <ion-text *ngIf="courseContent.summary" class="fcourse-description">{{courseContent.summary}}</ion-text>
+        </ng-container>
+      </ion-row>
+      <ion-row class="fcourse-expand-container" *ngIf="courseContent.summary">
+        <ion-icon class="expand-icon"></ion-icon>
+      </ion-row>
+      <ng-template #noSummary>
+        <ion-text class="no-summary">
+          {{'NO_SUMMARY' | translate}}
+        </ion-text>
+      </ng-template>
+    </ion-grid>
+  </ion-card-content>
+</ion-card>
+<ng-template #showSkeletonAnimate>
+  <ion-card class="featured-course skeleton-card">
+    <ion-card-header class="no-padding">
+      <ion-skeleton-text class="fcourse-title" animated></ion-skeleton-text>
+    </ion-card-header>
+    <ion-card-content class="no-padding">
+      <ion-grid class="no-padding">
+        <ion-row>
+          <ion-item class="card-img">
+            <ion-thumbnail slot="start">
+              <ion-skeleton-text animated></ion-skeleton-text>
+            </ion-thumbnail>
+          </ion-item>
+        </ion-row>
+        <ion-row class="fcourse-description-container">
+          <ion-skeleton-text animated></ion-skeleton-text>
+        </ion-row>
+        <ion-row class="fcourse-expand-container">
+          <ion-skeleton-text animated></ion-skeleton-text>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+</ng-template>

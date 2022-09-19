@@ -1,0 +1,13 @@
+<ion-header no-border>
+  <ion-toolbar class="ion-no-padding class-navbar-container">
+    <class-header [title]="title" [showBack]="false" (clickBackButton)="clickBackButton()" (openSuggestionContainer)="openSuggestionContainer()" (openNotificationContainer)="openNotificationContainer()"></class-header>
+  </ion-toolbar>
+</ion-header>
+<div #container class="class-content-wrapper">
+  <ion-row class="backdrop" *ngIf="showSuggestion || showNotification" (click)="closePopup()"></ion-row>
+  <app-suggestion *ngIf="class" [@collapse]="!showSuggestion" class="suggestion-panel-container" [classId]="classId" [toggleSuggestion]="showSuggestion"></app-suggestion>
+  <app-notification *ngIf="notifications" [@collapse]="!showNotification" class="notification-panel-container" [classId]="classId"></app-notification>
+  <ng-container *ngIf="class">
+    <ion-router-outlet></ion-router-outlet>
+  </ng-container>
+</div>

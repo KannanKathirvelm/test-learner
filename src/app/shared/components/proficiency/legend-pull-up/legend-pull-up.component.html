@@ -1,0 +1,82 @@
+     <div class="legend-pull-up-container">
+       <ion-toolbar position="top">
+         <div class="legend-header">
+           <span class="title">{{'LEGEND' | translate}}</span>
+           <span class="close" (click)="onClose()">
+             <i class="close material-icons">close</i>
+           </span>
+         </div>
+       </ion-toolbar>
+       <ion-content *ngIf="!showSkylineContent">
+         <div class="legend-container">
+           <div class="proficiency-tags">
+             <div class="proficiency-legends">
+               <div class="skyline legend">
+                 <span class="box-skyline line"></span>
+                 <div class="legend-info">
+                   <span class="title">{{'SKYLINE' | translate}}</span>
+                   <span class="title-msg">{{('SKYLINE_MESSAGE' | translate: { subject: activeSubject.title })}}</span>
+                 </div>
+               </div>
+               <div class="class-grade-line legend">
+                 <span class="box-class-grade-line line"></span>
+                 <div class="legend-info">
+                   <span class="title">{{'HIGHLINE' | translate}}</span>
+                   <span class="title-msg">{{'HIGHLINE_MESSAGE' | translate}}</span>
+                 </div>
+               </div>
+               <div class="not-started legend">
+                 <span class="box"></span>
+                 <div class="legend-info">
+                   <span class="title">{{'NOT_STARTED' | translate}}</span>
+                   <span class="title-msg">{{'GREY_CELL_MESSAGE' | translate}}</span>
+                 </div>
+               </div>
+               <div class="show-gut legend">
+                 <span class="box"></span>
+                 <div class="legend-info">
+                   <span class="title">{{'NOT_IN_FRAMEWORK' | translate}}</span>
+                   <span class="title-msg">{{'NOT_COVERED_MESSAGE' | translate}}</span>
+                 </div>
+               </div>
+               <div class="mastered legend">
+                 <span class="box"></span>
+                 <div class="legend-info">
+                   <span class="title">{{'MASTERED' | translate}}</span>
+                   <span class="title-msg">{{'DARK_BLUE_CELL_MESSAGE' | translate}}</span>
+                 </div>
+               </div>
+               <div class="in-progress legend">
+                 <span class="box"></span>
+                 <div class="legend-info">
+                   <span class="title">{{'IN_PROGRESS' | translate}}</span>
+                   <span class="title-msg">{{'LIGHT_BLUE_CELL_MESSAGE' | translate}}</span>
+                 </div>
+               </div>
+             </div>
+           </div>
+         </div>
+       </ion-content>
+       <ion-content *ngIf="showSkylineContent">
+         <ion-row class="skyline-content">
+           <span class="material-icons-outlined">done</span>
+           {{'SKYLINE_HEADLINE_CONTENT' | translate}}
+          </ion-row>
+         <ion-row class="skyline-content">
+          <span class="material-icons-outlined">done</span>
+           {{'GRAPH_CONTENT' | translate}}
+          </ion-row>
+         <ion-row class="skyline-content">
+          <span class="material-icons-outlined">done</span>
+           {{'BLOCK_CONTENT' | translate}}
+          </ion-row>
+         <ion-row class="skyline-content">
+          <span class="material-icons-outlined">done</span>
+           {{'MASTER_CONTENT' | translate}}
+          </ion-row>
+         <ion-row class="skyline-content">
+          <span class="material-icons-outlined">done</span>
+           {{'STUDY_CONTENT' | translate}}
+          </ion-row>
+       </ion-content>
+     </div>

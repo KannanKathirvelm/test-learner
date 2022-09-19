@@ -1,0 +1,73 @@
+.nav-popover-container {
+  margin: 0;
+  height: 100%;
+
+  .nav-popover-title-row {
+    font-size: 12px;
+    text-transform: capitalize;
+    font-family: var(--sans);
+    margin-top: 10px;
+
+    .place-icon {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      ion-icon {
+        height: 20px;
+        width: 20px;
+        background-color: var(--popover-icon-bg);
+        opacity: 0.7;
+      }
+    }
+
+    .lesson-count {
+      margin: auto;
+      display: flex;
+      color: var(--popover-icon-bg);
+      opacity: 0.7;
+    }
+  }
+
+  .lesson-name {
+    .title {
+      font-size: 10px;
+      font-weight: 700;
+      opacity: 0.8;
+      margin-left: 6px;
+    }
+  }
+
+  .title-row {
+    display: flex;
+    align-items: center;
+    display: grid;
+
+    .collection-title {
+      margin: 0 0 10px 6px;
+      font-weight: 500;
+      font-size: 11px;
+    }
+  }
+
+  .study-player-title-row {
+    height: 100%;
+
+    .study-player-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      ion-icon {
+        height: 100%;
+        width: 100%;
+        background-color: var(--study-player-icon);
+        -webkit-mask-size: cover;
+      }
+
+      ion-img {
+        height: 65px;
+      }
+    }
+  }
+}

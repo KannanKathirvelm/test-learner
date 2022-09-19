@@ -1,0 +1,41 @@
+    <ion-row class="journey-report-header-row">
+      <ion-col size="10" class="ion-no-padding journey-report-header-col">
+        <ng-template #journeyReport>
+          <ion-row class="journey-report">
+            <ion-text>{{ 'JOURNEY_REPORT' | translate }}</ion-text>
+          </ion-row>
+        </ng-template>
+        <ion-row *ngIf="isMilestoneReport;else journeyReport" class="journey-report">
+          <ion-text>{{'MILESTONE_REPORT' | translate}}</ion-text>
+        </ion-row>
+        <ion-row class="time-spent-count" *ngIf="classPerformance;else skeletonText">
+          <ion-text class="time-lapsed" *ngIf="classPerformance.timeSpent">{{classPerformance.timeSpent | transformPerformanceTimeSpent }}</ion-text>
+          <ion-text class="total-time" *ngIf="totalComputedETL"> ({{totalComputedETL}} {{ 'ETL' | translate }}*)</ion-text>
+        </ion-row>
+        <ng-template #skeletonText>
+          <ion-text class="skeleton-text">
+            <ion-skeleton-text animated class="skeleton-header-text"></ion-skeleton-text>
+          </ion-text>
+        </ng-template>
+        <ion-row class="time-spent-count" *ngIf="totalComputedETL">
+          <ion-text class="total-time">* {{ 'ESTIMATED_TIME' | translate }}</ion-text>
+        </ion-row>
+      </ion-col>
+      <ion-col size="2" class="ion-no-padding close-icon-col" (click)="onCloseJourneyReport()">
+        <i class="material-icons">clear</i>
+      </ion-col>
+    </ion-row>
+    <ion-row class="journey-report-container">
+      <ng-container *ngIf="milestones;else skeletonReport">
+        <ion-row *ngFor="let milestone of milestones;index as milestoneIndex" (click)="openMilestoneReport(milestoneIndex)">
+          <milestone-report [selectedMilestoneIndex]="selectedMilestoneIndex" [milestonesStats]="milestonesStats" [isAllContentsAreRescoped]="isAllContentsAreRescoped" class="milestone-report-block" [milestone]="milestone"
+            [milestoneIndex]="milestoneIndex">
+          </milestone-report>
+        </ion-row>
+      </ng-container>
+      <ng-template #skeletonReport>
+        <milestone-report class="milestone-report-block"></milestone-report>
+      </ng-template>
+    </ion-row>
+    <ion-row class="backdrop" (click)="onCloseJourneyReport()" *ngIf="isShowJourneyReport">
+    </ion-row>

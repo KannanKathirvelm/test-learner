@@ -1,0 +1,36 @@
+<ion-row class="class-activity-container" (click)="navigateToCA()" *ngIf="isCAPerformanceLoaded;else caSkeletonView">
+  <ion-col class="class-activity-icon-col ion-no-padding">
+    <ion-row class="class-acitivity-icon-row">
+      <i class="material-icons">
+        push_pin
+      </i>
+    </ion-row>
+  </ion-col>
+  <ion-col class="class-activities-col ion-no-padding">
+    <ion-row class="class-activities-row">
+      <ion-text class="class-activities">{{ 'CLASS_ACTIVITY' | translate }}</ion-text>
+    </ion-row>
+  </ion-col>
+  <ion-col class="class-activity-performance grade-range-{{getCAPerformance(caPerformance) | gradeRange}}" *ngIf="caPerformance && caPerformance.scoreInPercentage;else noPerformance">
+    <ion-text>{{ caPerformance.scoreInPercentage }}%</ion-text>
+  </ion-col>
+  <ng-template #noPerformance>
+    <ion-col class="class-activity-performance no-performance">
+      <ion-text>&mdash;</ion-text>
+    </ion-col>
+  </ng-template>
+</ion-row>
+<!-- animated skeleton view -->
+<ng-template #caSkeletonView>
+  <ion-row class="class-activity-container">
+    <ion-col class="class-activity-icon-col">
+      <ion-skeleton-text animated></ion-skeleton-text>
+    </ion-col>
+    <ion-col class="class-activities-col">
+      <ion-skeleton-text animated></ion-skeleton-text>
+    </ion-col>
+    <ion-col class="class-activity-performance">
+      <ion-skeleton-text animated></ion-skeleton-text>
+    </ion-col>
+  </ion-row>
+</ng-template>

@@ -1,0 +1,12 @@
+<div class="taxonomy-list">
+  <ng-container *ngFor="let item of taxonomy | keyvalue;let i = index">
+    <div class="item" *ngIf="i < taxonomyCount">
+      <span class="label">{{item.value.code}}</span>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="moreItems.length > 0">
+    <div class="item more-items" (click)="showTaxonomyPopover($event)">
+      <span class="label">+ {{moreItems.length}} <span class="sub-label">{{"MORE" | translate}}</span></span>
+    </div>
+  </ng-container>
+</div>

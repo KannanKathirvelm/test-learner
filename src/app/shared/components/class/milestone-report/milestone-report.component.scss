@@ -1,0 +1,190 @@
+.milestone-report-container {
+  width: 100%;
+  padding: 16px 0;
+
+  &.rescoped-milestone {
+    display: none;
+  }
+
+  &.show-rescoped {
+    display: block;
+  }
+
+  .milestone-row {
+    padding-right: 15px;
+
+    .skeleton-header-text {
+      width: 100%;
+    }
+
+    .milestone-flag-icon-col {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      .flag-icon {
+        height: 38px;
+        width: 38px;
+        border-radius: 50%;
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+        box-shadow: 1px 1px 10px 0 rgba(0, 0, 0, 0.8);
+        background-image: var(--milestone-flag-white);
+      }
+    }
+
+    .milestone-col {
+      display: grid;
+      align-items: center;
+      grid-gap: 6px;
+
+      .milestone-header-col {
+        .milestone-title {
+          font-family: var(--sans);
+          line-height: 1.33;
+          font-weight: bold;
+          color: var(--milestone-report-title);
+          font-size: 0.9rem;
+        }
+
+        .time-spent-col {
+          font-family: var(--sans);
+          font-size: 12px;
+          line-height: 1.33;
+          font-weight: 600;
+
+          &.total-time-col {
+            display: flex;
+            justify-content: flex-end;
+            color: var(--total-time-color);
+          }
+        }
+      }
+    }
+  }
+
+  .milestone-report-content {
+    margin-top: 10px;
+
+    .skeleton-text {
+      width: 50%;
+      padding-left: 20px;
+    }
+
+    .report-category-row {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      padding-top: 10px;
+      padding-right: 15px;
+
+      .icon-col {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      &.performance-color {
+        color: var(--no-performance-bg);
+
+        ion-col {
+          ion-icon {
+            background-color: var(--no-performance-bg);
+          }
+        }
+
+        &.milestone-grade-range-0-59 {
+          color: var(--red);
+
+          ion-col {
+            ion-icon {
+              background-color: var(--red);
+            }
+          }
+        }
+
+        &.milestone-grade-range-60-69 {
+          color: var(--grade-range-60-69);
+
+          ion-col {
+            ion-icon {
+              background-color: var(--grade-range-60-69);
+            }
+          }
+        }
+
+        &.milestone-grade-range-70-79 {
+          color: var(--grade-range-70-79);
+
+          ion-col {
+            ion-icon {
+              background-color: var(--grade-range-70-79);
+            }
+          }
+        }
+
+        &.milestone-grade-range-80-89 {
+          color: var(--grade-range-80-89);
+
+          ion-col {
+            ion-icon {
+              background-color: var(--grade-range-80-89);
+            }
+          }
+        }
+
+        &.milestone-grade-range-90-100 {
+          color: var(--grade-range-90-100);
+
+          ion-col {
+            ion-icon {
+              background-color: var(--grade-range-90-100);
+            }
+          }
+        }
+      }
+
+      &.timespent-color {
+        color: var(--milestone-report-title);
+      }
+
+      &.lessons-color {
+        color: var(--milestone-report-lesson);
+      }
+
+      .report-category-icon {
+        display: flex;
+        align-items: center;
+
+        ion-icon {
+          font-size: 18px;
+        }
+      }
+
+      .report-category-text {
+        font-family: var(--sans);
+        font-size: 0.9rem;
+        font-weight: bold;
+        line-height: 1.33;
+
+        &.score-col {
+          display: flex;
+          justify-content: flex-end;
+        }
+      }
+
+      .image-icon {
+        height: 25px;
+        width: 25px;
+        display: block;
+        background-repeat: no-repeat;
+        background-size: contain;
+
+        &.competency-mastered-icon {
+          background-image: var(--competencies-mastered-icon);
+        }
+      }
+    }
+  }
+}

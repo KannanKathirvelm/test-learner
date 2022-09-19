@@ -1,0 +1,121 @@
+<div class="competency-info" *ngIf="competency">
+  <ion-toolbar position="top" (click)="openCompetencyReport()">
+    <ion-grid no-padding>
+      <ion-row class="competency-panel-header">
+        <ion-row class="header-info-container">
+          <ion-col class="compentency-info-status" size="2">
+            <div class="competency-status status-{{competency.competencyStatus}}"></div>
+          </ion-col>
+          <ion-col class="competency-title ion-no-padding" size="10">
+            <ion-row class="competency-domain-container">
+              <ion-text class="competency-domain ellipsis" tooltip [text]="competency.domainName">
+                {{ competency.domainName }}
+              </ion-text>
+            </ion-row>
+            <ion-row class="competency-name-container">
+              <ion-text class="competency-name">
+                {{ fwCompetencies | competencyGutToFwTransform
+                    : competency.competencyCode
+                    : competency.competencyCode
+                    : 'frameworkCompetencyDisplayCode'
+                    : false
+                    : true
+                  }}
+              </ion-text>
+              <ion-row class="competency-status-container">
+                <ion-text class="competency-status-msg ellipsis" tooltip [text]="competencyStatus">
+                 {{competency.competencyCode ? '-' : ''}} {{ competencyStatus}}
+                </ion-text>
+                <ion-icon *ngIf="isMasteredDemonstrated" class="mastered-img"></ion-icon>
+              </ion-row>
+            </ion-row>
+          </ion-col>
+        </ion-row>
+        <ion-col class="close" size="2">
+          <i (click)="onClose()" class="close material-icons">close</i>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+  <ion-content>
+    <div class="competency-info-content-container">
+      <ion-grid>
+        <ion-row class="competency-report-container">
+          <div class="competency-name">
+            {{
+              fwCompetencies | competencyGutToFwTransform
+              : competency.competencyCode
+              : competency.competencyName
+              : 'frameworkCompetencyName'
+              : false
+              : true
+            }}
+          </div>
+        </ion-row>
+        <ion-row class="signature-content">
+          <ng-template #suggestion>
+            <ng-container *ngIf="suggestions?.length; else systemSuggestion">
+              <div class="suggestion" *ngFor="let suggestion of suggestions">
+                <suggestion-panel [content]="suggestion" [isTeacherSuggestion]="true"></suggestion-panel>
+              </div>
+            </ng-container>
+            <ng-template #systemSuggestion>
+              <div class="competency-content" *ngIf="signatureContent && signatureContent.isAssessment">
+                <div class="competency-img"></div>
+                <div class="competency-note">
+                  {{ 'COMPETENCY_REPORT_NOTE' | translate }}
+                </div>
+              </div>
+              <div class="suggestion" *ngIf="signatureContent">
+                <suggestion-panel [content]="signatureContent" [isTeacherSuggestion]="false"></suggestion-panel>
+              </div>
+            </ng-template>
+          </ng-template>
+          <div class="suggestion" *ngIf="loading; else suggestion">
+            <suggestion-panel></suggestion-panel>
+          </div>
+        </ion-row>
+      </ion-grid>
+      <div class="competency-info-content">
+        <div class="tabs">
+          <ng-container *ngFor="let tab of tabs; index as tabIndex">
+            <div class="tab-content {{ tab.title }}" [ngClass]="{ active: tab.isActive }" (click)="showTab(tab, tabIndex)">
+              <span>{{ tab.title | translate }}</span>
+            </div>
+          </ng-container>
+        </div>
+        <ion-row *ngIf="showMetaData">
+          <metadata class="micro-content" [microCompetencies]="microCompetencies" [prerequisites]="prerequisites"></metadata>
+        </ion-row>
+        <ion-row  [ngClass]="{ active: showPortFolio }" class="content">
+          <ng-container *ngIf="portfolioDataList.length;else portfolioUserItems">
+            <mat-accordion *ngFor="let portfolio of portfolioDataList">
+                <mat-expansion-panel>
+                  <mat-expansion-panel-header>
+                    <ion-row class="portfolio-header">
+                      <ion-row>
+                        <ion-avatar class="profile">
+                          <img  [src]="portfolio.thumbnail" class="profile-icon">
+                        </ion-avatar>
+                      </ion-row>
+                      <ion-text class="portfolio-title">{{portfolio.firstName}} {{portfolio.lastName}}
+                      </ion-text>
+                    </ion-row>
+                  </mat-expansion-panel-header>
+                  <ng-template matExpansionPanelContent>
+                    <portfolio *ngIf="portfolio.id" [userId]="portfolio.id" [competency]="competency" [showDiagnostic]="showDiagnostic" [sourceText]="sourceText"></portfolio>
+                  </ng-template>
+                </mat-expansion-panel>
+            </mat-accordion>
+          </ng-container>
+          <ng-template #portfolioUserItems>
+            <portfolio [competency]="competency" [showDiagnostic]="showDiagnostic" [sourceText]="sourceText"></portfolio>
+          </ng-template>
+        </ion-row>
+        <div [ngClass]="{ active: showLearningMap }" class="content">
+          <learning-map></learning-map>
+        </div>
+      </div>
+    </div>
+  </ion-content>
+</div>

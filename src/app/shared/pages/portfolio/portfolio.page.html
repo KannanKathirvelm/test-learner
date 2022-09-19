@@ -1,0 +1,65 @@
+<ion-header class="portfolio-page-header">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button autoHide="false"></ion-menu-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button (click)="onClickFilter()">
+        <ion-icon slot="icon-only" class="filter-icon"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>{{"PORTFOLIO" | translate}}</ion-title>
+  </ion-toolbar>
+  <ng-container *ngTemplateOutlet="showFilterView"></ng-container>
+  <ion-row class="tab-list">
+    <ng-container *ngFor="let tab of tabs;index as tabIndex">
+      <ion-col class="tab-item text-center" [ngClass]="{'active' : tab.isActive}" (click)="showTab(tab, tabIndex)">
+        <ion-text>{{tab.title | translate}}</ion-text>
+      </ion-col>
+    </ng-container>
+  </ion-row>
+</ion-header>
+<ion-content class="portfolio-page-container" [scrollEvents]="true" (ionScroll)="onScroll($event)">
+  <ng-container *ngIf="hasActivity; else noActivity">
+    <div class="portfolio-activity-list" *ngFor="let portfolioActivity of portfolioActivities">
+      <ng-container *ngIf="portfolioActivity.isOfflineActivity">
+        <ng-container *ngFor="let offlineActivity of portfolioActivity.content">
+          <ion-item class="title-item">
+            <ion-text class="title-label">{{offlineActivity.title}}</ion-text>
+          </ion-item>
+          <ng-container *ngFor="let activityData of offlineActivity.offlineData">
+            <collection-portfolio-panel class="offline-acivity-panel" [portfolioData]="activityData"></collection-portfolio-panel>
+          </ng-container>
+        </ng-container>
+      </ng-container>
+      <ng-container *ngIf="portfolioActivity.isCollection || portfolioActivity.isAssessment">
+        <ng-container *ngFor="let activityContent of portfolioActivity.content">
+          <collection-portfolio-panel [portfolioData]="activityContent"></collection-portfolio-panel>
+        </ng-container>
+      </ng-container>
+    </div>
+  </ng-container>
+  <ng-template #noActivity>
+    <span class="no-activity"> {{"NOT_STARTED_STUDY" | translate}} {{contentTypeName | translate}}</span>
+  </ng-template>
+  <ion-spinner class="spinner-bar" *ngIf="isLoading && !showFilter" name="crescent"></ion-spinner>
+</ion-content>
+<ng-template #showFilterView>
+  <div [ngClass]="{'active': showFilter}" class="filter-container">
+    <div class="filter-wrapper">
+      <div class="icons" (click)="onClickCalendar()">
+        <span class="material-icons calendar-icon">calendar_today</span>
+        <span class="date-label" *ngIf="!showApplyFilter">{{'ALL_TIME' | translate}}</span>
+      </div>
+      <div class="date-input" *ngIf="showApplyFilter">
+        <span class="label">{{filterStartDate}}/{{filterEndDate}}</span>
+        <i class="close material-icons" (click)="removeSelectedDates()">close</i>
+      </div>
+    </div>
+    <div class="submit-btn-container">
+      <div [ngClass]="{'disabled': !showApplyFilter}" class="apply-filters" (click)="filterActivities()">
+        {{'APPLY_FILTER' | translate}}
+      </div>
+    </div>
+  </div>
+</ng-template>
