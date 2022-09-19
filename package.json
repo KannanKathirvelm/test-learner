@@ -87,7 +87,7 @@
     "es6-promise-plugin": "^4.2.2",
     "ionic-plugin-deeplinks": "1.0.20",
     "moment": "2.24.0",
-    "moment-timezone": "^0.5.27",
+    "moment-timezone": "^0.5.35",
     "ng2-dragula": "^2.1.1",
     "ngx-avatar": "^3.7.0",
     "paper": "^0.12.15",
