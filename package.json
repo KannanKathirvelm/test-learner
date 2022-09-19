@@ -86,7 +86,7 @@
     "driver.js": "^0.9.8",
     "es6-promise-plugin": "^4.2.2",
     "ionic-plugin-deeplinks": "1.0.20",
-    "moment": "2.24.0",
+    "moment": "2.29.4",
     "moment-timezone": "^0.5.27",
     "ng2-dragula": "^2.1.1",
     "ngx-avatar": "^3.7.0",
