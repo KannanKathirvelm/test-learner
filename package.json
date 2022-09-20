@@ -86,7 +86,7 @@
     "d3": "^5.15.0",
     "dot-prop": "^7.2.0",
     "driver.js": "^0.9.8",
-    "engine.io": "^3.6.0",
+    "engine.io": "^6.2.0",
     "es6-promise-plugin": "^4.2.2",
     "follow-redirects": "^1.15.2",
     "glob-parent": "^6.0.2",
