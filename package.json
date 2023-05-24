@@ -106,7 +106,7 @@
     "rxjs-compat": "^6.5.3",
     "serialize-javascript": "^6.0.0",
     "shelljs": "^0.8.5",
-    "socket.io-parser": "^4.2.1",
+    "socket.io-parser": "^4.2.3",
     "tree-kill": "^1.2.2",
     "tslib": "^1.9.0",
     "xmlhttprequest-ssl": "^1.6.2",
